@@ -1,0 +1,52 @@
+<section class="pdp-quote">
+  <div class="pdp-wrap pdp-quote__grid">
+    <div class="pdp-quote__copy" data-deck>
+      <span class="pdp-quote__mark" aria-hidden="true">“</span>
+      {%- for block in section.blocks -%}
+        <div class="pdp-quote__item" data-deck-item {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
+          <blockquote class="pdp-quote__text">“{{ block.settings.quote }}”</blockquote>
+        </div>
+      {%- endfor -%}
+      <div class="pdp-quote__foot">
+        <div>
+          {%- for block in section.blocks -%}
+            <div class="pdp-quote__item" data-deck-item {% unless forloop.first %}hidden{% endunless %}>
+              <p class="pdp-quote__name">{{ block.settings.name }}</p>
+              <p class="pdp-label pdp-quote__practice">{{ block.settings.practice }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+        <div class="pdp-quote__nav">
+          <button type="button" data-deck-prev aria-label="Previous quote"><svg viewBox="0 0 14 14" width="12" height="12" fill="none"><path d="M9 1.5 3.5 7 9 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" data-deck-next aria-label="Next quote"><svg viewBox="0 0 14 14" width="12" height="12" fill="none"><path d="M5 1.5 10.5 7 5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="pdp-quote__count"><span data-deck-index class="is-current">01</span> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="pdp-quote__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200' }}
+      {%- else -%}
+        <img src="{{ 'film-still.jpg' | asset_url }}" alt="" width="1920" height="1080" loading="lazy">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "PDP — testimonial",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Named dentist portrait or film still (bundled still used by default)" }
+  ],
+  "blocks": [ { "type": "quote", "name": "Quote", "settings": [
+    { "type": "textarea", "id": "quote", "label": "Quote" },
+    { "type": "text", "id": "name", "label": "Name" },
+    { "type": "text", "id": "practice", "label": "Practice / role" }
+  ]}],
+  "presets": [{ "name": "PDP — testimonial", "blocks": [
+    { "type": "quote", "settings": { "quote": "Bobby has been absolutely brilliant with helping me through the set up.", "name": "Dr Matt", "practice": "PRACTICE — TO CONFIRM" } },
+    { "type": "quote", "settings": { "quote": "I can confidently say that this course has played a significant role in the success of my practice.", "name": "Dr Miklos Poratunszky", "practice": "SQUAT SUCCESS MEMBER" } },
+    { "type": "quote", "settings": { "quote": "A treasure trove of practical advice, real-world examples and actionable strategies.", "name": "Dr Kuwer Singh Chani", "practice": "SQUAT SUCCESS MEMBER" } }
+  ]}]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+<section class="pdp-faq">
+  <div class="pdp-wrap pdp-faq__grid">
+    <div class="pdp-faq__intro">
+      <h2 class="pdp-h2">{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.intro }} <a href="mailto:{{ settings.support_email }}">{{ settings.support_email }}</a>.</p>
+    </div>
+    <div class="pdp-faq__list" data-faq-col>
+      {%- for block in section.blocks -%}
+        <details class="pdp-faq__item" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }} {% render 'icon-chevron' %}</summary>
+          <p>{{ block.settings.answer }}</p>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "PDP — FAQ",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Before you order" },
+    { "type": "text", "id": "intro", "label": "Intro (support email is appended)", "default": "Everything a buyer asks before they hand over £4.95. If it isn’t here, email" }
+  ],
+  "blocks": [ { "type": "faq", "name": "Question", "settings": [
+    { "type": "text", "id": "question", "label": "Question" },
+    { "type": "textarea", "id": "answer", "label": "Answer" }
+  ]}],
+  "presets": [{ "name": "PDP — FAQ", "blocks": [
+    { "type": "faq", "settings": { "question": "Is the book actually free?", "answer": "Yes. The book costs you nothing — you cover postage, which is £4.95 to UK addresses. No trial, no subscription, nothing that starts billing you later." } },
+    { "type": "faq", "settings": { "question": "When will it arrive?", "answer": "Your copy is printed to order and posted from the UK. Most people have it within 5–7 working days. You’ll get a confirmation email as soon as it’s on its way." } },
+    { "type": "faq", "settings": { "question": "Do you ship outside the UK?", "answer": "Not yet — the book is UK shipping only. If that changes we’ll email everyone on this list first." } },
+    { "type": "faq", "settings": { "question": "Is this just a pitch for Squat Success events?", "answer": "No. Squat Success is a book, a course and a community — events are one part of it, not the whole thing. The book stands on its own: plenty of readers do the whole build from it and never speak to us." } },
+    { "type": "faq", "settings": { "question": "Am I too early, or too late?", "answer": "Neither. Still an associate? The self-assessment in Chapter 3 tells you whether you’re ready now or what to work on first. Already found a site? Chapters 6 to 9 are the ones you want — the material runs through the first year of trading." } },
+    { "type": "faq", "settings": { "question": "What if the book isn’t useful to me?", "answer": "Email us and we’ll refund your postage, no questions." } }
+  ]}]
+}
+{% endschema %}

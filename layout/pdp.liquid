@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b1b1b">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+  {%- endif -%}
+  <title>{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  {{ content_for_header }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Lexend+Deca:wght@500;600;700&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+  {{ 'squat.css' | asset_url | stylesheet_tag }}
+  {{ 'pdp.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'squat.js' | asset_url }}" defer></script>
+</head>
+<body class="template-{{ request.page_type | handle }} pdp-body">
+  <a class="skip-link" href="#MainContent">Skip to content</a>
+  <header class="pdp-header">
+    <div class="pdp-header__inner">
+      <a class="pdp-header__logo" href="{{ routes.root_url }}">{% render 'logo' %}</a>
+      <span class="pdp-header__creed">{{ settings.creed | default: 'BE BOLD · BE BRAVE · BE DIFFERENT' | replace: '   ·', ' ·' | strip | remove_last: '·' | strip }}</span>
+    </div>
+  </header>
+  <main id="MainContent" role="main" class="pdp-main">
+    {{ content_for_layout }}
+  </main>
+  <footer class="pdp-footer">
+    <div class="pdp-footer__inner">
+      <span class="pdp-footer__creed">BE BOLD · BE BRAVE · BE DIFFERENT — © {{ shop.name | upcase }}</span>
+      <a class="pdp-footer__link" href="{{ routes.root_url }}policies/privacy-policy">Privacy policy</a>
+    </div>
+  </footer>
+</body>
+</html>

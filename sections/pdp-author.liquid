@@ -1,0 +1,38 @@
+<section class="pdp-author">
+  <div class="pdp-wrap pdp-author__grid">
+    <div class="pdp-author__who">
+      <div class="pdp-author__avatar">
+        {%- if section.settings.portrait != blank -%}
+          {{ section.settings.portrait | image_url: width: 300, height: 300, crop: 'center' | image_tag: loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'portrait-bobby.jpg' | asset_url }}" alt="{{ section.settings.name | escape }}" width="410" height="540" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="pdp-author__text">
+        <p class="pdp-label">{{ section.settings.eyebrow }}</p>
+        <p class="pdp-author__name">{{ section.settings.name }}</p>
+        <p class="pdp-author__bio">{{ section.settings.bio }}</p>
+      </div>
+    </div>
+    <div class="pdp-author__cta">
+      <p class="pdp-author__pull">“{{ section.settings.pull }}”</p>
+      {% render 'order-button', label: section.settings.cta_label, style: 'amber', product_override: product %}
+      <p class="pdp-label pdp-label--muted">{{ section.settings.fine_print }}</p>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "PDP — author",
+  "settings": [
+    { "type": "image_picker", "id": "portrait", "label": "Portrait (bundled photo used by default)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE AUTHOR" },
+    { "type": "text", "id": "name", "label": "Name", "default": "Dr Bobby Bhandal" },
+    { "type": "textarea", "id": "bio", "label": "One-line bio", "default": "Ten years an associate. Built Avenue Dental, Leamington Spa, as a squat — and wrote down how." },
+    { "type": "textarea", "id": "pull", "label": "Pull quote", "default": "I’d rather this book was in a thousand hands than sold to two hundred." },
+    { "type": "text", "id": "cta_label", "label": "CTA button", "default": "Send me my free copy" },
+    { "type": "text", "id": "fine_print", "label": "Fine print", "default": "FREE BOOK · £4.95 POSTAGE · 5–7 DAYS · NO SUBSCRIPTION" }
+  ],
+  "presets": [{ "name": "PDP — author" }]
+}
+{% endschema %}

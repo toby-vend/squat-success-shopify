@@ -1,0 +1,60 @@
+{%- assign words = 'ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN,ELEVEN,TWELVE' | split: ',' -%}
+<section class="pdp-chapters" id="chapters">
+  <div class="pdp-wrap pdp-chapters__inner">
+    <div class="pdp-chapters__head">
+      <h2 class="pdp-h2">{{ section.settings.heading }}</h2>
+      <p class="pdp-label pdp-label--muted">{{ section.settings.hint }}</p>
+    </div>
+    <div class="pdp-chapters__grid" data-reader>
+      <div class="pdp-chapters__tabs" role="tablist" aria-label="Chapters">
+        {%- for block in section.blocks -%}
+          <button type="button" role="tab" class="pdp-chapters__tab" data-reader-tab aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>
+            <small>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</small><span>{{ block.settings.title }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+      <div>
+        {%- for block in section.blocks -%}
+          <div class="pdp-chapters__page pdp-chapters__panel" data-reader-panel role="tabpanel" {% unless forloop.first %}hidden{% endunless %}>
+            <p class="pdp-label">CHAPTER {{ words[forloop.index0] }}</p>
+            <h3 class="pdp-chapters__title">{{ block.settings.title }}</h3>
+            <span class="pdp-chapters__rule"></span>
+            <p class="pdp-chapters__blurb">{{ block.settings.blurb }}</p>
+            <p class="pdp-label pdp-chapters__foot">{{ section.settings.footer }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="pdp-chapters__cta">
+      <p>{{ section.settings.cta_text }}</p>
+      {% render 'order-button', label: section.settings.cta_label, style: 'amber', product_override: product %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "PDP — look inside",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Look inside — nine chapters" },
+    { "type": "text", "id": "hint", "label": "Hint", "default": "CHOOSE A CHAPTER TO OPEN IT" },
+    { "type": "text", "id": "footer", "label": "Page footer", "default": "THE DENTAL FREEDOM BLUEPRINT" },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "All nine chapters. Printed, bound, and posted to your door." },
+    { "type": "text", "id": "cta_label", "label": "CTA button", "default": "Send me my free copy" }
+  ],
+  "blocks": [ { "type": "chapter", "name": "Chapter", "settings": [
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "textarea", "id": "blurb", "label": "Blurb" }
+  ]}],
+  "presets": [{ "name": "PDP — look inside", "blocks": [
+    { "type": "chapter", "settings": { "title": "Breaking Free", "blurb": "Bobby’s full story — corporate burnout, walking away from dentistry altogether, and the decision to come back on his own terms. Including the parts that don’t make it into conference talks." } },
+    { "type": "chapter", "settings": { "title": "A Tale Of Two Dentists", "blurb": "A ten-year, side-by-side comparison of the associate path and the ownership path. Earnings, equity, autonomy — and what each one quietly costs you." } },
+    { "type": "chapter", "settings": { "title": "The Reality Check", "blurb": "The honest financial picture. What you need, what you can borrow, what lenders actually look for, and a self-assessment that tells you whether you’re ready now or need twelve more months." } },
+    { "type": "chapter", "settings": { "title": "Confronting The Fear Factor", "blurb": "The psychological barriers that stop capable dentists, and how to get past them rather than waiting for the fear to disappear on its own. It doesn’t." } },
+    { "type": "chapter", "settings": { "title": "Decisions That Don’t Backfire", "blurb": "The Three Infections that keep associates stuck — the Prestige Virus, Quick Fix Fever and Analysis Paralysis Syndrome — and the Triple-Check Treatment for pressure-testing any big call." } },
+    { "type": "chapter", "settings": { "title": "The Certainty Compass", "blurb": "The three decisions that determine almost everything: business model, location, timing. Get these right and the rest is execution." } },
+    { "type": "chapter", "settings": { "title": "The A-Team Algorithm", "blurb": "How to advertise an opportunity instead of a job, hire A-players consistently, and build a culture people don’t leave — the biggest predictor of whether year two is fun or miserable." } },
+    { "type": "chapter", "settings": { "title": "The Invisible Waiting List", "blurb": "The Trust Timeline and the Personal Brand Blueprint: how to have a virtual queue of patients waiting before your doors even open, without paid ads doing the heavy lifting." } },
+    { "type": "chapter", "settings": { "title": "The First Twelve Months", "blurb": "What actually happens after opening day, when the adrenaline fades and the real business begins. Cashflow, staffing wobbles, and the milestones that tell you it’s working." } }
+  ]}]
+}
+{% endschema %}
