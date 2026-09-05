@@ -13,7 +13,7 @@
     assign claim_variant = settings.book_variant_id
   endif
 -%}
-<div class="claim" data-claim data-variant="{{ claim_variant }}" data-design-mode="{{ request.design_mode }}" hidden>
+<div class="claim" data-claim data-variant="{{ claim_variant }}" data-design-mode="{{ request.design_mode }}" data-ghl-webhook="{{ settings.ghl_form_webhook | escape }}" data-ghl-tag="{{ settings.ghl_form_tag | escape }}" data-ghl-source="{{ settings.ghl_source | escape }}" data-product="{{ product.title | default: settings.book_product.title | escape }}" hidden>
   <div class="claim__backdrop" data-claim-close></div>
   <div class="claim__dialog" role="dialog" aria-modal="true" aria-labelledby="claim-title">
     <button type="button" class="claim__x" data-claim-close aria-label="Close">

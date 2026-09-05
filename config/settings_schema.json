@@ -23,6 +23,15 @@
     ]
   },
   {
+    "name": "GoHighLevel",
+    "settings": [
+      { "type": "paragraph", "content": "Create a workflow in GHL with an Inbound Webhook trigger, paste its URL here. The claim form posts the buyer's details to it before sending them to checkout." },
+      { "type": "text", "id": "ghl_form_webhook", "label": "Inbound webhook URL (claim form)" },
+      { "type": "text", "id": "ghl_form_tag", "label": "Tag to send with the form", "default": "book-form-started" },
+      { "type": "text", "id": "ghl_source", "label": "Source label", "default": "book.squatsuccess.co.uk" }
+    ]
+  },
+  {
     "name": "Brand",
     "settings": [
       { "type": "image_picker", "id": "favicon", "label": "Favicon" },

@@ -215,6 +215,25 @@
       return showError('Checkout can\'t open inside the theme editor. Use the theme preview link to test the full flow.');
     }
     var btn = form.querySelector('.claim__submit'); if (btn) btn.disabled = true;
-    window.location.assign('/cart/' + variant + ':1?' + query);
+    var target = '/cart/' + variant + ':1?' + query;
+    var hook = modal.getAttribute('data-ghl-webhook');
+    if (!hook) return window.location.assign(target);
+    var payload = JSON.stringify({
+      first_name: name.first, last_name: name.last, full_name: v.name.trim(),
+      email: v.email.trim(), phone: v.phone.trim(),
+      address1: v.line1.trim(), city: v.city.trim(), postal_code: v.postcode.trim().toUpperCase(), country: 'United Kingdom',
+      tags: [modal.getAttribute('data-ghl-tag') || 'book-form-started'],
+      source: modal.getAttribute('data-ghl-source') || location.hostname,
+      product: modal.getAttribute('data-product') || '',
+      page: location.href, submitted_at: new Date().toISOString()
+    });
+    var go = function () { window.location.assign(target); };
+    var done = false; var finish = function () { if (!done) { done = true; go(); } };
+    setTimeout(finish, 1500);
+    try {
+      fetch(hook, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: payload })
+        .catch(function () { return fetch(hook, { method: 'POST', mode: 'no-cors', keepalive: true, body: payload }); })
+        .then(finish, finish);
+    } catch (err) { finish(); }
   });
 })();
