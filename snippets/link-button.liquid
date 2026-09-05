@@ -1,0 +1,7 @@
+{%- comment -%} Generic link button. Params: label, url, style, class {%- endcomment -%}
+{%- if label != blank -%}
+<a class="btn btn--{{ style | default: 'outline' }} {{ class }}" href="{{ url | default: '#' }}">
+  {{ label }}
+  {%- render 'icon-arrow' -%}
+</a>
+{%- endif -%}

@@ -1,0 +1,31 @@
+<section class="store">
+  <div class="container">
+    <h1 class="h-section">{{ 'general.cart.title' | t }}</h1>
+    {%- if cart.item_count == 0 -%}
+      <p class="body" style="margin-top:24px">{{ 'general.cart.empty' | t }}</p>
+      <p style="margin-top:24px">{% render 'order-button', style: 'amber' %}</p>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate>
+        <table class="cart-table">
+          <thead><tr><th>Item</th><th>Qty</th><th>Total</th><th></th></tr></thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr>
+                <td><a href="{{ item.url }}">{{ item.product.title }}</a>{% unless item.product.has_only_default_variant %}<br><span class="small-print">{{ item.variant.title }}</span>{% endunless %}</td>
+                <td><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity"></td>
+                <td>{{ item.final_line_price | money }}</td>
+                <td><a class="small-print" href="{{ item.url_to_remove }}">{{ 'general.cart.remove' | t }}</a></td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+        <div class="cart__foot">
+          <p class="body">{{ 'general.cart.subtotal' | t }}: <strong>{{ cart.total_price | money }}</strong> <span class="small-print">· {{ 'general.cart.shipping_note' | t }}</span></p>
+          <button type="submit" name="update" class="btn btn--outline">{{ 'general.cart.update' | t }}</button>
+          <button type="submit" name="checkout" class="btn btn--amber">{{ 'general.cart.checkout' | t }} {% render 'icon-arrow' %}</button>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %} { "name": "Cart", "settings": [] } {% endschema %}

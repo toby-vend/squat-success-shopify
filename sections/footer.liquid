@@ -1,0 +1,24 @@
+<footer class="footer">
+  <div class="footer__rule"></div>
+  <a class="footer__logo" href="{{ routes.root_url }}">{% render 'logo', image: section.settings.logo %}</a>
+  {%- if section.blocks.size > 0 -%}
+  <nav class="footer__links" aria-label="Footer">
+    {%- for block in section.blocks -%}<a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>{%- endfor -%}
+  </nav>
+  {%- endif -%}
+  <p class="footer__tag">{{ section.settings.tagline }}</p>
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (optional)" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "BE BOLD · BE BRAVE · BE DIFFERENT — © SQUAT SUCCESS · DESIGNED BY VENDO DIGITAL" }
+  ],
+  "blocks": [ { "type": "link", "name": "Link", "settings": [
+    { "type": "text", "id": "label", "label": "Label" },
+    { "type": "url", "id": "url", "label": "Link" }
+  ]}]
+}
+{% endschema %}

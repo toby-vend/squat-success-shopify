@@ -1,0 +1,19 @@
+{%- comment -%} The tilted paperback with FREE seal. Params: cover (image), postage (text) {%- endcomment -%}
+<div class="book-stage" aria-hidden="true">
+  <div class="book-stage__shadow"></div>
+  <div class="book-stage__page"></div>
+  <div class="book-stage__page book-stage__page--2"></div>
+  <div class="book-stage__page book-stage__page--3"></div>
+  <div class="book-stage__cover">
+    {%- if cover != blank -%}
+      {{ cover | image_url: width: 600 | image_tag: alt: '', loading: 'eager', widths: '300, 600' }}
+    {%- else -%}
+      <img src="{{ 'book-cover.jpg' | asset_url }}" alt="" width="300" height="430">
+    {%- endif -%}
+  </div>
+  <div class="book-stage__seal">
+    <b>FREE</b>
+    <small>PAPERBACK</small>
+    <em>you cover {{ postage | default: settings.postage_price | default: '£4.95' }} P&amp;P</em>
+  </div>
+</div>

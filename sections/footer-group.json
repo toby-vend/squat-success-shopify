@@ -1,0 +1,13 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": { "tagline": "BE BOLD · BE BRAVE · BE DIFFERENT — © SQUAT SUCCESS · DESIGNED BY VENDO DIGITAL" },
+      "blocks": {},
+      "block_order": []
+    }
+  },
+  "order": ["footer"]
+}

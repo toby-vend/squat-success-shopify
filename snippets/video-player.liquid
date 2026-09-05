@@ -1,0 +1,23 @@
+{%- comment -%}
+  Poster + play button, swaps to an embed on click.
+  Params: url (YouTube/Vimeo/mp4), poster (image), fallback_asset (filename), label, caption, class
+{%- endcomment -%}
+<div class="{{ class | default: 'film' }}" {% if url != blank %}data-video="{{ url | escape }}"{% endif %}>
+  {%- if poster != blank -%}
+    {{ poster | image_url: width: 1800 | image_tag: alt: label | default: '', loading: 'lazy', widths: '600, 900, 1400, 1800' }}
+  {%- elsif fallback_asset != blank -%}
+    <img src="{{ fallback_asset | asset_url }}" alt="" width="1920" height="1080" loading="lazy">
+  {%- endif -%}
+  {%- if url != blank -%}
+    <button type="button" class="film__play" data-video-play aria-label="{{ label | default: 'Play video' | escape }}">
+      <span>{% render 'icon-play' %}</span>
+      <small>{{ label | default: 'WATCH THE FILM' }}</small>
+    </button>
+  {%- else -%}
+    <div class="film__play" aria-hidden="true">
+      <span>{% render 'icon-play' %}</span>
+      <small>{{ label | default: 'WATCH THE FILM' }}</small>
+    </div>
+  {%- endif -%}
+  {%- if caption != blank -%}<div class="film__caption">{{ caption }}</div>{%- endif -%}
+</div>

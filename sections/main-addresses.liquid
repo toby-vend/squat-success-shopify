@@ -1,0 +1,21 @@
+<section class="store"><div class="container">
+  <h1 class="h-section" style="margin-bottom:24px">{{ 'customer.addresses' | t }}</h1>
+  {%- for address in customer.addresses -%}
+    <div class="body" style="margin-bottom:16px">{{ address | format_address }}
+      <p><a class="small-print" href="#" onclick="Shopify.CustomerAddress.destroy({{ address.id }}, 'Delete this address?'); return false;">Delete</a></p>
+    </div>
+  {%- endfor -%}
+  <h2 class="h-card" style="margin:32px 0 16px">Add address</h2>
+  {%- form 'customer_address', customer.new_address, class: 'form' -%}
+    <input type="text" name="address[first_name]" placeholder="First name">
+    <input type="text" name="address[last_name]" placeholder="Last name">
+    <input type="text" name="address[address1]" placeholder="Address">
+    <input type="text" name="address[address2]" placeholder="Address line 2">
+    <input type="text" name="address[city]" placeholder="City">
+    <input type="text" name="address[zip]" placeholder="Postcode">
+    <input type="text" name="address[country]" value="United Kingdom" placeholder="Country">
+    <input type="tel" name="address[phone]" placeholder="Phone">
+    <button type="submit" class="btn btn--gold">Save</button>
+  {%- endform -%}
+</div></section>
+{% schema %} { "name": "Addresses", "settings": [] } {% endschema %}

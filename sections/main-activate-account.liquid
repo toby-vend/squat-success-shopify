@@ -1,0 +1,10 @@
+<section class="store"><div class="container">
+  <h1 class="h-section" style="margin-bottom:24px">Activate account</h1>
+  {%- form 'activate_customer_password', class: 'form' -%}
+    {{ form.errors | default_errors }}
+    <input type="password" name="customer[password]" placeholder="{{ 'customer.password' | t }}">
+    <input type="password" name="customer[password_confirmation]" placeholder="Confirm password">
+    <button type="submit" class="btn btn--gold">Activate</button>
+  {%- endform -%}
+</div></section>
+{% schema %} { "name": "Activate account", "settings": [] } {% endschema %}

@@ -1,0 +1,54 @@
+{%- assign creed = settings.creed | default: 'BE BOLD   ·   BE BRAVE   ·   BE DIFFERENT   ·' -%}
+<header class="site-header">
+  {%- if section.settings.show_creed -%}
+  <div class="creed" aria-hidden="true">
+    <div class="creed__track">
+      {%- for i in (1..12) -%}<span class="creed__item">{{ creed }}</span>{%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+  <nav class="nav" data-nav aria-label="Main">
+    <div class="nav__inner">
+      <a class="nav__logo" href="{{ routes.root_url }}">{% render 'logo', image: section.settings.logo %}</a>
+      <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav__links">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'link' -%}
+              <a class="nav__link" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+            {%- when 'button' -%}
+              <span {{ block.shopify_attributes }}>{% render 'order-button', label: block.settings.label, style: 'gold', fallback_url: block.settings.url %}</span>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </nav>
+</header>
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (optional — bundled SVG used by default)" },
+    { "type": "checkbox", "id": "show_creed", "label": "Show creed marquee strip", "default": true }
+  ],
+  "blocks": [
+    { "type": "link", "name": "Link", "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "The Book" },
+      { "type": "url", "id": "url", "label": "Link", "default": "/#the-book" }
+    ]},
+    { "type": "button", "name": "Order button", "limit": 1, "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "Get the free book" },
+      { "type": "url", "id": "url", "label": "Fallback link (if no book product set)", "default": "/#the-book" }
+    ]}
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link", "settings": { "label": "The Book", "url": "/#the-book" } },
+      { "type": "link", "settings": { "label": "Chapters", "url": "/#chapters" } },
+      { "type": "link", "settings": { "label": "The Author", "url": "/#the-author" } },
+      { "type": "button", "settings": { "label": "Get the free book" } }
+    ]
+  }
+}
+{% endschema %}

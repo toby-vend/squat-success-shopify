@@ -1,0 +1,53 @@
+<section class="section section--black faq" id="faq">
+  <div class="container">
+    <div class="faq__head">
+      <h2 class="h-section">{{ section.settings.heading }}</h2>
+      <div class="faq__support">
+        <p class="eyebrow eyebrow--small">{{ section.settings.support_label }}</p>
+        <a href="mailto:{{ settings.support_email }}">{{ settings.support_email }}</a>
+      </div>
+    </div>
+    {%- assign half = section.blocks.size | plus: 1 | divided_by: 2 -%}
+    <div class="faq__grid">
+      <div class="faq__col" data-faq-col>
+        {%- for block in section.blocks limit: half -%}
+          <details class="faq-card" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+            <summary class="faq-card__q">{{ block.settings.question }} {% render 'icon-chevron' %}</summary>
+            <div class="faq-card__a"><p>{{ block.settings.answer }}</p></div>
+          </details>
+        {%- endfor -%}
+      </div>
+      <div class="faq__col" data-faq-col>
+        {%- for block in section.blocks offset: half -%}
+          <details class="faq-card" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+            <summary class="faq-card__q">{{ block.settings.question }} {% render 'icon-chevron' %}</summary>
+            <div class="faq-card__a"><p>{{ block.settings.answer }}</p></div>
+          </details>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Before you order" },
+    { "type": "text", "id": "support_label", "label": "Support label", "default": "STILL NOT SURE?" }
+  ],
+  "blocks": [ { "type": "faq", "name": "Question", "settings": [
+    { "type": "text", "id": "question", "label": "Question" },
+    { "type": "textarea", "id": "answer", "label": "Answer" }
+  ]}],
+  "presets": [{ "name": "FAQ", "blocks": [
+    { "type": "faq", "settings": { "question": "Is the book actually free?", "answer": "Yes. The book costs you nothing — you cover postage, which is £4.95 to UK addresses. No trial, no subscription, nothing that starts billing you later." } },
+    { "type": "faq", "settings": { "question": "When will it arrive?", "answer": "Your copy is printed to order and posted from the UK. Most people have it within 5–7 working days of ordering. You’ll get a confirmation email as soon as it’s on its way." } },
+    { "type": "faq", "settings": { "question": "Do you ship outside the UK?", "answer": "Not yet — right now the book is UK shipping only. If that changes we’ll email everyone on this list first." } },
+    { "type": "faq", "settings": { "question": "Is there a Kindle or audiobook version?", "answer": "Not yet — the physical book is the only version right now. We’ll update you as soon as that’s available." } },
+    { "type": "faq", "settings": { "question": "I’m still an associate. Is it too early?", "answer": "It’s the ideal time. The self-assessment in Chapter 3 is built for exactly this point — it’ll tell you whether you’re ready now or what to work on first. Better to find that out from a book than eighteen months into a lease." } },
+    { "type": "faq", "settings": { "question": "I’ve already found a site. Is it too late?", "answer": "No — and chapters 6 through 9 are the ones you want. Plenty of readers are mid-build. The material covers everything through the first year of trading, so there’s a lot left that applies to you." } },
+    { "type": "faq", "settings": { "question": "Am I signing up to a load of emails?", "answer": "You’ll get order updates, and after that some emails from Bobby about practice ownership. They’re worth reading and there’s an unsubscribe link on every one. No hard feelings if you use it." } },
+    { "type": "faq", "settings": { "question": "What if the book isn’t useful to me?", "answer": "Email us and we’ll refund your postage, no questions." } }
+  ]}]
+}
+{% endschema %}

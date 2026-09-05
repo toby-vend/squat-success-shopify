@@ -1,0 +1,61 @@
+<section class="section section--warm letter">
+  <div class="container">
+    <p class="eyebrow letter__eyebrow">{{ section.settings.eyebrow }}</p>
+    <article class="letter__paper">
+      <div class="letter__head"><span>{{ section.settings.letterhead }}</span><i></i></div>
+      <img class="letter__stamp" src="{{ 'stamp.png' | asset_url }}" alt="" width="60" height="71" loading="lazy">
+      <h2 class="letter__title">{{ section.settings.heading }}</h2>
+      <div class="letter__body">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'paragraph' -%}
+            <p {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+          {%- elsif block.type == 'pull' -%}
+            <p class="letter__pull" {{ block.shopify_attributes }}><span>{{ block.settings.text }}</span></p>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="letter__sign">
+        <div class="letter__sig">
+          {%- if section.settings.signature != blank -%}
+            {{ section.settings.signature | image_url: width: 400 | image_tag: alt: '', loading: 'lazy' }}
+          {%- else -%}
+            <img src="{{ 'signature.svg' | asset_url }}" alt="" width="190" height="57" loading="lazy">
+          {%- endif -%}
+          <p class="letter__sig-name">{{ section.settings.signoff }}</p>
+        </div>
+        <div class="despatch" aria-hidden="true">
+          <svg viewBox="0 0 170 170">
+            <defs><path id="despatch-{{ section.id }}" d="M85,85 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/></defs>
+            <circle cx="85" cy="85" r="82" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
+            <circle cx="85" cy="85" r="44" fill="none" stroke="currentColor" stroke-width="1"/>
+            <text><textPath href="#despatch-{{ section.id }}">{{ section.settings.stamp_text }}</textPath></text>
+          </svg>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Letter from the author",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A LETTER FROM THE AUTHOR" },
+    { "type": "text", "id": "letterhead", "label": "Letterhead", "default": "SQUAT SUCCESS · LEAMINGTON SPA" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why would you post me a book for free?" },
+    { "type": "image_picker", "id": "signature", "label": "Signature image (optional — bundled SVG used by default)" },
+    { "type": "text", "id": "signoff", "label": "Sign-off", "default": "DR BOBBY BHANDAL · FOUNDER, SQUAT SUCCESS" },
+    { "type": "text", "id": "stamp_text", "label": "Round stamp text", "default": "PRINTED TO ORDER  ·  DESPATCHED FROM THE UK  ·  " }
+  ],
+  "blocks": [
+    { "type": "paragraph", "name": "Paragraph", "settings": [ { "type": "textarea", "id": "text", "label": "Text" } ] },
+    { "type": "pull", "name": "Highlighted line", "settings": [ { "type": "textarea", "id": "text", "label": "Text" } ] }
+  ],
+  "presets": [{ "name": "Letter from the author", "blocks": [
+    { "type": "paragraph", "settings": { "text": "I run a programme called Squat Success, where I work with dentists through the whole build. It isn’t for everyone, and it’s a serious commitment." } },
+    { "type": "paragraph", "settings": { "text": "The dentists who get the most from it all have one thing in common: they’d already decided. They weren’t looking to be convinced — they were looking for a route." } },
+    { "type": "paragraph", "settings": { "text": "This book is how people decide. Some will read it and realise ownership isn’t for them, and they’ll have saved themselves years of “one day”. Some will read it and do the whole thing on their own — and I’ll be genuinely delighted, because that’s what it’s written for. A few will get to the end and want help with the build." } },
+    { "type": "pull", "settings": { "text": "I’d rather this book was in a thousand hands than sold to two hundred." } },
+    { "type": "paragraph", "settings": { "text": "You cover the postage because Royal Mail don’t work for free. That’s the entire catch." } }
+  ]}]
+}
+{% endschema %}

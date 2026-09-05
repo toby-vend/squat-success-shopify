@@ -1,0 +1,50 @@
+<section class="section section--warm testimonials" style="padding-inline:0">
+  <div class="testimonials__head">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="h-section">{{ section.settings.heading }}</h2>
+  </div>
+  <div class="stage">
+    {% render 'video-player', class: 'film', url: section.settings.video_url, poster: section.settings.poster, fallback_asset: 'film-still.jpg', label: section.settings.play_label, caption: section.settings.caption %}
+    <div class="deck" data-deck>
+      <span class="deck__mark" aria-hidden="true">“</span>
+      {%- for block in section.blocks -%}
+        <div class="deck__item" data-deck-item {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
+          <blockquote class="deck__quote">{{ block.settings.quote }}</blockquote>
+          <span class="deck__rule"></span>
+          <p class="deck__name">{{ block.settings.name }}</p>
+          <p class="deck__practice">{{ block.settings.practice }}</p>
+        </div>
+      {%- endfor -%}
+      <div class="deck__foot">
+        <div class="deck__arrows">
+          <button type="button" data-deck-prev aria-label="Previous"><svg viewBox="0 0 14 14" width="12" height="12" fill="none"><path d="M9 1.5 3.5 7 9 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" data-deck-next aria-label="Next"><svg viewBox="0 0 14 14" width="12" height="12" fill="none"><path d="M5 1.5 10.5 7 5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <p class="deck__count">{% for block in section.blocks %}{% unless forloop.first %} / {% endunless %}<span data-deck-index>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>{% endfor %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "REAL STORIES · REAL RESULTS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "They were exactly where you are." },
+    { "type": "url", "id": "video_url", "label": "Film URL (YouTube, Vimeo or .mp4)", "info": "Leave empty until the client film is supplied." },
+    { "type": "image_picker", "id": "poster", "label": "Film still (optional — bundled still used by default)" },
+    { "type": "text", "id": "play_label", "label": "Play label", "default": "WATCH THE FILM" },
+    { "type": "text", "id": "caption", "label": "Corner caption", "default": "[CLIENT FILM — FOOTAGE TO BE SUPPLIED]" }
+  ],
+  "blocks": [ { "type": "quote", "name": "Quote", "settings": [
+    { "type": "textarea", "id": "quote", "label": "Quote" },
+    { "type": "text", "id": "name", "label": "Name" },
+    { "type": "text", "id": "practice", "label": "Practice / role" }
+  ]}],
+  "presets": [{ "name": "Testimonials", "blocks": [
+    { "type": "quote", "settings": { "quote": "Bobby has been absolutely brilliant with helping me through the set up.", "name": "Dr Matt", "practice": "[PRACTICE — TO CONFIRM]" } },
+    { "type": "quote", "settings": { "quote": "I can confidently say that this course has played a significant role in the success of my practice.", "name": "Dr Miklos Poratunszky", "practice": "SQUAT SUCCESS MEMBER" } },
+    { "type": "quote", "settings": { "quote": "A treasure trove of practical advice, real-world examples and actionable strategies.", "name": "Dr Kuwer Singh Chani", "practice": "SQUAT SUCCESS MEMBER" } }
+  ]}]
+}
+{% endschema %}

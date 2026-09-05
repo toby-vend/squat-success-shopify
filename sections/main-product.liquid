@@ -1,0 +1,49 @@
+<section class="store" id="the-book">
+  <div class="container store__grid">
+    <div class="store__media">
+      {%- if product.featured_media -%}
+        {{ product.featured_media | image_url: width: 1200 | image_tag: loading: 'eager', widths: '600, 900, 1200' }}
+      {%- else -%}
+        <img src="{{ 'book-cover.jpg' | asset_url }}" alt="{{ product.title | escape }}" width="1696" height="2528">
+      {%- endif -%}
+    </div>
+    <div>
+      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      <h1 class="store__title">{{ product.title }}</h1>
+      <p class="store__price">
+        {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+        {%- if product.price == 0 -%}Free{%- else -%}{{ product.price | money }}{%- endif -%}
+        <span class="small-print"> · {{ section.settings.postage_note }}</span>
+      </p>
+      {%- form 'product', product, class: 'store__form', id: 'product-form' -%}
+        {%- unless product.has_only_default_variant -%}
+          <label for="variant-{{ section.id }}">Option</label>
+          <select id="variant-{{ section.id }}" name="id">
+            {%- for variant in product.variants -%}
+              <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %} {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>{{ variant.title }} — {{ variant.price | money }}</option>
+            {%- endfor -%}
+          </select>
+        {%- else -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {%- endunless -%}
+        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" name="return_to" value="/checkout">
+        <button type="submit" class="btn btn--amber" {% unless product.available %}disabled{% endunless %}>
+          {%- if product.available -%}{{ section.settings.button_label }}{%- else -%}{{ 'general.product.sold_out' | t }}{%- endif -%}
+          {%- render 'icon-arrow' -%}
+        </button>
+      {%- endform -%}
+      <div class="store__desc rte">{{ product.description }}</div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FREE PAPERBACK · YOU COVER POSTAGE" },
+    { "type": "text", "id": "postage_note", "label": "Postage note", "default": "£4.95 UK postage, added at checkout" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Send me my free copy" }
+  ]
+}
+{% endschema %}

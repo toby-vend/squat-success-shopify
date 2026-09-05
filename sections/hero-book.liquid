@@ -1,0 +1,36 @@
+<section class="hero" id="the-book">
+  <div class="hero__base"></div>
+  <div class="hero__glow" aria-hidden="true"><img src="{{ 'hero-bg.svg' | asset_url }}" alt="" width="1440" height="844" loading="eager"></div>
+  <div class="hero__grid">
+    <div class="hero__copy">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="hero__title">{{ section.settings.heading }} <span class="grad-text">{{ section.settings.heading_accent }}</span></h1>
+      <p class="hero__sub"><strong>{{ section.settings.book_name }}</strong> {{ section.settings.subheading }}</p>
+      <div class="cta-row hero__cta">
+        {% render 'order-button', label: section.settings.primary_label, style: 'amber' %}
+        {% render 'link-button', label: section.settings.secondary_label, url: section.settings.secondary_url, style: 'outline' %}
+      </div>
+      {%- if section.settings.note != blank -%}<p class="small-print">{{ section.settings.note }}</p>{%- endif -%}
+    </div>
+    {% render 'book-stage', cover: section.settings.cover %}
+  </div>
+  <div class="hero__fade"></div>
+</section>
+{% schema %}
+{
+  "name": "Hero — the book",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (optional)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Opening your own practice shouldn’t be a" },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent (gradient)", "default": "leap of faith." },
+    { "type": "text", "id": "book_name", "label": "Book name (highlighted)", "default": "The Dental Freedom Blueprint" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "is the system Dr Bobby Bhandal used to build Avenue Dental from an empty unit into a thriving private squat — and has since used to help dentists across the UK do the same." },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Send me my free copy" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Preview the chapters" },
+    { "type": "url", "id": "secondary_url", "label": "Secondary link", "default": "/#chapters" },
+    { "type": "text", "id": "note", "label": "Small print", "default": "Free book · You cover £4.95 postage · Printed to order in the UK · With you in 5–7 days" },
+    { "type": "image_picker", "id": "cover", "label": "Book cover (optional — bundled artwork used by default)" }
+  ],
+  "presets": [{ "name": "Hero — the book" }]
+}
+{% endschema %}

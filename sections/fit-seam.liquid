@@ -1,0 +1,53 @@
+<section class="fit">
+  <div class="fit__side fit__side--order">
+    <p class="eyebrow">{{ section.settings.order_eyebrow }}</p>
+    <p class="fit__big fit__big--order">{{ section.settings.order_title }}</p>
+    <p class="eyebrow eyebrow--small eyebrow--muted">{{ section.settings.list_intro }}</p>
+    <ul class="fit__list">
+      {%- for block in section.blocks -%}{%- if block.type == 'order' -%}
+        <li data-mark="+" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+      {%- endif -%}{%- endfor -%}
+    </ul>
+    <p class="fit__then">→ &nbsp; {{ section.settings.order_then }}</p>
+  </div>
+  <div class="fit__seam" aria-hidden="true"></div>
+  <div class="fit__pick" aria-hidden="true"><span>‹ ›</span><small>PICK A SIDE</small></div>
+  <div class="fit__side fit__side--skip">
+    <p class="eyebrow eyebrow--muted">{{ section.settings.skip_eyebrow }}</p>
+    <p class="fit__big fit__big--skip">{{ section.settings.skip_title }}</p>
+    <p class="eyebrow eyebrow--small eyebrow--muted">{{ section.settings.list_intro }}</p>
+    <ul class="fit__list">
+      {%- for block in section.blocks -%}{%- if block.type == 'skip' -%}
+        <li data-mark="–" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+      {%- endif -%}{%- endfor -%}
+    </ul>
+    <p class="fit__then">→ &nbsp; {{ section.settings.skip_then }}</p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Order it or skip it",
+  "settings": [
+    { "type": "text", "id": "order_eyebrow", "label": "Left eyebrow", "default": "01  ·  THE RIGHT READER" },
+    { "type": "text", "id": "order_title", "label": "Left title", "default": "ORDER IT" },
+    { "type": "text", "id": "order_then", "label": "Left closing", "default": "Then it was written for you." },
+    { "type": "text", "id": "skip_eyebrow", "label": "Right eyebrow", "default": "02  ·  THE WRONG READER" },
+    { "type": "text", "id": "skip_title", "label": "Right title", "default": "SKIP IT" },
+    { "type": "text", "id": "skip_then", "label": "Right closing", "default": "Then skip it. No hard feelings." },
+    { "type": "text", "id": "list_intro", "label": "List intro", "default": "… IF ANY OF THESE IS YOU" }
+  ],
+  "blocks": [
+    { "type": "order", "name": "Order it — reason", "settings": [ { "type": "textarea", "id": "text", "label": "Text" } ] },
+    { "type": "skip", "name": "Skip it — reason", "settings": [ { "type": "textarea", "id": "text", "label": "Text" } ] }
+  ],
+  "presets": [{ "name": "Order it or skip it", "blocks": [
+    { "type": "order", "settings": { "text": "You’re an associate who’s been thinking about your own place for a year or more." } },
+    { "type": "order", "settings": { "text": "You’ve considered buying an existing practice and want to understand the squat alternative properly." } },
+    { "type": "order", "settings": { "text": "You’re already in motion — site found, lease being negotiated — and want to dodge the expensive mistakes." } },
+    { "type": "order", "settings": { "text": "You’re clinically confident and business-uncertain, and you’d rather fix that before you sign anything." } },
+    { "type": "skip", "settings": { "text": "You want a get-rich-quick angle. Building a practice is a five-year commitment and the book says so repeatedly." } },
+    { "type": "skip", "settings": { "text": "You want someone to do it for you. This is a blueprint, not a done-for-you service." } },
+    { "type": "skip", "settings": { "text": "You’re happy as an associate. That’s a valid career — this book will just make you restless." } }
+  ]}]
+}
+{% endschema %}

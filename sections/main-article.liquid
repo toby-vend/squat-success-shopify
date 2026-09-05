@@ -1,0 +1,7 @@
+<article class="store"><div class="container">
+  <p class="eyebrow">{{ article.published_at | date: '%-d %B %Y' }}</p>
+  <h1 class="h-section" style="margin:12px 0 32px">{{ article.title }}</h1>
+  {%- if article.image -%}<div class="store__media" style="margin-bottom:32px">{{ article.image | image_url: width: 1600 | image_tag: loading: 'eager' }}</div>{%- endif -%}
+  <div class="rte">{{ article.content }}</div>
+</div></article>
+{% schema %} { "name": "Article", "settings": [] } {% endschema %}

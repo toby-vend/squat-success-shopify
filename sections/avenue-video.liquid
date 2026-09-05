@@ -1,0 +1,23 @@
+<section class="section section--ink avenue">
+  <div class="avenue__head">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="avenue__title">{{ section.settings.heading }}</h2>
+  </div>
+  {% render 'video-player', class: 'band', url: section.settings.video_url, poster: section.settings.poster, fallback_asset: 'avenue-poster.jpg', label: section.settings.play_label %}
+  {%- comment -%} badge sits inside .band for positioning; render it via a small trick: {%- endcomment -%}
+  <style>#shopify-section-{{ section.id }} .band::after { content: "{{ section.settings.badge | escape }}"; position:absolute; left:var(--gutter); bottom:24px; padding:8px 12px; background:rgba(27,27,27,.85); font-family:var(--font-label); font-weight:700; font-size:10px; letter-spacing:.2em; color:var(--ss-cream); z-index:2; } #shopify-section-{{ section.id }} .band.is-playing::after { display:none; }</style>
+</section>
+{% schema %}
+{
+  "name": "Avenue Dental film",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "PROOF IT WORKS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "This was an empty unit in Leamington Spa." },
+    { "type": "url", "id": "video_url", "label": "Video URL (YouTube, Vimeo or .mp4)" },
+    { "type": "image_picker", "id": "poster", "label": "Poster (optional — bundled poster used by default)" },
+    { "type": "text", "id": "play_label", "label": "Play label", "default": "WATCH" },
+    { "type": "text", "id": "badge", "label": "Badge", "default": "AVENUE DENTAL · LEAMINGTON SPA" }
+  ],
+  "presets": [{ "name": "Avenue Dental film" }]
+}
+{% endschema %}

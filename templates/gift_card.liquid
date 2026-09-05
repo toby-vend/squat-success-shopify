@@ -1,0 +1,13 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ shop.name }} — Gift card</title>{{ content_for_header }}{{ 'squat.css' | asset_url | stylesheet_tag }}</head>
+<body>
+  <section class="store"><div class="container" style="text-align:center">
+    <h1 class="h-section">{{ shop.name }} gift card</h1>
+    <p class="lede" style="margin:16px 0">{{ gift_card.initial_value | money }}</p>
+    <p class="body">Code: <strong>{{ gift_card.code | format_code }}</strong></p>
+    {%- if gift_card.expired -%}<p class="small-print">This gift card has expired.</p>{%- endif -%}
+    <p style="margin-top:24px"><a class="btn btn--gold" href="{{ shop.url }}">Continue</a></p>
+  </div></section>
+</body></html>

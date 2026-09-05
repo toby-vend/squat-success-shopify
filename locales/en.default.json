@@ -1,0 +1,12 @@
+{
+  "general": {
+    "search": { "search": "Search", "no_results": "No results found for \"{{ terms }}\"." },
+    "cart": { "title": "Your order", "empty": "Your cart is empty.", "checkout": "Go to checkout", "update": "Update", "remove": "Remove", "subtotal": "Subtotal", "shipping_note": "Postage calculated at checkout." },
+    "product": { "add_to_cart": "Send me my free copy", "sold_out": "Not available right now", "unavailable": "Unavailable" },
+    "404": { "title": "That page has gone missing.", "text": "Head back to the book." },
+    "continue": "Continue"
+  },
+  "customer": {
+    "login": "Sign in", "register": "Create account", "email": "Email", "password": "Password", "forgot": "Forgot your password?", "account": "Account", "orders": "Order history", "addresses": "Addresses", "logout": "Log out"
+  }
+}

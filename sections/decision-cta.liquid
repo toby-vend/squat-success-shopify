@@ -1,0 +1,53 @@
+<section class="decision">
+  <div class="decision__bg" aria-hidden="true">
+    {%- if section.settings.background != blank -%}
+      {{ section.settings.background | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '900, 1400, 2000' }}
+    {%- else -%}
+      <img src="{{ 'decision-bg.jpg' | asset_url }}" alt="" width="2528" height="1086" loading="lazy">
+    {%- endif -%}
+  </div>
+  <div class="decision__inner">
+    <div class="decision__copy">
+      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="decision__title">{{ section.settings.heading }} <em>{{ section.settings.heading_accent }}</em></h2>
+      <p class="decision__sub">{{ section.settings.subheading }}</p>
+      <p class="decision__text">{{ section.settings.text }}</p>
+      <div class="cta-row decision__cta">
+        {% render 'order-button', label: section.settings.primary_label, style: 'amber' %}
+        {% render 'link-button', label: section.settings.secondary_label, url: section.settings.secondary_url, style: 'outline' %}
+      </div>
+      <p class="decision__note">{{ section.settings.note }}</p>
+      <p class="assurance"><b>{{ section.settings.assure_1_bold }}</b> {{ section.settings.assure_1 }}<br><b>{{ section.settings.assure_2_bold }}</b>{{ section.settings.assure_2 }}</p>
+    </div>
+    <div class="parcel" aria-hidden="true">
+      <div class="parcel__book"></div>
+      <div class="parcel__band"><b>{{ section.settings.band_title }}</b><small>{{ section.settings.band_sub }}</small></div>
+      <div class="parcel__tag">{{ section.settings.tag }}</div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "The decision (CTA)",
+  "settings": [
+    { "type": "image_picker", "id": "background", "label": "Background (optional — bundled image used by default)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE DECISION" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your copy is" },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent (amber)", "default": "waiting." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "It costs you the postage and about four hours of reading." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Worst case, you close it knowing for certain that ownership isn’t for you — and you stop spending energy on a “one day” that was never going to happen. Best case, you’re reading the instructions for the next ten years of your career." },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Send me my free copy" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Preview the chapters" },
+    { "type": "url", "id": "secondary_url", "label": "Secondary link", "default": "/#chapters" },
+    { "type": "text", "id": "note", "label": "Note", "default": "Free book · £4.95 postage · Any problems, hello@squatsuccess.co.uk" },
+    { "type": "text", "id": "assure_1_bold", "label": "Assurance line 1 (bold)", "default": "5–7 days" },
+    { "type": "text", "id": "assure_1", "label": "Assurance line 1", "default": "to your door." },
+    { "type": "text", "id": "assure_2_bold", "label": "Assurance line 2 (bold)", "default": "No subscription" },
+    { "type": "text", "id": "assure_2", "label": "Assurance line 2", "default": ", ever." },
+    { "type": "text", "id": "band_title", "label": "Parcel band title", "default": "THE DENTAL FREEDOM BLUEPRINT" },
+    { "type": "text", "id": "band_sub", "label": "Parcel band subtitle", "default": "PRINTED TO ORDER  ·  FREE COPY" },
+    { "type": "text", "id": "tag", "label": "Parcel tag", "default": "OPEN IT" }
+  ],
+  "presets": [{ "name": "The decision (CTA)" }]
+}
+{% endschema %}

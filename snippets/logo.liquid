@@ -1,0 +1,8 @@
+{%- comment -%}
+  Squat Success wordmark. Pass `image` (image_picker) to override the bundled SVG.
+{%- endcomment -%}
+{%- if image != blank -%}
+  {{ image | image_url: width: 400 | image_tag: alt: shop.name, loading: 'eager' }}
+{%- else -%}
+  <img src="{{ 'logo.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="139" height="44">
+{%- endif -%}

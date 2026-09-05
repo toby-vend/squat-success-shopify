@@ -1,0 +1,12 @@
+<section class="store"><div class="container">
+  <h1 class="h-section" style="margin-bottom:24px">{{ 'customer.register' | t }}</h1>
+  {%- form 'create_customer', class: 'form' -%}
+    {{ form.errors | default_errors }}
+    <label for="reg-first">First name</label><input type="text" id="reg-first" name="customer[first_name]">
+    <label for="reg-last">Last name</label><input type="text" id="reg-last" name="customer[last_name]">
+    <label for="reg-email">{{ 'customer.email' | t }}</label><input type="email" id="reg-email" name="customer[email]">
+    <label for="reg-password">{{ 'customer.password' | t }}</label><input type="password" id="reg-password" name="customer[password]">
+    <button type="submit" class="btn btn--gold">{{ 'customer.register' | t }}</button>
+  {%- endform -%}
+</div></section>
+{% schema %} { "name": "Register", "settings": [] } {% endschema %}

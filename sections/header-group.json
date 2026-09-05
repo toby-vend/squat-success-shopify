@@ -1,0 +1,18 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": { "show_creed": true },
+      "blocks": {
+        "link_book": { "type": "link", "settings": { "label": "The Book", "url": "/#the-book" } },
+        "link_chapters": { "type": "link", "settings": { "label": "Chapters", "url": "/#chapters" } },
+        "link_author": { "type": "link", "settings": { "label": "The Author", "url": "/#the-author" } },
+        "order": { "type": "button", "settings": { "label": "Get the free book", "url": "/#the-book" } }
+      },
+      "block_order": ["link_book", "link_chapters", "link_author", "order"]
+    }
+  },
+  "order": ["header"]
+}

@@ -1,0 +1,44 @@
+<section class="section section--black questions">
+  <div class="container">
+    <div class="questions__grid">
+      <div class="questions__left">
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="h-section">{{ section.settings.heading }}</h2>
+        <p class="body">{{ section.settings.text }}</p>
+        <p class="body questions__gold">{{ section.settings.text_gold }}</p>
+        <div class="questions__caption"><span></span><p class="eyebrow eyebrow--small eyebrow--muted">{{ section.settings.caption }}</p></div>
+      </div>
+      <ol class="ledger">
+        {%- for block in section.blocks -%}
+          <li class="ledger__row" {{ block.shopify_attributes }}>
+            <span class="ledger__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <p class="ledger__q">{{ block.settings.question }}</p>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+    <p class="questions__closing">{{ section.settings.closing }}</p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Six questions",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "BE BRAVE" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "You’re not held back by a lack of ambition." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "You’ve researched locations on the train home. You’ve downloaded business plan templates you never finished. You’ve talked yourself in and out of it more than once." },
+    { "type": "textarea", "id": "text_gold", "label": "Text (gold)", "default": "You stop not because you’re not capable, but because nobody has laid out what actually happens, in order, with real numbers." },
+    { "type": "text", "id": "caption", "label": "Caption", "default": "SIX QUESTIONS · ALL ANSWERED IN THE BOOK" },
+    { "type": "text", "id": "closing", "label": "Closing line", "default": "Every one of those has an answer — in one place, in order, from someone who has done it." }
+  ],
+  "blocks": [ { "type": "question", "name": "Question", "settings": [ { "type": "text", "id": "question", "label": "Question" } ] } ],
+  "presets": [{ "name": "Six questions", "blocks": [
+    { "type": "question", "settings": { "question": "How much do I actually need — and how much can be borrowed?" } },
+    { "type": "question", "settings": { "question": "How long until it washes its face?" } },
+    { "type": "question", "settings": { "question": "What does CQC registration really involve, and when do I start?" } },
+    { "type": "question", "settings": { "question": "How do I find a site that works, not one that just looks nice?" } },
+    { "type": "question", "settings": { "question": "What if I build it and nobody comes?" } },
+    { "type": "question", "settings": { "question": "What if I’m a good dentist and a terrible business owner?" } }
+  ]}]
+}
+{% endschema %}
