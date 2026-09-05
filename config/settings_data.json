@@ -13,6 +13,9 @@
     "support_email": "hello@squatsuccess.co.uk",
     "creed": "BE BOLD   ·   BE BRAVE   ·   BE DIFFERENT   ·",
     "cta_target": "form",
-    "book_variant_id": "58895118106969"
+    "book_variant_id": "58895118106969",
+    "ghl_form_webhook": "https://vendo-os.vercel.app/api/squat/claim?token=17b5f9f55e50b817b55818ea0bb15adc03f834d297feae15",
+    "ghl_form_tag": "book-form-started",
+    "ghl_source": "book.squatsuccess.co.uk"
   }
 }
