@@ -13,7 +13,7 @@
     assign claim_variant = settings.book_variant_id
   endif
 -%}
-<div class="claim" data-claim data-variant="{{ claim_variant }}" hidden>
+<div class="claim" data-claim data-variant="{{ claim_variant }}" data-design-mode="{{ request.design_mode }}" hidden>
   <div class="claim__backdrop" data-claim-close></div>
   <div class="claim__dialog" role="dialog" aria-modal="true" aria-labelledby="claim-title">
     <button type="button" class="claim__x" data-claim-close aria-label="Close">

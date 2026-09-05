@@ -211,6 +211,9 @@
     };
     var query = Object.keys(q).filter(function (k) { return q[k]; }).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(q[k]); }).join('&');
     var variant = modal.getAttribute('data-variant');
+    if (modal.getAttribute('data-design-mode') === 'true') {
+      return showError('Checkout can\'t open inside the theme editor. Use the theme preview link to test the full flow.');
+    }
     var btn = form.querySelector('.claim__submit'); if (btn) btn.disabled = true;
     window.location.assign('/cart/' + variant + ':1?' + query);
   });
