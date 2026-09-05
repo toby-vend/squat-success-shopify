@@ -149,6 +149,24 @@
   }
 })();
 
+
+/* Attribution capture (UTMs / click ids) — persisted so the claim form can send them */
+(function () {
+  'use strict';
+  var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'];
+  try {
+    var params = new URLSearchParams(location.search);
+    var stored = {};
+    try { stored = JSON.parse(localStorage.getItem('ss_attribution') || '{}') || {}; } catch (e) { stored = {}; }
+    var touched = false;
+    KEYS.forEach(function (k) { var v = params.get(k); if (v) { stored[k] = v.slice(0, 250); touched = true; } });
+    if (!stored.landing_page) { stored.landing_page = location.href.slice(0, 500); touched = true; }
+    if (!stored.referrer && document.referrer && document.referrer.indexOf(location.hostname) === -1) { stored.referrer = document.referrer.slice(0, 500); touched = true; }
+    if (touched) localStorage.setItem('ss_attribution', JSON.stringify(stored));
+    window.__ssAttribution = stored;
+  } catch (e) { window.__ssAttribution = {}; }
+})();
+
 /* Claim-your-copy modal ------------------------------------------------ */
 (function () {
   'use strict';
@@ -218,7 +236,11 @@
     var target = '/cart/' + variant + ':1?' + query;
     var hook = modal.getAttribute('data-ghl-webhook');
     if (!hook) return window.location.assign(target);
+    var attr = window.__ssAttribution || {};
     var payload = JSON.stringify({
+      utm_source: attr.utm_source || '', utm_medium: attr.utm_medium || '', utm_campaign: attr.utm_campaign || '',
+      utm_content: attr.utm_content || '', utm_term: attr.utm_term || '', gclid: attr.gclid || '', fbclid: attr.fbclid || '',
+      landing_page: attr.landing_page || '', referrer: attr.referrer || '',
       first_name: name.first, last_name: name.last, full_name: v.name.trim(),
       email: v.email.trim(), phone: v.phone.trim(),
       address1: v.line1.trim(), city: v.city.trim(), postal_code: v.postcode.trim().toUpperCase(), country: 'United Kingdom',
