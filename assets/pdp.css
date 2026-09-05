@@ -27,14 +27,9 @@
 .pdp-hero { padding: clamp(28px, 4.5vw, 64px) clamp(20px, 5vw, 80px) clamp(36px, 5vw, 72px); }
 .pdp-hero__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 4vw, 64px); align-items: start; }
 .pdp-gallery { display: flex; flex-direction: column; gap: 14px; }
-.pdp-gallery__main { position: relative; border-radius: 14px; overflow: hidden; background: var(--ss-ink); border: 1px solid rgba(255,255,255,.06); aspect-ratio: 4 / 3; }
-.pdp-gallery__main img { width: 100%; height: 100%; object-fit: contain; }
+.pdp-gallery__main { position: relative; border-radius: 14px; overflow: hidden; background: var(--ss-ink); border: 1px solid rgba(255,255,255,.06); }
+.pdp-gallery__main img { width: 100%; height: auto; display: block; }
 .pdp-gallery__badge { position: absolute; top: 14px; left: 14px; padding: 8px 12px; background: rgba(27,27,27,.85); font-family: var(--font-label); font-size: 10px; font-weight: 700; letter-spacing: .2em; color: var(--ss-cream); }
-.pdp-gallery__thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.pdp-gallery__thumb { border-radius: 11px; overflow: hidden; background: var(--ss-ink); border: 1px solid rgba(255,255,255,.06); aspect-ratio: 1 / 1; padding: 0; cursor: pointer; }
-.pdp-gallery__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.pdp-gallery__thumb[aria-pressed="true"] { border-color: rgba(196,156,96,.6); }
-.pdp-slot { width: 100%; height: 100%; display: grid; place-items: center; text-align: center; padding: 12px; font-family: var(--font-label); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.35); background: repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 8px, transparent 8px 16px); }
 
 .pdp-buy { display: flex; flex-direction: column; gap: 20px; }
 .pdp-buy__title { margin: 0; font-family: var(--font-display); font-size: clamp(30px, 3.6vw, 50px); line-height: 1.08; letter-spacing: -.025em; font-weight: 700; color: var(--ss-white); text-wrap: pretty; }

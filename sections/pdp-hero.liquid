@@ -1,21 +1,8 @@
 {%- comment -%} Product page buy box — from Claude Design "Dental Freedom Blueprint - PDP" {%- endcomment -%}
 {%- liquid
-  assign media = product.media
   assign front = section.settings.image_front
-  assign spine = section.settings.image_spine
-  assign spread = section.settings.image_spread
-  assign hand = section.settings.image_hand
-  if front == blank and media[0] != blank
-    assign front = media[0].preview_image
-  endif
-  if spine == blank and media[1] != blank
-    assign spine = media[1].preview_image
-  endif
-  if spread == blank and media[2] != blank
-    assign spread = media[2].preview_image
-  endif
-  if hand == blank and media[3] != blank
-    assign hand = media[3].preview_image
+  if front == blank and product.featured_media != blank
+    assign front = product.featured_media.preview_image
   endif
   assign accent = section.settings.title_accent
   if accent != blank and product.title contains accent
@@ -28,33 +15,14 @@
 <section class="pdp-hero">
   <div class="pdp-wrap pdp-hero__grid">
 
-    <div class="pdp-gallery" data-gallery>
+    <div class="pdp-gallery">
       <div class="pdp-gallery__main">
-        <div data-gallery-main>
-          {%- if front != blank -%}
-            {{ front | image_url: width: 1600 | image_tag: alt: product.title, loading: 'eager', widths: '600, 900, 1200, 1600' }}
-          {%- else -%}
-            <img src="{{ 'book-cover.jpg' | asset_url }}" alt="{{ product.title | escape }}" width="1696" height="2528" loading="eager">
-          {%- endif -%}
-        </div>
+        {%- if front != blank -%}
+          {{ front | image_url: width: 1600 | image_tag: alt: product.title, loading: 'eager', widths: '600, 900, 1200, 1600' }}
+        {%- else -%}
+          <img src="{{ 'book-cover.jpg' | asset_url }}" alt="{{ product.title | escape }}" width="1696" height="2528" loading="eager">
+        {%- endif -%}
         <span class="pdp-gallery__badge">{{ section.settings.badge }}</span>
-      </div>
-      <div class="pdp-gallery__thumbs">
-        {%- assign slots = 'spine,spread,hand' | split: ',' -%}
-        {%- for slot in slots -%}
-          {%- case slot -%}
-            {%- when 'spine' -%}{%- assign img = spine -%}{%- assign lbl = section.settings.label_spine -%}
-            {%- when 'spread' -%}{%- assign img = spread -%}{%- assign lbl = section.settings.label_spread -%}
-            {%- else -%}{%- assign img = hand -%}{%- assign lbl = section.settings.label_hand -%}
-          {%- endcase -%}
-          {%- if img != blank -%}
-            <button type="button" class="pdp-gallery__thumb" data-gallery-thumb aria-label="{{ lbl | escape }}" data-full="{{ img | image_url: width: 1600 }}">
-              {{ img | image_url: width: 500 | image_tag: alt: lbl, loading: 'lazy' }}
-            </button>
-          {%- else -%}
-            <div class="pdp-gallery__thumb" aria-hidden="true"><div class="pdp-slot">{{ lbl }}</div></div>
-          {%- endif -%}
-        {%- endfor -%}
       </div>
     </div>
 
@@ -105,15 +73,9 @@
   "name": "PDP — buy box",
   "settings": [
     { "type": "header", "content": "Gallery" },
-    { "type": "paragraph", "content": "Product media is used in order: front, spine, spread, in hand. These pickers override it." },
-    { "type": "image_picker", "id": "image_front", "label": "Front cover" },
-    { "type": "image_picker", "id": "image_spine", "label": "Spine" },
-    { "type": "image_picker", "id": "image_spread", "label": "Open spread" },
-    { "type": "image_picker", "id": "image_hand", "label": "In hand" },
+    { "type": "paragraph", "content": "The product's featured image is shown at its own aspect ratio. Pick an image here to override it." },
+    { "type": "image_picker", "id": "image_front", "label": "Book image" },
     { "type": "text", "id": "badge", "label": "Badge", "default": "FREE PAPERBACK" },
-    { "type": "text", "id": "label_spine", "label": "Spine placeholder label", "default": "Spine" },
-    { "type": "text", "id": "label_spread", "label": "Spread placeholder label", "default": "Open spread" },
-    { "type": "text", "id": "label_hand", "label": "In-hand placeholder label", "default": "In hand" },
     { "type": "header", "content": "Copy" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "PAPERBACK · PRINTED TO ORDER IN THE UK" },
     { "type": "text", "id": "title_accent", "label": "Title word to highlight (must appear in the product title)", "default": "Blueprint" },
