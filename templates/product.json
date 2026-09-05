@@ -16,19 +16,22 @@
         "f1": {
           "type": "fact",
           "settings": {
-            "text": "Written by the dentist who did it — founder of Avenue Dental, Leamington Spa."
+            "text": "Written by the dentist who did it — founder of Avenue Dental, Leamington Spa.",
+            "muted": false
           }
         },
         "f2": {
           "type": "fact",
           "settings": {
-            "text": "UK shipping only for now. Printed to order, despatched from the UK."
+            "text": "UK shipping only for now. Printed to order, despatched from the UK.",
+            "muted": false
           }
         },
         "f3": {
           "type": "fact",
           "settings": {
-            "text": "Order updates by email. Unsubscribe on every one."
+            "text": "Order updates by email. Unsubscribe on every one.",
+            "muted": false
           }
         },
         "f4": {
@@ -45,7 +48,19 @@
         "f3",
         "f4"
       ],
-      "settings": {}
+      "settings": {
+        "image_front": "shopify://shop_images/Book-cover-front.jpg",
+        "badge": "FREE PAPERBACK",
+        "eyebrow": "PAPERBACK · PRINTED TO ORDER IN THE UK",
+        "title_accent": "Blueprint",
+        "intro": "The system Dr Bobby Bhandal used to build Avenue Dental from an empty unit into a thriving private squat — and has since used to help dentists across the UK do the same. Nine chapters, real numbers, in order.",
+        "stock_note": "IN STOCK · 5–7 WORKING DAYS",
+        "button_label": "Send me my free copy",
+        "micro": "ONE-SCREEN CHECKOUT — SHOP PAY, APPLE PAY OR GOOGLE PAY",
+        "fine_print": "FREE BOOK · YOU COVER £4.95 POSTAGE · NO SUBSCRIPTION, EVER · POSTAGE REFUNDED IF IT ISN'T USEFUL",
+        "show_sticky": true,
+        "sticky_label": "Send me my copy"
+      }
     },
     "quote": {
       "type": "pdp-testimonial",
@@ -80,7 +95,9 @@
         "t2",
         "t3"
       ],
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/P1240263.jpg"
+      }
     },
     "chapters": {
       "type": "pdp-chapters",
@@ -160,7 +177,13 @@
         "c8",
         "c9"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Look inside — nine chapters",
+        "hint": "CHOOSE A CHAPTER TO OPEN IT",
+        "footer": "THE DENTAL FREEDOM BLUEPRINT",
+        "cta_text": "All nine chapters. Printed, bound, and posted to your door.",
+        "cta_label": "Send me my free copy"
+      }
     },
     "faq": {
       "type": "pdp-faq",
@@ -216,11 +239,21 @@
         "q5",
         "q6"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Before you order",
+        "intro": "Everything a buyer asks before they hand over £4.95. If it isn’t here, email"
+      }
     },
     "author": {
       "type": "pdp-author",
-      "settings": {}
+      "settings": {
+        "eyebrow": "THE AUTHOR",
+        "name": "Dr Bobby Bhandal",
+        "bio": "Ten years an associate. Built Avenue Dental, Leamington Spa, as a squat — and wrote down how.",
+        "pull": "I’d rather this book was in a thousand hands than sold to two hundred.",
+        "cta_label": "Send me my free copy",
+        "fine_print": "FREE BOOK · £4.95 POSTAGE · 5–7 DAYS · NO SUBSCRIPTION"
+      }
     }
   },
   "order": [

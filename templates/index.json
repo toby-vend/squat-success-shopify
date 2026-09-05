@@ -11,7 +11,17 @@
   "sections": {
     "hero": {
       "type": "hero-book",
-      "settings": {}
+      "settings": {
+        "eyebrow": "",
+        "heading": "Opening your own practice shouldn’t be a",
+        "heading_accent": "leap of faith.",
+        "book_name": "The Dental Freedom Blueprint",
+        "subheading": "is the system Dr Bobby Bhandal used to build Avenue Dental from an empty unit into a thriving private squat — and has since used to help dentists across the UK do the same.",
+        "primary_label": "Send me my free copy",
+        "secondary_label": "Preview the chapters",
+        "secondary_url": "/#chapters",
+        "note": "Free book · You cover £4.95 postage · Printed to order in the UK · With you in 5–7 days"
+      }
     },
     "dilemma": {
       "type": "dilemma",
@@ -41,7 +51,13 @@
         "cautious",
         "brave"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Two dentists. Same year,\nsame starting salary.",
+        "punch_heading": "The difference wasn’t talent, luck,\nor a rich uncle.",
+        "punch_text": "It was that one of them had a plan, and the other had a feeling.",
+        "cta_label": "GET THE PLAN — FREE",
+        "cta_url": "/#the-book"
+      }
     },
     "questions": {
       "type": "six-questions",
@@ -91,7 +107,14 @@
         "q5",
         "q6"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "BE BRAVE",
+        "heading": "You’re not held back by a lack of ambition.",
+        "text": "You’ve researched locations on the train home. You’ve downloaded business plan templates you never finished. You’ve talked yourself in and out of it more than once.",
+        "text_gold": "You stop not because you’re not capable, but because nobody has laid out what actually happens, in order, with real numbers.",
+        "caption": "SIX QUESTIONS · ALL ANSWERED IN THE BOOK",
+        "closing": "Every one of those has an answer — in one place, in order, from someone who has done it."
+      }
     },
     "chapters": {
       "type": "chapter-reader",
@@ -171,7 +194,13 @@
         "c8",
         "c9"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Nine chapters. No filler,\nno textbook theory.",
+        "hint": "CHOOSE A CHAPTER TO OPEN IT",
+        "book_name": "THE DENTAL FREEDOM BLUEPRINT",
+        "cta_text": "All nine chapters. Printed, bound, and posted to your door.",
+        "cta_label": "Send me my free copy"
+      }
     },
     "letter": {
       "type": "author-letter",
@@ -214,7 +243,13 @@
         "pull",
         "p4"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "A LETTER FROM THE AUTHOR",
+        "letterhead": "SQUAT SUCCESS · LEAMINGTON SPA",
+        "heading": "Why would you post me a book for free?",
+        "signoff": "DR BOBBY BHANDAL · FOUNDER, SQUAT SUCCESS",
+        "stamp_text": "PRINTED TO ORDER  ·  DESPATCHED FROM THE UK  ·"
+      }
     },
     "fit": {
       "type": "fit-seam",
@@ -271,7 +306,15 @@
         "s2",
         "s3"
       ],
-      "settings": {}
+      "settings": {
+        "order_eyebrow": "01  ·  THE RIGHT READER",
+        "order_title": "ORDER IT",
+        "order_then": "Then it was written for you.",
+        "skip_eyebrow": "02  ·  THE WRONG READER",
+        "skip_title": "SKIP IT",
+        "skip_then": "Then skip it. No hard feelings.",
+        "list_intro": "… IF ANY OF THESE IS YOU"
+      }
     },
     "testimonials": {
       "type": "testimonials",
@@ -281,7 +324,7 @@
           "settings": {
             "quote": "Bobby has been absolutely brilliant with helping me through the set up.",
             "name": "Dr Matt",
-            "practice": "[PRACTICE — TO CONFIRM]"
+            "practice": "BANK DENTAL"
           }
         },
         "t2": {
@@ -289,7 +332,7 @@
           "settings": {
             "quote": "I can confidently say that this course has played a significant role in the success of my practice.",
             "name": "Dr Miklos Poratunszky",
-            "practice": "SQUAT SUCCESS MEMBER"
+            "practice": "JUST SMILE DENTAL"
           }
         },
         "t3": {
@@ -306,11 +349,24 @@
         "t2",
         "t3"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "REAL STORIES · REAL RESULTS",
+        "heading": "They were exactly where you are.",
+        "video_url": "",
+        "poster": "shopify://shop_images/P1240263.jpg",
+        "play_label": "WATCH THE FILM",
+        "caption": "[CLIENT FILM — FOOTAGE TO BE SUPPLIED]"
+      }
     },
     "avenue": {
       "type": "avenue-video",
-      "settings": {}
+      "settings": {
+        "eyebrow": "PROOF IT WORKS",
+        "heading": "This was an empty unit in Leamington Spa.",
+        "video_url": "",
+        "play_label": "WATCH",
+        "badge": "AVENUE DENTAL · LEAMINGTON SPA"
+      }
     },
     "author": {
       "type": "author-bio",
@@ -331,21 +387,24 @@
           "type": "step",
           "settings": {
             "label": "Dental school",
-            "detail": "Nearly thrown out. Stayed. Qualified."
+            "detail": "Nearly thrown out. Stayed. Qualified.",
+            "gold": false
           }
         },
         "a2": {
           "type": "step",
           "settings": {
             "label": "Ten years an associate",
-            "detail": "NHS and private. Capped, restless, done."
+            "detail": "NHS and private. Capped, restless, done.",
+            "gold": false
           }
         },
         "a3": {
           "type": "step",
           "settings": {
             "label": "Avenue Dental",
-            "detail": "An empty unit becomes a thriving private squat."
+            "detail": "An empty unit becomes a thriving private squat.",
+            "gold": false
           }
         },
         "a4": {
@@ -365,11 +424,35 @@
         "a3",
         "a4"
       ],
-      "settings": {}
+      "settings": {
+        "caption": "DR BOBBY BHANDAL · FOUNDER, AVENUE DENTAL",
+        "eyebrow": "BE BOLD · THE AUTHOR",
+        "heading": "Dr Bobby Bhandal nearly got thrown out of dental school.",
+        "hook": "He’ll happily tell you about it.",
+        "strip": "The Dental Freedom Blueprint is everything he’d tell you over a long coffee, written down properly.",
+        "arc_hint": "Hover any moment for the detail"
+      }
     },
     "decision": {
       "type": "decision-cta",
-      "settings": {}
+      "settings": {
+        "eyebrow": "THE DECISION",
+        "heading": "Your copy is",
+        "heading_accent": "waiting.",
+        "subheading": "It costs you the postage and about four hours of reading.",
+        "text": "Worst case, you close it knowing for certain that ownership isn’t for you — and you stop spending energy on a “one day” that was never going to happen. Best case, you’re reading the instructions for the next ten years of your career.",
+        "primary_label": "Send me my free copy",
+        "secondary_label": "Preview the chapters",
+        "secondary_url": "/#chapters",
+        "note": "Free book · £4.95 postage · Any problems, hello@squatsuccess.co.uk",
+        "assure_1_bold": "5–7 days",
+        "assure_1": "to your door.",
+        "assure_2_bold": "No subscription",
+        "assure_2": ", ever.",
+        "band_title": "THE DENTAL FREEDOM BLUEPRINT",
+        "band_sub": "PRINTED TO ORDER  ·  FREE COPY",
+        "tag": "OPEN IT"
+      }
     },
     "faq": {
       "type": "faq",
@@ -441,7 +524,10 @@
         "f7",
         "f8"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Before you order",
+        "support_label": "STILL NOT SURE?"
+      }
     }
   },
   "order": [
