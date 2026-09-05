@@ -1,70 +1,460 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "hero-book", "settings": {} },
-    "dilemma": { "type": "dilemma", "blocks": {
-      "cautious": { "type": "path", "settings": { "fallback": "photo-cautious.jpg", "eyebrow": "OPTION A — THE CAUTIOUS PATH", "heading": "She took the safe one and stayed in corporate.", "text": "Ten years on, her diary is built by someone else. Her clinical range has narrowed to whatever the corporate target rewards. She earns a decent, predictable salary — and she owns absolutely nothing. No equity, no asset, no exit.", "pull": "She still says “one day” about having her own place. She’s been saying it for nine years." } },
-      "brave": { "type": "path", "settings": { "fallback": "photo-brave.jpg", "eyebrow": "OPTION B — THE BRAVE PATH", "heading": "He signed a lease on an empty unit and terrified himself.", "text": "Year one was hard — he’d tell you that himself. But ten years on he has three associates, a team who’ve stayed, a business with a sale value, and a Monday morning he doesn’t dread.", "pull": "Same career. Wildly different life." } }
-    }, "block_order": ["cautious", "brave"] },
-    "questions": { "type": "six-questions", "blocks": {
-      "q1": { "type": "question", "settings": { "question": "How much do I actually need — and how much can be borrowed?" } },
-      "q2": { "type": "question", "settings": { "question": "How long until it washes its face?" } },
-      "q3": { "type": "question", "settings": { "question": "What does CQC registration really involve, and when do I start?" } },
-      "q4": { "type": "question", "settings": { "question": "How do I find a site that works, not one that just looks nice?" } },
-      "q5": { "type": "question", "settings": { "question": "What if I build it and nobody comes?" } },
-      "q6": { "type": "question", "settings": { "question": "What if I’m a good dentist and a terrible business owner?" } }
-    }, "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"] },
-    "chapters": { "type": "chapter-reader", "blocks": {
-      "c1": { "type": "chapter", "settings": { "title": "Breaking Free", "blurb": "Bobby’s full story — corporate burnout, walking away from dentistry altogether, and the decision to come back on his own terms. Including the parts that don’t make it into conference talks." } },
-      "c2": { "type": "chapter", "settings": { "title": "A Tale Of Two Dentists", "blurb": "A ten-year, side-by-side comparison of the associate path and the ownership path. Earnings, equity, autonomy — and what each one quietly costs you." } },
-      "c3": { "type": "chapter", "settings": { "title": "The Reality Check", "blurb": "The honest financial picture. What you need, what you can borrow, what lenders actually look for, and a self-assessment that tells you whether you’re ready now or need twelve more months." } },
-      "c4": { "type": "chapter", "settings": { "title": "Confronting The Fear Factor", "blurb": "The psychological barriers that stop capable dentists, and how to get past them rather than waiting for the fear to disappear on its own. It doesn’t." } },
-      "c5": { "type": "chapter", "settings": { "title": "Decisions That Don’t Backfire", "blurb": "The Three Infections that keep associates stuck — the Prestige Virus, Quick Fix Fever and Analysis Paralysis Syndrome — and the Triple-Check Treatment for pressure-testing any big call." } },
-      "c6": { "type": "chapter", "settings": { "title": "The Certainty Compass", "blurb": "The three decisions that determine almost everything: business model, location, timing. Get these right and the rest is execution." } },
-      "c7": { "type": "chapter", "settings": { "title": "The A-Team Algorithm", "blurb": "How to advertise an opportunity instead of a job, hire A-players consistently, and build a culture people don’t leave — the biggest predictor of whether year two is fun or miserable." } },
-      "c8": { "type": "chapter", "settings": { "title": "The Invisible Waiting List", "blurb": "The Trust Timeline and the Personal Brand Blueprint: how to have a virtual queue of patients waiting before your doors even open, without paid ads doing the heavy lifting." } },
-      "c9": { "type": "chapter", "settings": { "title": "The First Twelve Months", "blurb": "What actually happens after opening day, when the adrenaline fades and the real business begins. Cashflow, staffing wobbles, and the milestones that tell you it’s working." } }
-    }, "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9"] },
-    "letter": { "type": "author-letter", "blocks": {
-      "p1": { "type": "paragraph", "settings": { "text": "I run a programme called Squat Success, where I work with dentists through the whole build. It isn’t for everyone, and it’s a serious commitment." } },
-      "p2": { "type": "paragraph", "settings": { "text": "The dentists who get the most from it all have one thing in common: they’d already decided. They weren’t looking to be convinced — they were looking for a route." } },
-      "p3": { "type": "paragraph", "settings": { "text": "This book is how people decide. Some will read it and realise ownership isn’t for them, and they’ll have saved themselves years of “one day”. Some will read it and do the whole thing on their own — and I’ll be genuinely delighted, because that’s what it’s written for. A few will get to the end and want help with the build." } },
-      "pull": { "type": "pull", "settings": { "text": "I’d rather this book was in a thousand hands than sold to two hundred." } },
-      "p4": { "type": "paragraph", "settings": { "text": "You cover the postage because Royal Mail don’t work for free. That’s the entire catch." } }
-    }, "block_order": ["p1", "p2", "p3", "pull", "p4"] },
-    "fit": { "type": "fit-seam", "blocks": {
-      "o1": { "type": "order", "settings": { "text": "You’re an associate who’s been thinking about your own place for a year or more." } },
-      "o2": { "type": "order", "settings": { "text": "You’ve considered buying an existing practice and want to understand the squat alternative properly." } },
-      "o3": { "type": "order", "settings": { "text": "You’re already in motion — site found, lease being negotiated — and want to dodge the expensive mistakes." } },
-      "o4": { "type": "order", "settings": { "text": "You’re clinically confident and business-uncertain, and you’d rather fix that before you sign anything." } },
-      "s1": { "type": "skip", "settings": { "text": "You want a get-rich-quick angle. Building a practice is a five-year commitment and the book says so repeatedly." } },
-      "s2": { "type": "skip", "settings": { "text": "You want someone to do it for you. This is a blueprint, not a done-for-you service." } },
-      "s3": { "type": "skip", "settings": { "text": "You’re happy as an associate. That’s a valid career — this book will just make you restless." } }
-    }, "block_order": ["o1", "o2", "o3", "o4", "s1", "s2", "s3"] },
-    "testimonials": { "type": "testimonials", "blocks": {
-      "t1": { "type": "quote", "settings": { "quote": "Bobby has been absolutely brilliant with helping me through the set up.", "name": "Dr Matt", "practice": "[PRACTICE — TO CONFIRM]" } },
-      "t2": { "type": "quote", "settings": { "quote": "I can confidently say that this course has played a significant role in the success of my practice.", "name": "Dr Miklos Poratunszky", "practice": "SQUAT SUCCESS MEMBER" } },
-      "t3": { "type": "quote", "settings": { "quote": "A treasure trove of practical advice, real-world examples and actionable strategies.", "name": "Dr Kuwer Singh Chani", "practice": "SQUAT SUCCESS MEMBER" } }
-    }, "block_order": ["t1", "t2", "t3"] },
-    "avenue": { "type": "avenue-video", "settings": {} },
-    "author": { "type": "author-bio", "blocks": {
-      "b1": { "type": "paragraph", "settings": { "text": "He worked as an associate for ten years across NHS and private practice, and found the routine so demoralising that he considered leaving dentistry altogether." } },
-      "b2": { "type": "paragraph", "settings": { "text": "Instead he built the practice he’d wanted to work in and couldn’t find. Avenue Dental opened as a squat — through a builder walking off site, a CQC process he’d rather forget, and a stretch of months where he wasn’t at all sure it would work. It worked." } },
-      "a1": { "type": "step", "settings": { "label": "Dental school", "detail": "Nearly thrown out. Stayed. Qualified." } },
-      "a2": { "type": "step", "settings": { "label": "Ten years an associate", "detail": "NHS and private. Capped, restless, done." } },
-      "a3": { "type": "step", "settings": { "label": "Avenue Dental", "detail": "An empty unit becomes a thriving private squat." } },
-      "a4": { "type": "step", "settings": { "label": "Dentists across the UK", "detail": "He’s helped dentists across the UK do the same — now written down as a book.", "gold": true } }
-    }, "block_order": ["b1", "b2", "a1", "a2", "a3", "a4"] },
-    "decision": { "type": "decision-cta", "settings": {} },
-    "faq": { "type": "faq", "blocks": {
-      "f1": { "type": "faq", "settings": { "question": "Is the book actually free?", "answer": "Yes. The book costs you nothing — you cover postage, which is £4.95 to UK addresses. No trial, no subscription, nothing that starts billing you later." } },
-      "f2": { "type": "faq", "settings": { "question": "When will it arrive?", "answer": "Your copy is printed to order and posted from the UK. Most people have it within 5–7 working days of ordering. You’ll get a confirmation email as soon as it’s on its way." } },
-      "f3": { "type": "faq", "settings": { "question": "Do you ship outside the UK?", "answer": "Not yet — right now the book is UK shipping only. If that changes we’ll email everyone on this list first." } },
-      "f4": { "type": "faq", "settings": { "question": "Is there a Kindle or audiobook version?", "answer": "Not yet — the physical book is the only version right now. We’ll update you as soon as that’s available." } },
-      "f5": { "type": "faq", "settings": { "question": "I’m still an associate. Is it too early?", "answer": "It’s the ideal time. The self-assessment in Chapter 3 is built for exactly this point — it’ll tell you whether you’re ready now or what to work on first. Better to find that out from a book than eighteen months into a lease." } },
-      "f6": { "type": "faq", "settings": { "question": "I’ve already found a site. Is it too late?", "answer": "No — and chapters 6 through 9 are the ones you want. Plenty of readers are mid-build. The material covers everything through the first year of trading, so there’s a lot left that applies to you." } },
-      "f7": { "type": "faq", "settings": { "question": "Am I signing up to a load of emails?", "answer": "You’ll get order updates, and after that some emails from Bobby about practice ownership. They’re worth reading and there’s an unsubscribe link on every one. No hard feelings if you use it." } },
-      "f8": { "type": "faq", "settings": { "question": "What if the book isn’t useful to me?", "answer": "Email us and we’ll refund your postage, no questions." } }
-    }, "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"] }
+    "hero": {
+      "type": "hero-book",
+      "settings": {}
+    },
+    "dilemma": {
+      "type": "dilemma",
+      "blocks": {
+        "cautious": {
+          "type": "path",
+          "settings": {
+            "fallback": "photo-cautious.jpg",
+            "eyebrow": "OPTION A — THE CAUTIOUS PATH",
+            "heading": "She took the safe one and stayed in corporate.",
+            "text": "Ten years on, her diary is built by someone else. Her clinical range has narrowed to whatever the corporate target rewards. She earns a decent, predictable salary — and she owns absolutely nothing. No equity, no asset, no exit.",
+            "pull": "She still says “one day” about having her own place. She’s been saying it for nine years."
+          }
+        },
+        "brave": {
+          "type": "path",
+          "settings": {
+            "fallback": "photo-brave.jpg",
+            "eyebrow": "OPTION B — THE BRAVE PATH",
+            "heading": "He signed a lease on an empty unit and terrified himself.",
+            "text": "Year one was hard — he’d tell you that himself. But ten years on he has three associates, a team who’ve stayed, a business with a sale value, and a Monday morning he doesn’t dread.",
+            "pull": "Same career. Wildly different life."
+          }
+        }
+      },
+      "block_order": [
+        "cautious",
+        "brave"
+      ],
+      "settings": {}
+    },
+    "questions": {
+      "type": "six-questions",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "How much do I actually need — and how much can be borrowed?"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How long until it washes its face?"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "What does CQC registration really involve, and when do I start?"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "How do I find a site that works, not one that just looks nice?"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "What if I build it and nobody comes?"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "What if I’m a good dentist and a terrible business owner?"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {}
+    },
+    "chapters": {
+      "type": "chapter-reader",
+      "blocks": {
+        "c1": {
+          "type": "chapter",
+          "settings": {
+            "title": "Breaking Free",
+            "blurb": "Bobby’s full story — corporate burnout, walking away from dentistry altogether, and the decision to come back on his own terms. Including the parts that don’t make it into conference talks."
+          }
+        },
+        "c2": {
+          "type": "chapter",
+          "settings": {
+            "title": "A Tale Of Two Dentists",
+            "blurb": "A ten-year, side-by-side comparison of the associate path and the ownership path. Earnings, equity, autonomy — and what each one quietly costs you."
+          }
+        },
+        "c3": {
+          "type": "chapter",
+          "settings": {
+            "title": "The Reality Check",
+            "blurb": "The honest financial picture. What you need, what you can borrow, what lenders actually look for, and a self-assessment that tells you whether you’re ready now or need twelve more months."
+          }
+        },
+        "c4": {
+          "type": "chapter",
+          "settings": {
+            "title": "Confronting The Fear Factor",
+            "blurb": "The psychological barriers that stop capable dentists, and how to get past them rather than waiting for the fear to disappear on its own. It doesn’t."
+          }
+        },
+        "c5": {
+          "type": "chapter",
+          "settings": {
+            "title": "Decisions That Don’t Backfire",
+            "blurb": "The Three Infections that keep associates stuck — the Prestige Virus, Quick Fix Fever and Analysis Paralysis Syndrome — and the Triple-Check Treatment for pressure-testing any big call."
+          }
+        },
+        "c6": {
+          "type": "chapter",
+          "settings": {
+            "title": "The Certainty Compass",
+            "blurb": "The three decisions that determine almost everything: business model, location, timing. Get these right and the rest is execution."
+          }
+        },
+        "c7": {
+          "type": "chapter",
+          "settings": {
+            "title": "The A-Team Algorithm",
+            "blurb": "How to advertise an opportunity instead of a job, hire A-players consistently, and build a culture people don’t leave — the biggest predictor of whether year two is fun or miserable."
+          }
+        },
+        "c8": {
+          "type": "chapter",
+          "settings": {
+            "title": "The Invisible Waiting List",
+            "blurb": "The Trust Timeline and the Personal Brand Blueprint: how to have a virtual queue of patients waiting before your doors even open, without paid ads doing the heavy lifting."
+          }
+        },
+        "c9": {
+          "type": "chapter",
+          "settings": {
+            "title": "The First Twelve Months",
+            "blurb": "What actually happens after opening day, when the adrenaline fades and the real business begins. Cashflow, staffing wobbles, and the milestones that tell you it’s working."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9"
+      ],
+      "settings": {}
+    },
+    "letter": {
+      "type": "author-letter",
+      "blocks": {
+        "p1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "I run a programme called Squat Success, where I work with dentists through the whole build. It isn’t for everyone, and it’s a serious commitment."
+          }
+        },
+        "p2": {
+          "type": "paragraph",
+          "settings": {
+            "text": "The dentists who get the most from it all have one thing in common: they’d already decided. They weren’t looking to be convinced — they were looking for a route."
+          }
+        },
+        "p3": {
+          "type": "paragraph",
+          "settings": {
+            "text": "This book is how people decide. Some will read it and realise ownership isn’t for them, and they’ll have saved themselves years of “one day”. Some will read it and do the whole thing on their own — and I’ll be genuinely delighted, because that’s what it’s written for. A few will get to the end and want help with the build."
+          }
+        },
+        "pull": {
+          "type": "pull",
+          "settings": {
+            "text": "I’d rather this book was in a thousand hands than sold to two hundred."
+          }
+        },
+        "p4": {
+          "type": "paragraph",
+          "settings": {
+            "text": "You cover the postage because Royal Mail don’t work for free. That’s the entire catch."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "pull",
+        "p4"
+      ],
+      "settings": {}
+    },
+    "fit": {
+      "type": "fit-seam",
+      "blocks": {
+        "o1": {
+          "type": "order",
+          "settings": {
+            "text": "You’re an associate who’s been thinking about your own place for a year or more."
+          }
+        },
+        "o2": {
+          "type": "order",
+          "settings": {
+            "text": "You’ve considered buying an existing practice and want to understand the squat alternative properly."
+          }
+        },
+        "o3": {
+          "type": "order",
+          "settings": {
+            "text": "You’re already in motion — site found, lease being negotiated — and want to dodge the expensive mistakes."
+          }
+        },
+        "o4": {
+          "type": "order",
+          "settings": {
+            "text": "You’re clinically confident and business-uncertain, and you’d rather fix that before you sign anything."
+          }
+        },
+        "s1": {
+          "type": "skip",
+          "settings": {
+            "text": "You want a get-rich-quick angle. Building a practice is a five-year commitment and the book says so repeatedly."
+          }
+        },
+        "s2": {
+          "type": "skip",
+          "settings": {
+            "text": "You want someone to do it for you. This is a blueprint, not a done-for-you service."
+          }
+        },
+        "s3": {
+          "type": "skip",
+          "settings": {
+            "text": "You’re happy as an associate. That’s a valid career — this book will just make you restless."
+          }
+        }
+      },
+      "block_order": [
+        "o1",
+        "o2",
+        "o3",
+        "o4",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": {
+          "type": "quote",
+          "settings": {
+            "quote": "Bobby has been absolutely brilliant with helping me through the set up.",
+            "name": "Dr Matt",
+            "practice": "[PRACTICE — TO CONFIRM]"
+          }
+        },
+        "t2": {
+          "type": "quote",
+          "settings": {
+            "quote": "I can confidently say that this course has played a significant role in the success of my practice.",
+            "name": "Dr Miklos Poratunszky",
+            "practice": "SQUAT SUCCESS MEMBER"
+          }
+        },
+        "t3": {
+          "type": "quote",
+          "settings": {
+            "quote": "A treasure trove of practical advice, real-world examples and actionable strategies.",
+            "name": "Dr Kuwer Singh Chani",
+            "practice": "SQUAT SUCCESS MEMBER"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {}
+    },
+    "avenue": {
+      "type": "avenue-video",
+      "settings": {}
+    },
+    "author": {
+      "type": "author-bio",
+      "blocks": {
+        "b1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "He worked as an associate for ten years across NHS and private practice, and found the routine so demoralising that he considered leaving dentistry altogether."
+          }
+        },
+        "b2": {
+          "type": "paragraph",
+          "settings": {
+            "text": "Instead he built the practice he’d wanted to work in and couldn’t find. Avenue Dental opened as a squat — through a builder walking off site, a CQC process he’d rather forget, and a stretch of months where he wasn’t at all sure it would work. It worked."
+          }
+        },
+        "a1": {
+          "type": "step",
+          "settings": {
+            "label": "Dental school",
+            "detail": "Nearly thrown out. Stayed. Qualified."
+          }
+        },
+        "a2": {
+          "type": "step",
+          "settings": {
+            "label": "Ten years an associate",
+            "detail": "NHS and private. Capped, restless, done."
+          }
+        },
+        "a3": {
+          "type": "step",
+          "settings": {
+            "label": "Avenue Dental",
+            "detail": "An empty unit becomes a thriving private squat."
+          }
+        },
+        "a4": {
+          "type": "step",
+          "settings": {
+            "label": "Dentists across the UK",
+            "detail": "He’s helped dentists across the UK do the same — now written down as a book.",
+            "gold": true
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ],
+      "settings": {}
+    },
+    "decision": {
+      "type": "decision-cta",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is the book actually free?",
+            "answer": "Yes. The book costs you nothing — you cover postage, which is £4.95 to UK addresses. No trial, no subscription, nothing that starts billing you later."
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "When will it arrive?",
+            "answer": "Your copy is printed to order and posted from the UK. Most people have it within 5–7 working days of ordering. You’ll get a confirmation email as soon as it’s on its way."
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you ship outside the UK?",
+            "answer": "Not yet — right now the book is UK shipping only. If that changes we’ll email everyone on this list first."
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is there a Kindle or audiobook version?",
+            "answer": "Not yet — the physical book is the only version right now. We’ll update you as soon as that’s available."
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "question": "I’m still an associate. Is it too early?",
+            "answer": "It’s the ideal time. The self-assessment in Chapter 3 is built for exactly this point — it’ll tell you whether you’re ready now or what to work on first. Better to find that out from a book than eighteen months into a lease."
+          }
+        },
+        "f6": {
+          "type": "faq",
+          "settings": {
+            "question": "I’ve already found a site. Is it too late?",
+            "answer": "No — and chapters 6 through 9 are the ones you want. Plenty of readers are mid-build. The material covers everything through the first year of trading, so there’s a lot left that applies to you."
+          }
+        },
+        "f7": {
+          "type": "faq",
+          "settings": {
+            "question": "Am I signing up to a load of emails?",
+            "answer": "You’ll get order updates, and after that some emails from Bobby about practice ownership. They’re worth reading and there’s an unsubscribe link on every one. No hard feelings if you use it."
+          }
+        },
+        "f8": {
+          "type": "faq",
+          "settings": {
+            "question": "What if the book isn’t useful to me?",
+            "answer": "Email us and we’ll refund your postage, no questions."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8"
+      ],
+      "settings": {}
+    }
   },
-  "order": ["hero", "dilemma", "questions", "chapters", "letter", "fit", "testimonials", "avenue", "author", "decision", "faq"]
+  "order": [
+    "hero",
+    "dilemma",
+    "questions",
+    "chapters",
+    "letter",
+    "fit",
+    "testimonials",
+    "avenue",
+    "author",
+    "decision",
+    "faq"
+  ]
 }
