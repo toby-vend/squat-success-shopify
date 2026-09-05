@@ -19,6 +19,7 @@
     "name": "Brand",
     "settings": [
       { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "text", "id": "brand_name", "label": "Brand name (footer copyright)", "default": "Squat Success" },
       { "type": "text", "id": "creed", "label": "Creed strip text", "default": "BE BOLD   ·   BE BRAVE   ·   BE DIFFERENT   ·" }
     ]
   }

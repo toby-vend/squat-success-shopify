@@ -47,10 +47,13 @@
     var next = $('[data-deck-next]', deck);
     var current = 0;
     if (!items.length) return;
+    var keyed = items.map(function (el, k) { var a = el.getAttribute('data-deck-item'); return a === '' || a === null ? k : parseInt(a, 10); });
+    var total = Math.max.apply(null, keyed) + 1;
     function show(i) {
-      current = (i + items.length) % items.length;
-      items.forEach(function (el, k) { el.hidden = k !== current; });
+      current = (i + total) % total;
+      items.forEach(function (el, k) { el.hidden = keyed[k] !== current; });
       indexes.forEach(function (el, k) { el.classList.toggle('is-current', k === current); });
+      var cur = $('[data-deck-current]', deck); if (cur) cur.textContent = String(current + 1).padStart(2, '0');
     }
     if (prev) prev.addEventListener('click', function () { show(current - 1); });
     if (next) next.addEventListener('click', function () { show(current + 1); });

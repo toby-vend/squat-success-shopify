@@ -31,7 +31,7 @@
   </main>
   <footer class="pdp-footer">
     <div class="pdp-footer__inner">
-      <span class="pdp-footer__creed">BE BOLD · BE BRAVE · BE DIFFERENT — © {{ shop.name | upcase }}</span>
+      <span class="pdp-footer__creed">BE BOLD · BE BRAVE · BE DIFFERENT — © {{ settings.brand_name | default: 'Squat Success' | upcase }}</span>
       <a class="pdp-footer__link" href="{{ routes.root_url }}policies/privacy-policy">Privacy policy</a>
     </div>
   </footer>

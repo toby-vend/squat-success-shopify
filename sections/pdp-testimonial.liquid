@@ -3,14 +3,14 @@
     <div class="pdp-quote__copy" data-deck>
       <span class="pdp-quote__mark" aria-hidden="true">“</span>
       {%- for block in section.blocks -%}
-        <div class="pdp-quote__item" data-deck-item {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
+        <div class="pdp-quote__item" data-deck-item="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
           <blockquote class="pdp-quote__text">“{{ block.settings.quote }}”</blockquote>
         </div>
       {%- endfor -%}
       <div class="pdp-quote__foot">
         <div>
           {%- for block in section.blocks -%}
-            <div class="pdp-quote__item" data-deck-item {% unless forloop.first %}hidden{% endunless %}>
+            <div class="pdp-quote__item" data-deck-item="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %}>
               <p class="pdp-quote__name">{{ block.settings.name }}</p>
               <p class="pdp-label pdp-quote__practice">{{ block.settings.practice }}</p>
             </div>
@@ -19,7 +19,7 @@
         <div class="pdp-quote__nav">
           <button type="button" data-deck-prev aria-label="Previous quote"><svg viewBox="0 0 14 14" width="12" height="12" fill="none"><path d="M9 1.5 3.5 7 9 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <button type="button" data-deck-next aria-label="Next quote"><svg viewBox="0 0 14 14" width="12" height="12" fill="none"><path d="M5 1.5 10.5 7 5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <span class="pdp-quote__count"><span data-deck-index class="is-current">01</span> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span>
+          <span class="pdp-quote__count"><span class="is-current" data-deck-current>01</span> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span>
         </div>
       </div>
     </div>
