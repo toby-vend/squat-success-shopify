@@ -11,6 +11,8 @@
     "name": "The book",
     "settings": [
       { "type": "product", "id": "book_product", "label": "Free book product", "info": "Used by every 'Send me my free copy' button. The button adds this product to the cart and goes straight to checkout." },
+      { "type": "select", "id": "cta_target", "label": "Buttons go to", "options": [ { "value": "pdp", "label": "The book page" }, { "value": "checkout", "label": "Straight to checkout" } ], "default": "pdp", "info": "Applies to every button outside the product page. Buttons on the product page always go straight to checkout." },
+      { "type": "text", "id": "book_page_url", "label": "Book page URL (used if no product is picked)", "default": "/products/dental-freedom-blueprint" },
       { "type": "text", "id": "postage_price", "label": "Postage price label", "default": "£4.95" },
       { "type": "text", "id": "support_email", "label": "Support email", "default": "hello@squatsuccess.co.uk" }
     ]

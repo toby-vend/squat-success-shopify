@@ -1,26 +1,35 @@
 {%- comment -%}
   The "Send me my free copy" button.
-  If settings.book_product is set, this posts the first available variant straight to checkout.
-  Otherwise it links to `fallback_url` (or the product page / #the-book).
+  On the product page (product_override given) it always posts the variant straight to checkout.
+  Elsewhere it follows Theme settings → The book → "Buttons go to": the book page (default) or straight to checkout.
+  Falls back to book_page_url / fallback_url / #the-book if no product is set.
 
   Params: label, style (amber|gold|outline), fallback_url, class
 {%- endcomment -%}
 {%- assign btn_label = label | default: 'Send me my free copy' -%}
 {%- assign btn_style = style | default: 'amber' -%}
-{%- assign book = settings.book_product -%}
-{%- if book != blank and book.available -%}
+{%- assign book = product_override | default: settings.book_product -%}
+{%- assign mode = settings.cta_target | default: 'pdp' -%}
+{%- if product_override != blank -%}
+  {%- assign use_form = true -%}
+{%- elsif mode == 'checkout' and book != blank and book.available -%}
+  {%- assign use_form = true -%}
+{%- else -%}
+  {%- assign use_form = false -%}
+{%- endif -%}
+{%- if use_form and book != blank and book.available -%}
   {%- form 'product', book, class: 'btn-form' -%}
     <input type="hidden" name="id" value="{{ book.selected_or_first_available_variant.id }}">
     <input type="hidden" name="quantity" value="1">
     <input type="hidden" name="return_to" value="/checkout">
-    <button type="submit" class="btn btn--{{ btn_style }} {{ class }}">
+    <button type="submit" class="btn btn--{{ btn_style }} {{ class }}{% if block %} btn--block{% endif %}">
       {{ btn_label }}
       {%- render 'icon-arrow' -%}
     </button>
   {%- endform -%}
 {%- else -%}
-  {%- assign href = fallback_url | default: book.url | default: '#the-book' -%}
-  <a class="btn btn--{{ btn_style }} {{ class }}" href="{{ href }}">
+  {%- assign href = book.url | default: settings.book_page_url | default: fallback_url | default: '#the-book' -%}
+  <a class="btn btn--{{ btn_style }} {{ class }}{% if block %} btn--block{% endif %}" href="{{ href }}">
     {{ btn_label }}
     {%- render 'icon-arrow' -%}
   </a>
