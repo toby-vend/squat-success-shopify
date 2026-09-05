@@ -11,6 +11,8 @@
   "current": {
     "postage_price": "£4.95",
     "support_email": "hello@squatsuccess.co.uk",
-    "creed": "BE BOLD   ·   BE BRAVE   ·   BE DIFFERENT   ·"
+    "creed": "BE BOLD   ·   BE BRAVE   ·   BE DIFFERENT   ·",
+    "cta_target": "form",
+    "book_variant_id": "58895118106969"
   }
 }

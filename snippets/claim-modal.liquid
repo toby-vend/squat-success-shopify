@@ -1,0 +1,44 @@
+{%- comment -%}
+  "Claim your copy" lead form — from Claude Design "Claim Your Copy - Lead Form".
+  Rendered once per page by the layouts. Any element with [data-claim-open] opens it.
+  On submit it sends the buyer to a cart permalink with the checkout pre-filled:
+  /cart/<variant>:1?checkout[email]=…&checkout[shipping_address][…]=…
+{%- endcomment -%}
+{%- liquid
+  if request.page_type == 'product' and product != blank
+    assign claim_variant = product.selected_or_first_available_variant.id
+  elsif settings.book_product != blank
+    assign claim_variant = settings.book_product.selected_or_first_available_variant.id
+  else
+    assign claim_variant = settings.book_variant_id
+  endif
+-%}
+<div class="claim" data-claim data-variant="{{ claim_variant }}" hidden>
+  <div class="claim__backdrop" data-claim-close></div>
+  <div class="claim__dialog" role="dialog" aria-modal="true" aria-labelledby="claim-title">
+    <button type="button" class="claim__x" data-claim-close aria-label="Close">
+      <svg viewBox="0 0 14 14" width="11" height="11" fill="none" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <form class="claim__form" data-claim-form novalidate>
+      <div class="claim__head">
+        <p class="pdp-label">{{ settings.claim_eyebrow | default: 'FREE PAPERBACK · £4.95 POSTAGE' }}</p>
+        <h2 class="claim__title" id="claim-title">{{ settings.claim_heading | default: 'Where shall we post your copy?' }}</h2>
+      </div>
+      <div class="claim__fields">
+        <label class="claim__field"><span>FULL NAME</span><input type="text" name="name" placeholder="Dr Bobby Bhandal" autocomplete="name" required></label>
+        <label class="claim__field"><span>EMAIL</span><input type="email" name="email" placeholder="you@practice.co.uk" autocomplete="email" inputmode="email" required></label>
+        <label class="claim__field"><span>PHONE</span><input type="tel" name="phone" placeholder="07700 900123" autocomplete="tel" inputmode="tel" required></label>
+        <div class="claim__field">
+          <span>ADDRESS</span>
+          <input type="text" name="line1" placeholder="12 Warwick Street" autocomplete="address-line1" maxlength="30" required aria-label="Address line">
+          <input type="text" name="city" placeholder="Town or city" autocomplete="address-level2" maxlength="30" required aria-label="Town or city">
+          <input type="text" name="postcode" placeholder="Postcode" autocomplete="postal-code" required aria-label="Postcode">
+          <small>UK addresses only. Keep each line under 30 characters.</small>
+        </div>
+      </div>
+      <p class="claim__error" data-claim-error hidden></p>
+      <button type="submit" class="btn btn--amber btn--block claim__submit">{{ settings.claim_button | default: 'Continue to postage' }} {% render 'icon-arrow' %}</button>
+      <p class="pdp-label pdp-label--muted claim__foot">{{ settings.claim_footer | default: '£4.95 POSTAGE · 5–7 DAYS · NO SUBSCRIPTION' }}</p>
+    </form>
+  </div>
+</div>

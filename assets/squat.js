@@ -148,3 +148,70 @@
     });
   }
 })();
+
+/* Claim-your-copy modal ------------------------------------------------ */
+(function () {
+  'use strict';
+  var modal = document.querySelector('[data-claim]');
+  if (!modal) return;
+  var form = modal.querySelector('[data-claim-form]');
+  var errorEl = modal.querySelector('[data-claim-error]');
+  var lastFocus = null;
+
+  function open() {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.body.classList.add('claim-open');
+    var first = form.querySelector('input');
+    if (first) setTimeout(function () { first.focus(); }, 30);
+  }
+  function close() {
+    modal.hidden = true;
+    document.body.classList.remove('claim-open');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function showError(msg) { errorEl.textContent = msg; errorEl.hidden = !msg; }
+
+  document.addEventListener('click', function (e) {
+    var opener = e.target.closest('[data-claim-open]');
+    if (opener) { e.preventDefault(); open(); return; }
+    if (e.target.closest('[data-claim-close]')) { e.preventDefault(); close(); }
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) close(); });
+  form.addEventListener('input', function () { showError(''); form.querySelectorAll('.is-invalid').forEach(function (i) { i.classList.remove('is-invalid'); }); });
+
+  function splitName(full) {
+    var parts = full.trim().split(/\s+/).filter(Boolean);
+    var titled = parts.length > 1 && /^(dr|mr|mrs|ms|miss|prof)\.?$/i.test(parts[0]);
+    var first = titled ? parts[1] : parts[0];
+    var last = parts.length > (titled ? 2 : 1) ? parts[parts.length - 1] : '';
+    return { first: first || '', last: last };
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = form.elements;
+    var v = { name: f.name.value, email: f.email.value, phone: f.phone.value, line1: f.line1.value, city: f.city.value, postcode: f.postcode.value };
+    var missing = Object.keys(v).filter(function (k) { return !v[k].trim(); });
+    if (missing.length) {
+      missing.forEach(function (k) { f[k].classList.add('is-invalid'); });
+      return showError('Please fill in every field so the printer can post it.');
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email.trim())) { f.email.classList.add('is-invalid'); return showError("That email doesn't look right — we send the confirmation there."); }
+    var name = splitName(v.name);
+    var q = {
+      'checkout[email]': v.email.trim(),
+      'checkout[shipping_address][first_name]': name.first,
+      'checkout[shipping_address][last_name]': name.last,
+      'checkout[shipping_address][phone]': v.phone.trim(),
+      'checkout[shipping_address][address1]': v.line1.trim(),
+      'checkout[shipping_address][city]': v.city.trim(),
+      'checkout[shipping_address][zip]': v.postcode.trim().toUpperCase(),
+      'checkout[shipping_address][country]': 'United Kingdom'
+    };
+    var query = Object.keys(q).filter(function (k) { return q[k]; }).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(q[k]); }).join('&');
+    var variant = modal.getAttribute('data-variant');
+    var btn = form.querySelector('.claim__submit'); if (btn) btn.disabled = true;
+    window.location.assign('/cart/' + variant + ':1?' + query);
+  });
+})();

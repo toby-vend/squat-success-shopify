@@ -11,7 +11,12 @@
     "name": "The book",
     "settings": [
       { "type": "product", "id": "book_product", "label": "Free book product", "info": "Used by every 'Send me my free copy' button. The button adds this product to the cart and goes straight to checkout." },
-      { "type": "select", "id": "cta_target", "label": "Buttons go to", "options": [ { "value": "pdp", "label": "The book page" }, { "value": "checkout", "label": "Straight to checkout" } ], "default": "pdp", "info": "Applies to every button outside the product page. Buttons on the product page always go straight to checkout." },
+      { "type": "select", "id": "cta_target", "label": "Buttons go to", "options": [ { "value": "form", "label": "Claim form, then checkout" }, { "value": "pdp", "label": "The book page" }, { "value": "checkout", "label": "Straight to checkout" } ], "default": "form", "info": "Claim form opens the address pop-up and sends the buyer to a pre-filled checkout. Buttons on the product page go straight to checkout unless Claim form is chosen." },
+      { "type": "text", "id": "book_variant_id", "label": "Book variant ID (used by the claim form if no product is picked)", "default": "58895118106969" },
+      { "type": "text", "id": "claim_eyebrow", "label": "Claim form eyebrow", "default": "FREE PAPERBACK · £4.95 POSTAGE" },
+      { "type": "text", "id": "claim_heading", "label": "Claim form heading", "default": "Where shall we post your copy?" },
+      { "type": "text", "id": "claim_button", "label": "Claim form button", "default": "Continue to postage" },
+      { "type": "text", "id": "claim_footer", "label": "Claim form footer", "default": "£4.95 POSTAGE · 5–7 DAYS · NO SUBSCRIPTION" },
       { "type": "text", "id": "book_page_url", "label": "Book page URL (used if no product is picked)", "default": "/products/dental-freedom-blueprint" },
       { "type": "text", "id": "postage_price", "label": "Postage price label", "default": "£4.95" },
       { "type": "text", "id": "support_email", "label": "Support email", "default": "hello@squatsuccess.co.uk" }

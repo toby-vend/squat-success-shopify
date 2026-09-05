@@ -1,7 +1,7 @@
 {%- comment -%}
   The "Send me my free copy" button.
   On the product page (product_override given) it always posts the variant straight to checkout.
-  Elsewhere it follows Theme settings → The book → "Buttons go to": the book page (default) or straight to checkout.
+  Theme settings → The book → "Buttons go to": claim form (default, opens the modal that pre-fills checkout), the book page, or straight to checkout.
   Falls back to book_page_url / fallback_url / #the-book if no product is set.
 
   Params: label, style (amber|gold|outline), fallback_url, class
@@ -9,7 +9,13 @@
 {%- assign btn_label = label | default: 'Send me my free copy' -%}
 {%- assign btn_style = style | default: 'amber' -%}
 {%- assign book = product_override | default: settings.book_product -%}
-{%- assign mode = settings.cta_target | default: 'pdp' -%}
+{%- assign mode = settings.cta_target | default: 'form' -%}
+{%- if mode == 'form' -%}
+  <button type="button" class="btn btn--{{ btn_style }} {{ class }}{% if block %} btn--block{% endif %}" data-claim-open>
+    {{ btn_label }}
+    {%- render 'icon-arrow' -%}
+  </button>
+{%- else -%}
 {%- if product_override != blank -%}
   {%- assign use_form = true -%}
 {%- elsif mode == 'checkout' and book != blank and book.available -%}
@@ -33,4 +39,5 @@
     {{ btn_label }}
     {%- render 'icon-arrow' -%}
   </a>
+{%- endif -%}
 {%- endif -%}
