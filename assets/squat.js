@@ -427,28 +427,55 @@
       var tag = form.getAttribute('data-tag') || 'book-requested';
       saveLead(v);
 
-      // 1. Cart permalink: pre-fills checkout and stamps the cart so /cart knows the lead was captured
+      // 1. Fallback route: cart permalink. Shopify's checkout no longer honours checkout[...] prefill params on
+      //    permalinks (they are stripped on the Shop Pay universal redirect), but the cart attributes survive.
       var q = {
-        'checkout[email]': v.email,
-        'checkout[shipping_address][first_name]': name.first,
-        'checkout[shipping_address][last_name]': name.last,
-        'checkout[shipping_address][phone]': v.phone,
-        'checkout[shipping_address][address1]': v.line1,
-        'checkout[shipping_address][city]': v.city,
-        'checkout[shipping_address][zip]': v.postcode,
-        'checkout[shipping_address][country]': 'United Kingdom',
         'attributes[claimed]': '1',
         'attributes[lead_source]': source,
         'attributes[utm_source]': attr.utm_source || '',
         'attributes[utm_medium]': attr.utm_medium || '',
         'attributes[utm_campaign]': attr.utm_campaign || ''
       };
-      var target = '/cart/' + form.getAttribute('data-variant') + ':1?' + encode(q);
+      var variant = form.getAttribute('data-variant');
+      var target = '/cart/' + variant + ':1?' + encode(q);
 
-      // 2. Lead → GHL inbound webhook(s), flat JSON so every key maps in the workflow builder
+      // 2. Preferred route: Storefront API cartCreate (tokenless from the store's own domain) with buyerIdentity +
+      //    a selected delivery address, which the new checkout DOES prefill. Redirect to cart.checkoutUrl.
+      var attrs = Object.keys(q).map(function (k) { return { key: k.slice(11, -1), value: q[k] }; }).filter(function (a) { return a.value; });
+      var phoneE164 = (function (raw) {
+        var d = raw.replace(/[^\d+]/g, '');
+        if (/^\+/.test(d)) return d;
+        if (/^00/.test(d)) return '+' + d.slice(2);
+        if (/^0/.test(d)) return '+44' + d.slice(1);
+        if (/^44/.test(d)) return '+' + d;
+        return '+44' + d;
+      })(v.phone);
+      function cartCreate(withPhone) {
+        var address = { firstName: name.first, lastName: name.last, address1: v.line1, city: v.city, zip: v.postcode, countryCode: 'GB' };
+        var buyer = { email: v.email, countryCode: 'GB' };
+        if (withPhone) { address.phone = phoneE164; buyer.phone = phoneE164; }
+        var body = JSON.stringify({
+          query: 'mutation cartCreate($input: CartInput!) { cartCreate(input: $input) { cart { checkoutUrl } userErrors { field message } } }',
+          variables: { input: {
+            lines: [{ merchandiseId: 'gid://shopify/ProductVariant/' + variant, quantity: 1 }],
+            buyerIdentity: buyer,
+            delivery: { addresses: [{ selected: true, oneTimeUse: true, address: { deliveryAddress: address } }] },
+            attributes: attrs
+          } }
+        });
+        return fetch('/api/2026-07/graphql.json', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body })
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            var c = j && j.data && j.data.cartCreate;
+            if (c && c.cart && c.cart.checkoutUrl) return c.cart.checkoutUrl;
+            if (withPhone && c && c.userErrors && c.userErrors.some(function (e) { return /phone/i.test((e.field || []).join('.')); })) return cartCreate(false);
+            return null;
+          });
+      }
+
+      // 3. Lead → GHL inbound webhook(s), flat JSON so every key maps in the workflow builder
       var urls = (form.getAttribute('data-webhooks') || '').split(/[\s,]+/).filter(function (u) { return /^https?:\/\//.test(u); });
       var btn = form.querySelector('.claim__submit'); if (btn) btn.disabled = true;
-      if (!urls.length) return window.location.assign(target);
       var payload = JSON.stringify({
         first_name: name.first, last_name: name.last, full_name: v.name,
         email: v.email, phone: v.phone,
@@ -461,7 +488,14 @@
         landing_page: attr.landing_page || '', referrer: attr.referrer || '',
         page: location.href, submitted_at: new Date().toISOString()
       });
-      postAll(urls, payload, function () { window.location.assign(target); });
+
+      var checkoutUrl = null, done = false;
+      var go = function () { if (done) return; done = true; window.location.assign(checkoutUrl || target); };
+      var pending = 2;
+      var one = function () { if (--pending <= 0) go(); };
+      setTimeout(go, 3500);
+      cartCreate(true).then(function (u) { checkoutUrl = u; one(); }, one);
+      if (urls.length) postAll(urls, payload, one); else one();
     });
   });
 })();

@@ -6,8 +6,9 @@
     1. saves the details in localStorage (ss_lead) so the form is pre-filled next time,
     2. POSTs a flat JSON lead to every webhook URL in Theme settings → GoHighLevel (one per line),
        tagged with settings.ghl_form_tag,
-    3. sends the buyer to a cart permalink with checkout pre-filled and cart attributes set
-       (attributes[claimed]=1 is what the cart page checks to gate checkout).
+    3. creates a Storefront API cart (tokenless, same origin) with buyerIdentity + a selected delivery address so
+       checkout opens pre-filled, and sends the buyer to its checkoutUrl. Falls back to a cart permalink with
+       attributes[claimed]=1 (what the cart page checks to gate checkout) if the API call fails.
 
   Params: heading_tag (h1|h2, default h2), context (modal|page)
 {%- endcomment -%}

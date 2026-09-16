@@ -33,8 +33,9 @@ Copy and images are editable per section in the theme editor; bundled Figma expo
 Landing page / book page / cart ──► Claim form (pop-up)
         │                                   │
         │                                   ├─► POST JSON to GHL inbound webhook  → tag `book-requested`
-        │                                   └─► /cart/<variant>:1?checkout[…]&attributes[claimed]=1
-        │                                                (checkout pre-filled with name, email, phone, address)
+        │                                   └─► Storefront API cartCreate (buyerIdentity + delivery address, attributes)
+        │                                                → cart.checkoutUrl, checkout pre-filled with name, email, phone, address
+        │                                                (fallback: /cart/<variant>:1?attributes[claimed]=1 permalink)
         └─ /cart without attributes[claimed] ─► "Tell us where to post it" (opens the form) — checkout button hidden
 
 Shopify admin ─ orders/paid webhook ─► GHL inbound webhook → match on email → tag `book-received`
@@ -42,7 +43,9 @@ Shopify admin ─ orders/paid webhook ─► GHL inbound webhook → match on em
 
 - Form markup: `snippets/claim-form.liquid`, rendered by the pop-up `snippets/claim-modal.liquid`. Any link with `?claim` opens the pop-up.
 - JS: `assets/squat.js` "Claim your copy". Saves the lead in `localStorage.ss_lead` (pre-fills the form on return),
-  posts a flat JSON payload to every URL in Theme settings → GoHighLevel (one per line), then follows the permalink.
+  posts a flat JSON payload to every URL in Theme settings → GoHighLevel (one per line), creates the cart via
+  `/api/2026-07/graphql.json` (no token needed from the store's own domain) and redirects to its checkoutUrl.
+  Shopify strips `checkout[...]` prefill params from permalinks on the new checkout, which is why the API route is used.
 - Gate: `sections/main-cart.liquid` hides checkout unless the cart has `attributes[claimed]=1`;
   `sections/main-product.liquid` and `snippets/order-button.liquid` route through the form when
   "Buttons go to" = Claim form. Set it to "Straight to checkout" to switch the gate off.
