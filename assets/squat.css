@@ -625,7 +625,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .faq-card__q { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 26px 32px; text-align: left; font-family: var(--font-body); font-weight: 500; font-size: 17px; line-height: 26px; letter-spacing: -.01em; color: var(--ss-white); cursor: pointer; }
 .faq-card__q svg { width: 22px; height: 12px; flex: none; color: rgba(166,139,96,.44); transition: transform .35s cubic-bezier(.22,1,.36,1); }
 .faq-card[open] .faq-card__q svg { transform: rotate(180deg); }
-.faq-card__a { padding: 0 32px 26px; overflow: hidden; }
+.faq-card__a { padding: 0 32px 26px; opacity: 1; transition: opacity .25s ease; }
+.faq-card.is-closing .faq-card__a { opacity: 0; }
+.faq-card.is-closing .faq-card__q svg { transform: none; }
+.faq-card { box-sizing: border-box; }
 .faq-card__a::before { content: ""; display: block; height: 1px; background: rgba(166,139,96,.6); margin-bottom: 20px; }
 .faq-card__a p { font-size: 16px; line-height: 27px; color: rgba(255,255,255,.72); }
 .faq-card summary { list-style: none; }

@@ -243,23 +243,33 @@
     });
   });
 
-  /* FAQ — Figma FAQCard: open/close smart-animates over 350ms cubic-bezier(.22,1,.36,1); one open per column */
+  /* FAQ — Figma FAQCard: open/close smart-animates over 350ms cubic-bezier(.22,1,.36,1); one open per column.
+     The whole card animates between its closed and open heights, so nothing jumps. */
   (function () {
-    var EASE = 'cubic-bezier(.22,1,.36,1)';
+    var EASE = 'cubic-bezier(.22,1,.36,1)', DUR = 350;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function body(d) { return d.querySelector('.faq-card__a'); }
+    function run(d, from, to, done) {
+      d.style.overflow = 'hidden'; d.style.height = from + 'px';
+      var anim = d.animate([{ height: from + 'px' }, { height: to + 'px' }], { duration: DUR, easing: EASE });
+      anim.onfinish = anim.oncancel = function () { d.style.height = ''; d.style.overflow = ''; d.__anim = null; done && done(); };
+      d.__anim = anim;
+    }
     function openCard(d) {
-      var a = body(d); if (!a) { d.open = true; return; }
-      d.open = true;
-      if (reduce || !a.animate) return;
-      var h = a.scrollHeight;
-      a.animate([{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }], { duration: 350, easing: EASE }).onfinish = function () { a.style.height = ''; };
+      if (d.__anim) d.__anim.cancel();
+      if (reduce || !d.animate) { d.open = true; return; }
+      var from = d.offsetHeight;
+      d.open = true; d.classList.remove('is-closing');
+      var to = d.offsetHeight;
+      run(d, from, to);
     }
     function closeCard(d) {
-      var a = body(d); if (!a || reduce || !a.animate) { d.open = false; return; }
-      var h = a.scrollHeight;
-      var anim = a.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 350, easing: EASE });
-      anim.onfinish = function () { d.open = false; a.style.height = ''; };
+      if (d.__anim) d.__anim.cancel();
+      if (reduce || !d.animate) { d.open = false; return; }
+      var from = d.offsetHeight;
+      var sum = d.querySelector('summary');
+      var to = sum ? sum.offsetHeight + 2 : 0;
+      d.classList.add('is-closing');
+      run(d, from, to, function () { d.open = false; d.classList.remove('is-closing'); });
     }
     $$('[data-faq-col]').forEach(function (col) {
       var cards = $$('details', col);
@@ -267,7 +277,7 @@
         var sum = d.querySelector('summary'); if (!sum) return;
         sum.addEventListener('click', function (e) {
           e.preventDefault();
-          if (d.open) return closeCard(d);
+          if (d.open && !d.classList.contains('is-closing')) return closeCard(d);
           cards.forEach(function (o) { if (o !== d && o.open) closeCard(o); });
           openCard(d);
         });
