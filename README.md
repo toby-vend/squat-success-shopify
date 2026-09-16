@@ -30,7 +30,7 @@ Copy and images are editable per section in the theme editor; bundled Figma expo
 ## Lead capture → GHL → checkout (the gated flow)
 
 ```
-Landing page / book page / cart ──► Claim form (pop-up, or /pages/claim)
+Landing page / book page / cart ──► Claim form (pop-up)
         │                                   │
         │                                   ├─► POST JSON to GHL inbound webhook  → tag `book-requested`
         │                                   └─► /cart/<variant>:1?checkout[…]&attributes[claimed]=1
@@ -40,8 +40,7 @@ Landing page / book page / cart ──► Claim form (pop-up, or /pages/claim)
 Shopify admin ─ orders/paid webhook ─► GHL inbound webhook → match on email → tag `book-received`
 ```
 
-- Form markup: `snippets/claim-form.liquid` (used by the pop-up `snippets/claim-modal.liquid` and the standalone
-  template `templates/page.claim.json` → assign it to a page, e.g. `/pages/claim`). Any link with `?claim` opens the pop-up.
+- Form markup: `snippets/claim-form.liquid`, rendered by the pop-up `snippets/claim-modal.liquid`. Any link with `?claim` opens the pop-up.
 - JS: `assets/squat.js` "Claim your copy". Saves the lead in `localStorage.ss_lead` (pre-fills the form on return),
   posts a flat JSON payload to every URL in Theme settings → GoHighLevel (one per line), then follows the permalink.
 - Gate: `sections/main-cart.liquid` hides checkout unless the cart has `attributes[claimed]=1`;
