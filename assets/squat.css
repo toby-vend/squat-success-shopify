@@ -435,6 +435,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .fit__big { font-family: var(--font-display); font-weight: 700; font-size: clamp(44px, 4.6vw, 64px); line-height: 1; letter-spacing: -.01em; margin: 14px 0 22px; }
 .fit__big--order { background: linear-gradient(90deg, #e9a24a 0%, #e9872c 40%, #c49c60 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .fit__big--skip { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.35); }
+.fit__big--vector img { display: block; width: auto; height: 1em; max-width: none; }
 .fit__sub { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: .24em; color: var(--ss-gold); }
 .fit__side--skip .fit__sub { color: rgba(255,255,255,.5); }
 .fit__list { display: flex; flex-direction: column; gap: 22px; padding-top: 38px; max-width: 476px; }
