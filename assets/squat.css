@@ -197,23 +197,28 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero__sub strong { font-weight: 500; color: var(--ss-cream); }
 .hero__cta { padding-top: 6px; }
 
-/* Book stage — shared by hero and decision (Figma component "book-stage" 460 × 560) */
-.book-stage { position: relative; width: 460px; height: 560px; flex: none; }
-.book-stage__shadow { position: absolute; left: 60px; top: 470px; width: 340px; height: 60px; border-radius: 50%; background: rgba(0,0,0,.55); filter: blur(19px); }
-.book-stage__page { position: absolute; left: 83px; top: 52px; width: 300px; height: 430px; border-radius: 4px; transform: rotate(4deg); background: #ebe6db; }
-.book-stage__page--2 { left: 79px; top: 50px; background: #dbd6cc; }
-.book-stage__page--3 { left: 75px; top: 48px; background: #ccc7bd; }
+/* Book stage — Figma component "BookStage" (460 × 560) and its prototype states ------
+   Every layer is a 300 × 430 box moved with transforms so the state changes animate on the compositor.
+   Layer centres (x, y), rotation and shadow per state come straight from the Figma variants. */
+.book-stage { position: relative; width: 460px; height: 560px; flex: none; --ease-lift: cubic-bezier(.22,1,.36,1); --t: .28s; --e: var(--ease-lift); }
+.book-stage > * { transition: transform var(--t) var(--e), opacity var(--t) var(--e), box-shadow var(--t) var(--e), width var(--t) var(--e), height var(--t) var(--e); }
+.book-stage__shadow { position: absolute; left: 0; top: 0; width: 340px; height: 60px; border-radius: 50%; background: rgba(0,0,0,.55); filter: blur(19px); transform: translate(60px, 470px); transform-origin: 0 0; }
+.book-stage__page, .book-stage__cover { position: absolute; left: 0; top: 0; width: 300px; height: 430px; border-radius: 4px; transform-origin: 50% 50%; }
+.book-stage__page--0 { background: #ebe6db; transform: translate(82.6px, 52px) rotate(4deg); }
+.book-stage__page--1 { background: #dbd6cc; transform: translate(78.6px, 50px) rotate(4deg); }
+.book-stage__page--2 { background: #ccc7bd; transform: translate(74.6px, 48px) rotate(4deg); }
 .book-stage__cover {
-  position: absolute; left: 63px; top: 40px; width: 300px; height: 430px; border-radius: 4px; overflow: hidden;
-  transform: rotate(4deg);
+  overflow: hidden; cursor: pointer; padding: 0;
   border: 1px solid rgba(196,156,96,.4);
   box-shadow: -18px 22px 40px -8px rgba(0,0,0,.6);
   background: #000 linear-gradient(124.9deg, #292421 0%, #0d0a0a 46.4%);
+  transform: translate(62.6px, 40px) rotate(4deg) scaleX(1);
 }
-.book-stage__cover img { width: 100%; height: 100%; object-fit: contain; }
+.book-stage__cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity .12s linear; }
+.book-stage__back { opacity: 0; }
 .book-stage__seal {
-  position: absolute; left: 253px; top: 455px; width: 104px; height: 104px; border-radius: 50%;
-  transform: rotate(12deg);
+  position: absolute; left: 0; top: 0; width: 104px; height: 104px; border-radius: 50%;
+  transform: translate(253px, 454.7px) rotate(12deg); transform-origin: 50% 50%;
   background: radial-gradient(circle at center, #e7c489 0%, #c7a874 50%, #a68b60 100%);
   filter: drop-shadow(0 10px 14px rgba(196,156,96,.45));
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-align: center; color: var(--ss-black);
@@ -221,6 +226,47 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .book-stage__seal b { font-family: var(--font-display); font-weight: 700; font-size: 26px; letter-spacing: 1px; line-height: 1; }
 .book-stage__seal small { font-family: var(--font-label); font-weight: 700; font-size: 9px; letter-spacing: 2px; }
 .book-stage__seal em { font-style: normal; font-size: 8.5px; color: rgba(27,27,27,.75); }
+.book-stage__hint { position: absolute; left: 0; right: 0; top: 526px; text-align: center; font-family: var(--font-label); font-weight: 700; font-size: 10px; letter-spacing: .3em; color: var(--ss-gold); opacity: 0; }
+.book-stage__hint span { display: block; transition: opacity var(--t) var(--e); }
+.book-stage__hint-back { position: absolute; left: 0; right: 0; top: 0; opacity: 0; }
+
+/* Hover — lift, straighten to 1.5°, bigger softer shadow, seal grows, hint appears (280ms) */
+.book-stage.is-hover .book-stage__shadow { transform: translate(36px, 498px) scale(1.141, .933); }
+.book-stage.is-hover .book-stage__page--0 { transform: translate(92.3px, 29.9px) rotate(1.5deg); }
+.book-stage.is-hover .book-stage__page--1 { transform: translate(88.3px, 27.9px) rotate(1.5deg); }
+.book-stage.is-hover .book-stage__page--2 { transform: translate(84.3px, 25.9px) rotate(1.5deg); }
+.book-stage.is-hover .book-stage__cover { transform: translate(72.3px, 17.9px) rotate(1.5deg) scaleX(1); box-shadow: -24px 34px 64px 0 rgba(0,0,0,.55); }
+.book-stage.is-hover .book-stage__seal { transform: translate(263.7px, 455.6px) rotate(6deg) scale(1.096); }
+.book-stage.is-hover .book-stage__hint { opacity: 1; }
+
+/* Edge — the book turns spine-on: 48px wide, 2°, artwork hidden (220ms ease-in) */
+.book-stage.is-edge { --t: .22s; --e: ease-in; }
+.book-stage.is-edge .book-stage__shadow { transform: translate(155px, 500px) scale(.441, .833); }
+.book-stage.is-edge .book-stage__page--0 { transform: translate(72.5px, 26.7px) rotate(2deg) scaleX(.16); }
+.book-stage.is-edge .book-stage__page--1 { transform: translate(70.5px, 24.7px) rotate(2deg) scaleX(.16); }
+.book-stage.is-edge .book-stage__page--2 { transform: translate(68.5px, 22.7px) rotate(2deg) scaleX(.16); }
+.book-stage.is-edge .book-stage__cover { transform: translate(70.5px, 14.7px) rotate(2deg) scaleX(.16); box-shadow: -24px 34px 64px 0 rgba(0,0,0,.55); }
+.book-stage.is-edge .book-stage__cover img { opacity: 0; }
+.book-stage.is-edge .book-stage__seal { opacity: 0; transform: translate(263.7px, 455.6px) rotate(6deg) scale(.9); }
+.book-stage.is-edge .book-stage__hint { opacity: 0; }
+
+/* Back — the back cover, tilted -4° with the page edges now on the left (220ms ease-out) */
+.book-stage.is-back { --t: .22s; --e: ease-out; }
+.book-stage.is-back .book-stage__shadow { transform: translate(36px, 498px) scale(1.141, .933); }
+.book-stage.is-back .book-stage__page--0 { transform: translate(72.6px, 15px) rotate(-4deg) scaleX(1); }
+.book-stage.is-back .book-stage__page--1 { transform: translate(76.6px, 13px) rotate(-4deg) scaleX(1); }
+.book-stage.is-back .book-stage__page--2 { transform: translate(80.6px, 11px) rotate(-4deg) scaleX(1); }
+.book-stage.is-back .book-stage__cover { transform: translate(92.6px, 3px) rotate(-4deg) scaleX(1); box-shadow: -24px 34px 64px 0 rgba(0,0,0,.55); }
+.book-stage.is-back .book-stage__front { opacity: 0; }
+.book-stage.is-back .book-stage__back { opacity: 1; }
+.book-stage.is-back .book-stage__seal { opacity: 0; }
+.book-stage.is-back .book-stage__hint { opacity: 1; }
+.book-stage.is-back .book-stage__hint-front { opacity: 0; }
+.book-stage.is-back .book-stage__hint-back { opacity: 1; }
+
+/* Back → Rest closes with the lift easing over 500ms */
+.book-stage.is-closing { --t: .5s; --e: var(--ease-lift); }
+@media (prefers-reduced-motion: reduce) { .book-stage > *, .book-stage__hint span, .book-stage__cover img { transition-duration: .01ms; } }
 @media (max-width: 1100px) {
   .hero__grid { grid-template-columns: 1fr; padding-bottom: 64px; min-height: 0; justify-items: center; }
   .hero__copy { max-width: none; width: 100%; }

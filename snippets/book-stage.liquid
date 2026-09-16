@@ -1,22 +1,29 @@
 {%- comment -%}
-  The tilted paperback with FREE seal — Figma component "book-stage" (460 × 560).
-  Params: cover (image_picker, optional), postage (text), priority ('high' for the hero LCP image), class
+  Interactive paperback — Figma component "BookStage" (460 × 560) with its prototype states:
+  Rest → hover → Hover (lift, 280ms) → click → Edge (spine-on, 220ms ease-in) → Back (back cover, 220ms ease-out) → click → Rest (500ms).
+  Params: cover (image_picker), back (image_picker), postage (text), priority ('high' for the hero LCP image), class
 {%- endcomment -%}
-<div class="book-stage {{ class }}" aria-hidden="true">
-  <div class="book-stage__shadow"></div>
-  <div class="book-stage__page"></div>
-  <div class="book-stage__page book-stage__page--2"></div>
-  <div class="book-stage__page book-stage__page--3"></div>
-  <div class="book-stage__cover">
+<div class="book-stage {{ class }}" data-book>
+  <div class="book-stage__shadow" aria-hidden="true"></div>
+  <div class="book-stage__page book-stage__page--0" aria-hidden="true"></div>
+  <div class="book-stage__page book-stage__page--1" aria-hidden="true"></div>
+  <div class="book-stage__page book-stage__page--2" aria-hidden="true"></div>
+  <button type="button" class="book-stage__cover" data-book-flip aria-pressed="false" aria-label="Turn the book over to read the back cover">
     {%- if cover != blank -%}
-      {{ cover | image_url: width: 600 | image_tag: alt: '', loading: 'eager', widths: '300, 600', sizes: '300px' }}
+      {{ cover | image_url: width: 600 | image_tag: class: 'book-stage__front', alt: '', loading: 'eager', widths: '300, 600', sizes: '300px' }}
     {%- else -%}
-      <img src="{{ 'cover-art.webp' | asset_url }}" alt="" width="600" height="902" decoding="async" {% if priority == 'high' %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+      <img class="book-stage__front" src="{{ 'cover-art.webp' | asset_url }}" alt="" width="600" height="902" decoding="async" {% if priority == 'high' %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
     {%- endif -%}
-  </div>
-  <div class="book-stage__seal">
+    {%- if back != blank -%}
+      {{ back | image_url: width: 600 | image_tag: class: 'book-stage__back', alt: '', loading: 'lazy', widths: '300, 600', sizes: '300px' }}
+    {%- else -%}
+      <img class="book-stage__back" src="{{ 'back-art.webp' | asset_url }}" alt="" width="600" height="902" loading="lazy" decoding="async">
+    {%- endif -%}
+  </button>
+  <div class="book-stage__seal" aria-hidden="true">
     <b>FREE</b>
     <small>PAPERBACK</small>
     <em>you cover {{ postage | default: settings.postage_price | default: '£4.95' }} P&amp;P</em>
   </div>
+  <p class="book-stage__hint" aria-hidden="true"><span class="book-stage__hint-front">TURN IT OVER &nbsp;→</span><span class="book-stage__hint-back">BACK TO COVER &nbsp;←</span></p>
 </div>

@@ -18,6 +18,48 @@
     });
   });
 
+  /* Book stage — Figma "BookStage" prototype: Rest → Hover → Edge → Back → Rest ------- */
+  $$('[data-book]').forEach(function (book) {
+    var flip = $('[data-book-flip]', book);
+    var state = 'rest';
+    var timer = null;
+    var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    function set(next) {
+      state = next;
+      book.classList.toggle('is-hover', next === 'hover');
+      book.classList.toggle('is-edge', next === 'edge');
+      book.classList.toggle('is-back', next === 'back');
+      book.classList.toggle('is-closing', next === 'closing');
+      if (flip) flip.setAttribute('aria-pressed', next === 'back' ? 'true' : 'false');
+    }
+    function flipOver() {
+      clearTimeout(timer);
+      set('edge');                                  // 220ms ease-in to the spine
+      timer = setTimeout(function () { set('back'); }, 221); // then 220ms ease-out to the back cover
+    }
+    function close() {
+      clearTimeout(timer);
+      set('closing');                               // 500ms lift easing back to rest
+      timer = setTimeout(function () { if (state === 'closing') set(book.matches(':hover') && hoverable ? 'hover' : 'rest'); }, 500);
+    }
+
+    if (hoverable) {
+      book.addEventListener('mouseenter', function () { if (state === 'rest') set('hover'); });
+      book.addEventListener('mouseleave', function () { if (state === 'hover') set('rest'); });
+    }
+    if (flip) {
+      flip.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (state === 'back') close();
+        else if (state === 'rest' || state === 'hover') flipOver();
+      });
+      flip.addEventListener('focus', function () { if (state === 'rest') set('hover'); });
+      flip.addEventListener('blur', function () { if (state === 'hover') set('rest'); });
+    }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state === 'back') close(); });
+  });
+
   /* Chapter reader ------------------------------------------------------ */
   $$('[data-reader]').forEach(function (reader) {
     var tabs = $$('[data-reader-tab]', reader);

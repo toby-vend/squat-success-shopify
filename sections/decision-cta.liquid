@@ -19,7 +19,7 @@
       <p class="decision__note">{{ section.settings.note }}</p>
     </div>
     <p class="assurance"><b>{{ section.settings.assure_1_bold }}</b> {{ section.settings.assure_1 }}<br><b>{{ section.settings.assure_2_bold }}</b>{{ section.settings.assure_2 }}</p>
-    {% render 'book-stage', cover: section.settings.cover, class: 'decision__stage' %}
+    {% render 'book-stage', cover: section.settings.cover, back: section.settings.back, class: 'decision__stage' %}
   </div>
 </section>
 {% schema %}
@@ -28,6 +28,7 @@
   "settings": [
     { "type": "image_picker", "id": "background", "label": "Background (optional — bundled image used by default)" },
     { "type": "image_picker", "id": "cover", "label": "Book cover (optional — bundled artwork used by default)" },
+    { "type": "image_picker", "id": "back", "label": "Back cover (optional — bundled artwork used by default)" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE DECISION" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Your copy is" },
     { "type": "text", "id": "heading_accent", "label": "Heading accent (gradient)", "default": "waiting." },

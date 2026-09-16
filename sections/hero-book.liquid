@@ -11,7 +11,7 @@
       </div>
       {%- if section.settings.note != blank -%}<p class="small-print">{{ section.settings.note }}</p>{%- endif -%}
     </div>
-    {% render 'book-stage', cover: section.settings.cover, priority: 'high' %}
+    {% render 'book-stage', cover: section.settings.cover, back: section.settings.back, priority: 'high' %}
   </div>
   <div class="hero__fade"></div>
 </section>
@@ -27,7 +27,8 @@
     { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Send me my free copy" },
     { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Send me my free copy" },
     { "type": "text", "id": "note", "label": "Small print", "default": "Free book · You cover £4.95 postage · Printed to order in the UK · With you in 5–7 days" },
-    { "type": "image_picker", "id": "cover", "label": "Book cover (optional — bundled artwork used by default)" }
+    { "type": "image_picker", "id": "cover", "label": "Book cover (optional — bundled artwork used by default)" },
+    { "type": "image_picker", "id": "back", "label": "Back cover (optional — bundled artwork used by default)" }
   ],
   "presets": [{ "name": "Hero — the book" }]
 }
