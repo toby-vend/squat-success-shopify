@@ -1,7 +1,7 @@
 {
   "general": {
     "search": { "search": "Search", "no_results": "No results found for \"{{ terms }}\"." },
-    "cart": { "title": "Your order", "empty": "Your cart is empty.", "checkout": "Go to checkout", "update": "Update", "remove": "Remove", "subtotal": "Subtotal", "shipping_note": "Postage calculated at checkout." },
+    "cart": { "title": "Your order", "empty": "Your cart is empty.", "checkout": "Go to checkout", "update": "Update", "remove": "Remove", "subtotal": "Subtotal", "shipping_note": "Postage calculated at checkout.", "claim_first": "Tell us where to post it", "claim_note": "One quick step before payment: your name, email and postal address. They carry straight through to checkout so you don't type them twice." },
     "product": { "add_to_cart": "Send me my free copy", "sold_out": "Not available right now", "unavailable": "Unavailable" },
     "404": { "title": "That page has gone missing.", "text": "Head back to the book." },
     "continue": "Continue"

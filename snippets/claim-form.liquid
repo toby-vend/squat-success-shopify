@@ -1,0 +1,53 @@
+{%- comment -%}
+  The lead-capture form used by the claim modal (snippets/claim-modal) and the standalone
+  claim page (sections/claim-page). One markup, one JS handler (assets/squat.js, "Claim your copy").
+
+  On submit the JS:
+    1. saves the details in localStorage (ss_lead) so the form is pre-filled next time,
+    2. POSTs a flat JSON lead to every webhook URL in Theme settings → GoHighLevel (one per line),
+       tagged with settings.ghl_form_tag,
+    3. sends the buyer to a cart permalink with checkout pre-filled and cart attributes set
+       (attributes[claimed]=1 is what the cart page checks to gate checkout).
+
+  Params: heading_tag (h1|h2, default h2), context (modal|page)
+{%- endcomment -%}
+{%- liquid
+  if request.page_type == 'product' and product != blank
+    assign claim_variant = product.selected_or_first_available_variant.id
+  elsif settings.book_product != blank
+    assign claim_variant = settings.book_product.selected_or_first_available_variant.id
+  else
+    assign claim_variant = settings.book_variant_id
+  endif
+  assign tag = heading_tag | default: 'h2'
+  assign ctx = context | default: 'modal'
+  assign title_id = 'claim-title-' | append: ctx
+-%}
+<form class="claim__form claim__form--{{ ctx }}" data-claim-form
+  data-variant="{{ claim_variant }}"
+  data-design-mode="{{ request.design_mode }}"
+  data-webhooks="{{ settings.ghl_form_webhook | strip | escape }}"
+  data-tag="{{ settings.ghl_form_tag | default: 'book-requested' | escape }}"
+  data-source="{{ settings.ghl_source | default: request.host | escape }}"
+  data-product="{{ product.title | default: settings.book_product.title | escape }}"
+  novalidate>
+  <div class="claim__head">
+    <p class="pdp-label">{{ settings.claim_eyebrow | default: 'FREE PAPERBACK · £4.95 POSTAGE' }}</p>
+    <{{ tag }} class="claim__title" id="{{ title_id }}">{{ settings.claim_heading | default: 'Where shall we post your copy?' }}</{{ tag }}>
+  </div>
+  <div class="claim__fields">
+    <label class="claim__field"><span>FULL NAME</span><input type="text" name="name" placeholder="Dr Bobby Bhandal" autocomplete="name" required></label>
+    <label class="claim__field"><span>EMAIL</span><input type="email" name="email" placeholder="you@practice.co.uk" autocomplete="email" inputmode="email" required></label>
+    <label class="claim__field"><span>PHONE</span><input type="tel" name="phone" placeholder="07700 900123" autocomplete="tel" inputmode="tel" required></label>
+    <div class="claim__field">
+      <span>ADDRESS</span>
+      <input type="text" name="line1" placeholder="12 Warwick Street" autocomplete="address-line1" maxlength="30" required aria-label="Address line">
+      <input type="text" name="city" placeholder="Town or city" autocomplete="address-level2" maxlength="30" required aria-label="Town or city">
+      <input type="text" name="postcode" placeholder="Postcode" autocomplete="postal-code" required aria-label="Postcode">
+      <small>UK addresses only. Keep each line under 30 characters.</small>
+    </div>
+  </div>
+  <p class="claim__error" data-claim-error hidden></p>
+  <button type="submit" class="btn btn--amber btn--block claim__submit">{{ settings.claim_button | default: 'Continue to postage' }} {% render 'icon-arrow' %}</button>
+  <p class="pdp-label pdp-label--muted claim__foot">{{ settings.claim_footer | default: '£4.95 POSTAGE · 5–7 DAYS · NO SUBSCRIPTION' }}</p>
+</form>

@@ -338,36 +338,41 @@
   } catch (e) { window.__ssAttribution = {}; }
 })();
 
-/* Claim-your-copy modal ------------------------------------------------ */
+/* Claim your copy — lead capture → GHL webhook → pre-filled checkout ------ */
 (function () {
   'use strict';
+  var LEAD_KEY = 'ss_lead';
   var modal = document.querySelector('[data-claim]');
-  if (!modal) return;
-  var form = modal.querySelector('[data-claim-form]');
-  var errorEl = modal.querySelector('[data-claim-error]');
+  var forms = Array.prototype.slice.call(document.querySelectorAll('[data-claim-form]'));
+  if (!forms.length) return;
   var lastFocus = null;
 
+  function readLead() { try { return JSON.parse(localStorage.getItem(LEAD_KEY) || 'null'); } catch (e) { return null; } }
+  function saveLead(v) { try { localStorage.setItem(LEAD_KEY, JSON.stringify(v)); } catch (e) {} }
+  window.__ssLead = readLead();
+
   function open() {
+    if (!modal) return;
     lastFocus = document.activeElement;
     modal.hidden = false;
     document.body.classList.add('claim-open');
-    var first = form.querySelector('input');
+    var first = modal.querySelector('input');
     if (first) setTimeout(function () { first.focus(); }, 30);
   }
   function close() {
+    if (!modal) return;
     modal.hidden = true;
     document.body.classList.remove('claim-open');
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
-  function showError(msg) { errorEl.textContent = msg; errorEl.hidden = !msg; }
 
   document.addEventListener('click', function (e) {
     var opener = e.target.closest('[data-claim-open]');
     if (opener) { e.preventDefault(); open(); return; }
     if (e.target.closest('[data-claim-close]')) { e.preventDefault(); close(); }
   });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) close(); });
-  form.addEventListener('input', function () { showError(''); form.querySelectorAll('.is-invalid').forEach(function (i) { i.classList.remove('is-invalid'); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal && !modal.hidden) close(); });
+  if (modal && /[?&#]claim(?:=|&|$)/.test(location.search + location.hash)) open();
 
   function splitName(full) {
     var parts = full.trim().split(/\s+/).filter(Boolean);
@@ -376,57 +381,87 @@
     var last = parts.length > (titled ? 2 : 1) ? parts[parts.length - 1] : '';
     return { first: first || '', last: last };
   }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var f = form.elements;
-    var v = { name: f.name.value, email: f.email.value, phone: f.phone.value, line1: f.line1.value, city: f.city.value, postcode: f.postcode.value };
-    var missing = Object.keys(v).filter(function (k) { return !v[k].trim(); });
-    if (missing.length) {
-      missing.forEach(function (k) { f[k].classList.add('is-invalid'); });
-      return showError('Please fill in every field so the printer can post it.');
-    }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email.trim())) { f.email.classList.add('is-invalid'); return showError("That email doesn't look right — we send the confirmation there."); }
-    var name = splitName(v.name);
-    var q = {
-      'checkout[email]': v.email.trim(),
-      'checkout[shipping_address][first_name]': name.first,
-      'checkout[shipping_address][last_name]': name.last,
-      'checkout[shipping_address][phone]': v.phone.trim(),
-      'checkout[shipping_address][address1]': v.line1.trim(),
-      'checkout[shipping_address][city]': v.city.trim(),
-      'checkout[shipping_address][zip]': v.postcode.trim().toUpperCase(),
-      'checkout[shipping_address][country]': 'United Kingdom'
-    };
-    var query = Object.keys(q).filter(function (k) { return q[k]; }).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(q[k]); }).join('&');
-    var variant = modal.getAttribute('data-variant');
-    if (modal.getAttribute('data-design-mode') === 'true') {
-      return showError('Checkout can\'t open inside the theme editor. Use the theme preview link to test the full flow.');
-    }
-    var btn = form.querySelector('.claim__submit'); if (btn) btn.disabled = true;
-    var target = '/cart/' + variant + ':1?' + query;
-    var hook = modal.getAttribute('data-ghl-webhook');
-    if (!hook) return window.location.assign(target);
-    var attr = window.__ssAttribution || {};
-    var payload = JSON.stringify({
-      utm_source: attr.utm_source || '', utm_medium: attr.utm_medium || '', utm_campaign: attr.utm_campaign || '',
-      utm_content: attr.utm_content || '', utm_term: attr.utm_term || '', gclid: attr.gclid || '', fbclid: attr.fbclid || '',
-      landing_page: attr.landing_page || '', referrer: attr.referrer || '',
-      first_name: name.first, last_name: name.last, full_name: v.name.trim(),
-      email: v.email.trim(), phone: v.phone.trim(),
-      address1: v.line1.trim(), city: v.city.trim(), postal_code: v.postcode.trim().toUpperCase(), country: 'United Kingdom',
-      tags: [modal.getAttribute('data-ghl-tag') || 'book-form-started'],
-      source: modal.getAttribute('data-ghl-source') || location.hostname,
-      product: modal.getAttribute('data-product') || '',
-      page: location.href, submitted_at: new Date().toISOString()
+  function encode(obj) {
+    return Object.keys(obj).filter(function (k) { return obj[k]; }).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]); }).join('&');
+  }
+  function postAll(urls, payload, cb) {
+    var pending = urls.length, done = false;
+    var finish = function () { if (!done) { done = true; cb(); } };
+    var one = function () { if (--pending <= 0) finish(); };
+    setTimeout(finish, 1800);
+    urls.forEach(function (url) {
+      try {
+        fetch(url, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: payload })
+          .catch(function () { return fetch(url, { method: 'POST', mode: 'no-cors', keepalive: true, body: payload }); })
+          .then(one, one);
+      } catch (err) { one(); }
     });
-    var go = function () { window.location.assign(target); };
-    var done = false; var finish = function () { if (!done) { done = true; go(); } };
-    setTimeout(finish, 1500);
-    try {
-      fetch(hook, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: payload })
-        .catch(function () { return fetch(hook, { method: 'POST', mode: 'no-cors', keepalive: true, body: payload }); })
-        .then(finish, finish);
-    } catch (err) { finish(); }
+  }
+
+  forms.forEach(function (form) {
+    var errorEl = form.querySelector('[data-claim-error]');
+    var f = form.elements;
+    function showError(msg) { if (errorEl) { errorEl.textContent = msg; errorEl.hidden = !msg; } }
+
+    // Returning visitor: pre-fill from the last submission
+    var lead = window.__ssLead;
+    if (lead) ['name', 'email', 'phone', 'line1', 'city', 'postcode'].forEach(function (k) { if (f[k] && !f[k].value && lead[k]) f[k].value = lead[k]; });
+
+    form.addEventListener('input', function () { showError(''); form.querySelectorAll('.is-invalid').forEach(function (i) { i.classList.remove('is-invalid'); }); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = { name: f.name.value.trim(), email: f.email.value.trim(), phone: f.phone.value.trim(), line1: f.line1.value.trim(), city: f.city.value.trim(), postcode: f.postcode.value.trim().toUpperCase() };
+      var missing = Object.keys(v).filter(function (k) { return !v[k]; });
+      if (missing.length) {
+        missing.forEach(function (k) { f[k].classList.add('is-invalid'); });
+        return showError('Please fill in every field so the printer can post it.');
+      }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) { f.email.classList.add('is-invalid'); return showError("That email doesn't look right — we send the confirmation there."); }
+      if (form.getAttribute('data-design-mode') === 'true') {
+        return showError('Checkout can\'t open inside the theme editor. Use the theme preview link to test the full flow.');
+      }
+      var name = splitName(v.name);
+      var attr = window.__ssAttribution || {};
+      var source = form.getAttribute('data-source') || location.hostname;
+      var tag = form.getAttribute('data-tag') || 'book-requested';
+      saveLead(v);
+
+      // 1. Cart permalink: pre-fills checkout and stamps the cart so /cart knows the lead was captured
+      var q = {
+        'checkout[email]': v.email,
+        'checkout[shipping_address][first_name]': name.first,
+        'checkout[shipping_address][last_name]': name.last,
+        'checkout[shipping_address][phone]': v.phone,
+        'checkout[shipping_address][address1]': v.line1,
+        'checkout[shipping_address][city]': v.city,
+        'checkout[shipping_address][zip]': v.postcode,
+        'checkout[shipping_address][country]': 'United Kingdom',
+        'attributes[claimed]': '1',
+        'attributes[lead_source]': source,
+        'attributes[utm_source]': attr.utm_source || '',
+        'attributes[utm_medium]': attr.utm_medium || '',
+        'attributes[utm_campaign]': attr.utm_campaign || ''
+      };
+      var target = '/cart/' + form.getAttribute('data-variant') + ':1?' + encode(q);
+
+      // 2. Lead → GHL inbound webhook(s), flat JSON so every key maps in the workflow builder
+      var urls = (form.getAttribute('data-webhooks') || '').split(/[\s,]+/).filter(function (u) { return /^https?:\/\//.test(u); });
+      var btn = form.querySelector('.claim__submit'); if (btn) btn.disabled = true;
+      if (!urls.length) return window.location.assign(target);
+      var payload = JSON.stringify({
+        first_name: name.first, last_name: name.last, full_name: v.name,
+        email: v.email, phone: v.phone,
+        address1: v.line1, city: v.city, postal_code: v.postcode, country: 'United Kingdom',
+        tags: [tag], tag: tag,
+        source: source,
+        product: form.getAttribute('data-product') || '',
+        utm_source: attr.utm_source || '', utm_medium: attr.utm_medium || '', utm_campaign: attr.utm_campaign || '',
+        utm_content: attr.utm_content || '', utm_term: attr.utm_term || '', gclid: attr.gclid || '', fbclid: attr.fbclid || '',
+        landing_page: attr.landing_page || '', referrer: attr.referrer || '',
+        page: location.href, submitted_at: new Date().toISOString()
+      });
+      postAll(urls, payload, function () { window.location.assign(target); });
+    });
   });
 })();

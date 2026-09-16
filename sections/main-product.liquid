@@ -15,24 +15,29 @@
         {%- if product.price == 0 -%}Free{%- else -%}{{ product.price | money }}{%- endif -%}
         <span class="small-print"> · {{ section.settings.postage_note }}</span>
       </p>
-      {%- form 'product', product, class: 'store__form', id: 'product-form' -%}
-        {%- unless product.has_only_default_variant -%}
-          <label for="variant-{{ section.id }}">Option</label>
-          <select id="variant-{{ section.id }}" name="id">
-            {%- for variant in product.variants -%}
-              <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %} {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>{{ variant.title }} — {{ variant.price | money }}</option>
-            {%- endfor -%}
-          </select>
-        {%- else -%}
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        {%- endunless -%}
-        <input type="hidden" name="quantity" value="1">
-        <input type="hidden" name="return_to" value="/checkout">
-        <button type="submit" class="btn btn--amber" {% unless product.available %}disabled{% endunless %}>
-          {%- if product.available -%}{{ section.settings.button_label }}{%- else -%}{{ 'general.product.sold_out' | t }}{%- endif -%}
-          {%- render 'icon-arrow' -%}
-        </button>
-      {%- endform -%}
+      {%- if settings.cta_target == 'form' and product.has_only_default_variant -%}
+        {%- comment -%} Gated: the claim form captures the lead, tags it in GHL and pre-fills checkout {%- endcomment -%}
+        {% render 'order-button', label: section.settings.button_label, style: 'amber', product_override: product %}
+      {%- else -%}
+        {%- form 'product', product, class: 'store__form', id: 'product-form' -%}
+          {%- unless product.has_only_default_variant -%}
+            <label for="variant-{{ section.id }}">Option</label>
+            <select id="variant-{{ section.id }}" name="id">
+              {%- for variant in product.variants -%}
+                <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %} {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>{{ variant.title }} — {{ variant.price | money }}</option>
+              {%- endfor -%}
+            </select>
+          {%- else -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          {%- endunless -%}
+          <input type="hidden" name="quantity" value="1">
+          <input type="hidden" name="return_to" value="/checkout">
+          <button type="submit" class="btn btn--amber" {% unless product.available %}disabled{% endunless %}>
+            {%- if product.available -%}{{ section.settings.button_label }}{%- else -%}{{ 'general.product.sold_out' | t }}{%- endif -%}
+            {%- render 'icon-arrow' -%}
+          </button>
+        {%- endform -%}
+      {%- endif -%}
       <div class="store__desc rte">{{ product.description }}</div>
     </div>
   </div>

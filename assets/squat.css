@@ -723,3 +723,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .pdp-label--muted { color: var(--ss-grey); letter-spacing: .16em; }
 .btn--block { width: 100%; justify-content: center; padding: 17px 24px; min-height: 56px; font-weight: 600; }
 body.claim-open { overflow: hidden; }
+
+/* Claim page (templates/page.claim) — the pop-up form rendered inline */
+.claim__dialog--inline { animation: none; margin: 0; max-width: 520px; }
+.claim-page__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.claim-page__aside { display: flex; flex-direction: column; gap: 24px; }
+.claim-page__cover { width: min(100%, 320px); height: auto; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,.55); }
+.claim-page__blurb { max-width: 46ch; }
+@media (max-width: 900px) {
+  .claim-page__grid { grid-template-columns: 1fr; }
+  .claim-page__aside { flex-direction: row; align-items: center; }
+  .claim-page__cover { width: 110px; flex: none; }
+}
+.cart__gate { margin-top: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 46ch; }

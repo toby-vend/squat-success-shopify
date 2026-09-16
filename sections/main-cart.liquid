@@ -1,3 +1,15 @@
+{%- comment -%}
+  Checkout is gated behind the claim form: a cart built by the form's permalink carries
+  attributes[claimed]=1 (see assets/squat.js). Any other cart (direct /cart/add, old link)
+  is sent through the form first so every buyer becomes a tagged GHL contact.
+  Theme settings → The book → "Buttons go to: Straight to checkout" switches the gate off.
+{%- endcomment -%}
+{%- liquid
+  assign gated = false
+  if settings.cta_target == 'form' and cart.item_count > 0 and cart.attributes.claimed != '1'
+    assign gated = true
+  endif
+-%}
 <section class="store">
   <div class="container">
     <h1 class="h-section">{{ 'general.cart.title' | t }}</h1>
@@ -22,9 +34,18 @@
         <div class="cart__foot">
           <p class="body">{{ 'general.cart.subtotal' | t }}: <strong>{{ cart.total_price | money }}</strong> <span class="small-print">· {{ 'general.cart.shipping_note' | t }}</span></p>
           <button type="submit" name="update" class="btn btn--outline">{{ 'general.cart.update' | t }}</button>
-          <button type="submit" name="checkout" class="btn btn--amber">{{ 'general.cart.checkout' | t }} {% render 'icon-arrow' %}</button>
+          {%- if gated -%}
+            <button type="button" class="btn btn--amber" data-claim-open>{{ 'general.cart.claim_first' | t }} {% render 'icon-arrow' %}</button>
+          {%- else -%}
+            <button type="submit" name="checkout" class="btn btn--amber">{{ 'general.cart.checkout' | t }} {% render 'icon-arrow' %}</button>
+          {%- endif -%}
         </div>
       </form>
+      {%- if gated -%}
+        <div class="cart__gate">
+          <p class="small-print">{{ 'general.cart.claim_note' | t }}</p>
+        </div>
+      {%- endif -%}
     {%- endif -%}
   </div>
 </section>

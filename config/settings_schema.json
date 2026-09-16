@@ -11,7 +11,7 @@
     "name": "The book",
     "settings": [
       { "type": "product", "id": "book_product", "label": "Free book product", "info": "Used by every 'Send me my free copy' button. The button adds this product to the cart and goes straight to checkout." },
-      { "type": "select", "id": "cta_target", "label": "Buttons go to", "options": [ { "value": "form", "label": "Claim form, then checkout" }, { "value": "pdp", "label": "The book page" }, { "value": "checkout", "label": "Straight to checkout" } ], "default": "form", "info": "Claim form opens the address pop-up and sends the buyer to a pre-filled checkout. Buttons on the product page go straight to checkout unless Claim form is chosen." },
+      { "type": "select", "id": "cta_target", "label": "Buttons go to", "options": [ { "value": "form", "label": "Claim form, then checkout" }, { "value": "pdp", "label": "The book page" }, { "value": "checkout", "label": "Straight to checkout" } ], "default": "form", "info": "Claim form (default) gates every route to checkout — buttons, the book page and /cart — behind the lead pop-up, tags the lead in GHL and pre-fills checkout. Straight to checkout switches the gate off." },
       { "type": "text", "id": "book_variant_id", "label": "Book variant ID (used by the claim form if no product is picked)", "default": "58895118106969" },
       { "type": "text", "id": "claim_eyebrow", "label": "Claim form eyebrow", "default": "FREE PAPERBACK · £4.95 POSTAGE" },
       { "type": "text", "id": "claim_heading", "label": "Claim form heading", "default": "Where shall we post your copy?" },
@@ -25,9 +25,9 @@
   {
     "name": "GoHighLevel",
     "settings": [
-      { "type": "paragraph", "content": "Create a workflow in GHL with an Inbound Webhook trigger, paste its URL here. The claim form posts the buyer's details to it before sending them to checkout." },
-      { "type": "text", "id": "ghl_form_webhook", "label": "Inbound webhook URL (claim form)" },
-      { "type": "text", "id": "ghl_form_tag", "label": "Tag to send with the form", "default": "book-form-started" },
+      { "type": "paragraph", "content": "Claim form → GHL. In GHL create a workflow with an Inbound Webhook trigger and paste its URL below. The form posts a flat JSON lead (first_name, last_name, email, phone, address1, city, postal_code, tag, source, utm_*) straight to it, then sends the buyer to a pre-filled checkout. One URL per line if you also want a second endpoint (e.g. the Vendo OS relay)." },
+      { "type": "textarea", "id": "ghl_form_webhook", "label": "Inbound webhook URL(s) — one per line" },
+      { "type": "text", "id": "ghl_form_tag", "label": "Tag to send with the form", "default": "book-requested", "info": "Used by the GHL workflow's Add Tag step. The paid-order tag (book-received) is added by the Shopify → GHL order webhook, not the theme." },
       { "type": "text", "id": "ghl_source", "label": "Source label", "default": "book.squatsuccess.co.uk" }
     ]
   },
