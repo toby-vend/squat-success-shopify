@@ -20,10 +20,10 @@
       <img class="book-stage__back" src="{{ 'back-art.webp' | asset_url }}" alt="" width="600" height="902" loading="lazy" decoding="async">
     {%- endif -%}
   </button>
-  <div class="book-stage__seal" aria-hidden="true">
+  <button type="button" class="book-stage__seal" data-book-flip aria-label="Turn the book over to read the back cover">
     <b>FREE</b>
     <small>PAPERBACK</small>
     <em>you cover {{ postage | default: settings.postage_price | default: '£4.95' }} P&amp;P</em>
-  </div>
+  </button>
   <p class="book-stage__hint" aria-hidden="true"><span class="book-stage__hint-front">TURN IT OVER &nbsp;→</span><span class="book-stage__hint-back">BACK TO COVER &nbsp;←</span></p>
 </div>

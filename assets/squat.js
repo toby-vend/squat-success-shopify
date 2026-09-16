@@ -20,7 +20,8 @@
 
   /* Book stage — Figma "BookStage" prototype: Rest → Hover → Edge → Back → Rest ------- */
   $$('[data-book]').forEach(function (book) {
-    var flip = $('[data-book-flip]', book);
+    var flips = $$('[data-book-flip]', book);
+    var flip = flips[0];
     var state = 'rest';
     var timer = null;
     var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -48,15 +49,15 @@
       book.addEventListener('mouseenter', function () { if (state === 'rest') set('hover'); });
       book.addEventListener('mouseleave', function () { if (state === 'hover') set('rest'); });
     }
-    if (flip) {
-      flip.addEventListener('click', function (e) {
+    flips.forEach(function (el) {
+      el.addEventListener('click', function (e) {
         e.preventDefault();
         if (state === 'back') close();
         else if (state === 'rest' || state === 'hover') flipOver();
       });
-      flip.addEventListener('focus', function () { if (state === 'rest') set('hover'); });
-      flip.addEventListener('blur', function () { if (state === 'hover') set('rest'); });
-    }
+      el.addEventListener('focus', function () { if (state === 'rest') set('hover'); });
+      el.addEventListener('blur', function () { if (state === 'hover') set('rest'); });
+    });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state === 'back') close(); });
   });
 
