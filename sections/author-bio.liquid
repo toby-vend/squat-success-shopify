@@ -28,7 +28,7 @@
           {%- unless forloop.last -%}<span class="arc__sep" aria-hidden="true">→</span>{%- endunless -%}
         {%- endfor -%}
       </div>
-      <p class="arc__detail" data-arc-detail>{{ section.settings.arc_hint }}</p>
+      <p class="arc__detail" data-arc-detail><span class="arc__hint--hover">{{ section.settings.arc_hint }}</span><span class="arc__hint--touch">{{ section.settings.arc_hint_touch | default: 'Tap any moment for the detail' }}</span></p>
     </div>
   </div>
 </section>
@@ -42,7 +42,8 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Dr Bobby Bhandal nearly got thrown out of dental school." },
     { "type": "text", "id": "hook", "label": "Hook line", "default": "He’ll happily tell you about it." },
     { "type": "textarea", "id": "strip", "label": "Closing strip", "default": "The Dental Freedom Blueprint is everything he’d tell you over a long coffee, written down properly." },
-    { "type": "text", "id": "arc_hint", "label": "Career arc hint", "default": "Hover any moment for the detail" }
+    { "type": "text", "id": "arc_hint", "label": "Career arc hint (mouse)", "default": "Hover any moment for the detail" },
+    { "type": "text", "id": "arc_hint_touch", "label": "Career arc hint (touch screens)", "default": "Tap any moment for the detail" }
   ],
   "blocks": [
     { "type": "paragraph", "name": "Paragraph", "settings": [ { "type": "textarea", "id": "text", "label": "Text" } ] },

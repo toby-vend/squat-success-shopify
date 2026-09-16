@@ -575,6 +575,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .arc__sep { color: rgba(196,156,96,.55); font-size: 14px; line-height: 1; }
 .arc__detail { min-height: 24px; margin-top: 25px; font-size: 13px; color: rgba(255,255,255,.3); transition: color .32s cubic-bezier(.22,1,.36,1); }
 .arc__detail.is-active { color: var(--ss-grey); }
+.arc__hint--touch { display: none; }
+@media (hover: none) { .arc__hint--hover { display: none; } .arc__hint--touch { display: inline; } }
 @media (max-width: 1000px) {
   .author__grid { grid-template-columns: 1fr; gap: 40px; justify-items: center; }
   .portrait { width: min(430px, 100%); height: auto; padding: 10px 10px 40px; }

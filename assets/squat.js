@@ -231,10 +231,10 @@
   /* Career arc ---------------------------------------------------------- */
   $$('[data-arc]').forEach(function (arc) {
     var detail = $('[data-arc-detail]', arc);
-    var idle = detail ? detail.textContent : '';
+    var idle = detail ? detail.innerHTML : '';
     $$('[data-arc-step]', arc).forEach(function (step) {
       function on() { if (detail) { detail.textContent = step.getAttribute('data-arc-step'); detail.classList.add('is-active'); } }
-      function off() { if (detail) { detail.textContent = idle; detail.classList.remove('is-active'); } }
+      function off() { if (detail) { detail.innerHTML = idle; detail.classList.remove('is-active'); } }
       step.addEventListener('mouseenter', on);
       step.addEventListener('focus', on);
       step.addEventListener('mouseleave', off);
