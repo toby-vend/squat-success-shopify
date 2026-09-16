@@ -49,16 +49,73 @@
       book.addEventListener('mouseenter', function () { if (state === 'rest') set('hover'); });
       book.addEventListener('mouseleave', function () { if (state === 'hover') set('rest'); });
     }
+    book.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (state === 'back') close();
+      else if (state === 'rest' || state === 'hover') flipOver();
+    });
     flips.forEach(function (el) {
-      el.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (state === 'back') close();
-        else if (state === 'rest' || state === 'hover') flipOver();
-      });
       el.addEventListener('focus', function () { if (state === 'rest') set('hover'); });
       el.addEventListener('blur', function () { if (state === 'hover') set('rest'); });
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state === 'back') close(); });
+  });
+
+  /* Fit seam — Figma FitSeam: hover/tap a side to open it (700ms), the chip restores the balance (600ms) */
+  $$('[data-fit]').forEach(function (fit) {
+    var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    function set(side) {
+      fit.classList.toggle('is-order', side === 'order');
+      fit.classList.toggle('is-skip', side === 'skip');
+      fit.classList.toggle('is-return', !side);
+    }
+    $$('[data-fit-side]', fit).forEach(function (el) {
+      var side = el.getAttribute('data-fit-side');
+      if (hoverable) {
+        el.addEventListener('mouseenter', function () { set(side); });
+        el.addEventListener('mouseleave', function () { set(null); });
+      }
+      el.addEventListener('click', function () { set(fit.classList.contains('is-' + side) && !hoverable ? null : side); });
+    });
+    var reset = $('[data-fit-reset]', fit);
+    if (reset) reset.addEventListener('click', function (e) { e.stopPropagation(); set(null); });
+  });
+
+  /* Decision — golden dust drifting through the light (stands in for the Figma video fill) ------ */
+  $$('[data-dust]').forEach(function (canvas) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ctx = canvas.getContext('2d'); if (!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5), w = 0, h = 0, motes = [], running = false, raf = 0;
+    function size() {
+      var r = canvas.getBoundingClientRect(); w = r.width; h = r.height;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(220, (w * h) / 6500));
+      motes = [];
+      for (var i = 0; i < n; i++) motes.push(spawn(true));
+    }
+    function spawn(anywhere) {
+      // the light beam runs from the top-centre down to the right; motes cluster along it
+      var t = anywhere ? Math.random() : Math.random() * 0.25;
+      var bx = w * (0.44 + 0.62 * t), by = h * (-0.05 + 0.95 * t);
+      var spread = (Math.random() - .5) * (0.10 + 0.22 * t) * w;
+      return { x: bx + spread, y: by + (Math.random() - .5) * 0.12 * h, r: .5 + Math.random() * 1.4, a: .08 + Math.random() * .38, vx: 0.05 + Math.random() * 0.10, vy: 0.10 + Math.random() * 0.20, tw: Math.random() * 6.28, ts: .008 + Math.random() * .02 };
+    }
+    function frame() {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < motes.length; i++) {
+        var m = motes[i]; m.x += m.vx; m.y += m.vy; m.tw += m.ts;
+        if (m.y > h + 10 || m.x > w + 10) motes[i] = m = spawn(false);
+        var glow = m.a * (0.55 + 0.45 * Math.sin(m.tw));
+        ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, 6.28);
+        ctx.fillStyle = 'rgba(231,196,137,' + glow.toFixed(3) + ')'; ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function start() { if (!running) { running = true; raf = requestAnimationFrame(frame); } }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    size(); window.addEventListener('resize', size);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { en[0].isIntersecting ? start() : stop(); }).observe(canvas); else start();
   });
 
   /* Chapter reader ------------------------------------------------------ */
