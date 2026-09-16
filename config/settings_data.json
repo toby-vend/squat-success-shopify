@@ -13,7 +13,7 @@
     "book_variant_id": "58895118106969",
     "postage_price": "£4.95",
     "support_email": "hello@squatsuccess.co.uk",
-    "ghl_form_webhook": "https://vendo-os.vercel.app/api/squat/claim?token=17b5f9f55e50b817b55818ea0bb15adc03f834d297feae15\n\nhttps://services.leadconnectorhq.com/hooks/wkKBHG1GWvDSMTiNKVSO/webhook-trigger/0a49730d-d274-46c1-b18d-01a27eb5ee4d",
+    "ghl_form_webhook": "https://services.leadconnectorhq.com/hooks/wkKBHG1GWvDSMTiNKVSO/webhook-trigger/0a49730d-d274-46c1-b18d-01a27eb5ee4d",
     "ghl_form_tag": "book-requested",
     "ghl_source": "book.squatsuccess.co.uk",
     "creed": "BE BOLD   ·   BE BRAVE   ·   BE DIFFERENT   ·",
