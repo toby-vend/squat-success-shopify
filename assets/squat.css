@@ -457,7 +457,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .fit.is-return, .fit.is-return .fit__side > * { transition-duration: .6s; }
 @media (prefers-reduced-motion: reduce) { .fit, .fit * { transition-duration: .01ms !important; } }
 @media (max-width: 900px) {
-  .fit { display: block; min-height: 0; }
+  .fit { display: block; height: auto; min-height: 0; }
   .fit__side { position: relative; inset: auto; padding: 56px var(--gutter); }
   .fit__side--order { clip-path: none; padding: 56px var(--gutter); }
   .fit__side--order::after { left: auto; right: -300px; top: -400px; }
