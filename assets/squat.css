@@ -270,6 +270,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @media (prefers-reduced-motion: reduce) { .book-stage > *, .book-stage__hint span, .book-stage__cover img { transition-duration: .01ms; } }
 @media (max-width: 1100px) {
   .hero__grid { grid-template-columns: 1fr; padding-bottom: 64px; min-height: 0; justify-items: center; }
+  .hero__grid .book-stage { order: -1; }
   .hero__copy { max-width: none; width: 100%; }
   .book-stage { zoom: .85; }
 }
@@ -317,16 +318,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .questions__caption p { font-family: var(--font-body); font-weight: 300; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(188,188,188,.6); white-space: nowrap; }
 .ledger__row { display: flex; align-items: center; gap: 24px; padding: 22px 0; border-bottom: 1px dashed rgba(196,156,96,.22); }
 .ledger__row:last-child { border-bottom: 0; }
-.ledger__num {
-  flex: none; width: 52px;
-  font-family: var(--font-body); font-weight: 400; font-size: 40px; line-height: 40px;
-  color: transparent; -webkit-text-stroke: 1px rgba(196,156,96,.55);
-}
+/* Outlined numbers: SVG glyphs (snippets/outline-digits) — one clean contour per digit, sized by height (.712em of the intended font-size) */
+.onum { display: block; height: 1em; width: auto; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.onum use { vector-effect: non-scaling-stroke; }
+.ledger__num { flex: none; width: 52px; height: 28.5px; color: rgba(196,156,96,.55); }
 .ledger__q { flex: 1; font-size: 17px; line-height: 25px; font-weight: 500; color: rgba(255,255,255,.9); }
-.ledger__row--gold .ledger__num, .ledger__row--gold .ledger__q { color: var(--ss-cream); -webkit-text-stroke: 0; }
+.ledger__row--gold .ledger__q { color: var(--ss-cream); }
+.ledger__row--gold .ledger__num { fill: var(--ss-cream); stroke: none; }
 .questions__closing { text-align: center; padding-top: 64px; font-size: 21px; line-height: 32px; color: var(--ss-gold); }
 @media (max-width: 1000px) { .questions__grid { grid-template-columns: 1fr; gap: 48px; } .questions__closing { padding-top: 48px; } }
-@media (max-width: 480px) { .ledger__row { gap: 16px; padding: 18px 0; } .ledger__num { width: 44px; font-size: 32px; } .ledger__q { font-size: 16px; line-height: 24px; } }
+@media (max-width: 480px) { .ledger__row { gap: 16px; padding: 18px 0; } .ledger__num { width: 44px; height: 22.8px; } .ledger__q { font-size: 16px; line-height: 24px; } }
 
 /* ==========================================================================
    04 Chapter reader (04-contents)
@@ -351,7 +352,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .reader__page--verso { grid-column: 1; grid-row: 1; justify-content: space-between; padding: 40px 32px 36px 44px; }
 .reader__page--recto { grid-column: 3; grid-row: 1; justify-content: center; gap: 22px; padding: 40px 44px 76px 32px; }
 .reader__chapter-label { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: .24em; color: var(--ss-gold-deep); }
-.reader__bignum { font-family: var(--font-body); font-weight: 400; font-size: clamp(120px, 11vw, 160px); line-height: .78; color: transparent; -webkit-text-stroke: 1.2px rgba(27,27,27,.32); }
+.reader__bignum { font-size: clamp(120px, 11vw, 160px); height: .712em; margin: .034em 0; color: rgba(27,27,27,.32); stroke-width: 1.2px; }
 .reader__footer { font-family: var(--font-label); font-weight: 700; font-size: 9px; letter-spacing: .2em; color: var(--ss-paper-muted); }
 .reader__title { font-family: var(--font-body); font-weight: 400; font-size: 32px; line-height: 1.1; letter-spacing: -.01em; color: var(--ss-black); }
 .reader__rule { width: 56px; height: 2px; background: var(--ss-gold); display: block; }
@@ -613,7 +614,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 1100px) {
   .decision { min-height: 0; }
   .decision__inner { gap: 40px; padding-block: 64px; }
-  .decision__stage { position: relative; right: auto; top: auto; align-self: center; }
+  .decision__stage { position: relative; right: auto; top: auto; align-self: center; order: -1; }
 }
 
 /* ==========================================================================

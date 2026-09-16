@@ -22,7 +22,7 @@
           <div class="reader__spread reader__panel" data-reader-panel id="chapter-{{ section.id }}-{{ forloop.index }}" role="tabpanel" {% unless forloop.first %}hidden{% endunless %}>
             <div class="reader__page reader__page--verso">
               <p class="reader__chapter-label">CHAPTER {{ word }}</p>
-              <p class="reader__bignum" aria-hidden="true">{{ n }}</p>
+              {% render 'outline-num', value: n, class: 'reader__bignum' %}
               <p class="reader__footer">{{ section.settings.book_name }}</p>
             </div>
             <div class="reader__page reader__page--recto">

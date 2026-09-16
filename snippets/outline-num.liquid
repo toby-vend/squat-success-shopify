@@ -1,0 +1,42 @@
+{%- comment -%}
+  Draws a number as an outlined SVG using the glyphs from snippets/outline-digits (must be on the page).
+  Coordinates are font units (1000/em), y flipped; viewBox is cropped to the digit extents (-10…712) so
+  the SVG's height = the glyph height. Size it with CSS height (e.g. .712em of the intended font-size).
+  Params: value (string, e.g. '01'), class
+{%- endcomment -%}
+{%- liquid
+  assign chars = value | default: '' | strip | split: ''
+  assign width = 0
+  assign xs = ''
+  for c in chars
+    assign adv = 0
+    case c
+      when '0'
+        assign adv = 607
+      when '1'
+        assign adv = 500
+      when '2'
+        assign adv = 548
+      when '3'
+        assign adv = 529
+      when '4'
+        assign adv = 620
+      when '5'
+        assign adv = 568
+      when '6'
+        assign adv = 557
+      when '7'
+        assign adv = 542
+      when '8'
+        assign adv = 579
+      when '9'
+        assign adv = 551
+    endcase
+    assign xs = xs | append: width | append: ','
+    assign width = width | plus: adv
+  endfor
+  assign xs = xs | split: ','
+-%}
+<svg class="onum {{ class }}" preserveAspectRatio="xMinYMid meet" viewBox="0 -712 {{ width }} 722" aria-hidden="true" focusable="false"><g transform="scale(1,-1)">
+{%- for c in chars -%}<use href="#od-{{ c }}" x="{{ xs[forloop.index0] }}"/>{%- endfor -%}
+</g></svg>

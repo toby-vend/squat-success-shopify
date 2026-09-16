@@ -11,7 +11,8 @@
       <ol class="ledger">
         {%- for block in section.blocks -%}
           <li class="ledger__row {% if forloop.last %}ledger__row--gold{% endif %}" {{ block.shopify_attributes }}>
-            <span class="ledger__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            {%- assign n = forloop.index | prepend: '0' | slice: -2, 2 -%}
+            {% render 'outline-num', value: n, class: 'ledger__num' %}
             <p class="ledger__q">{{ block.settings.question }}</p>
           </li>
         {%- endfor -%}
