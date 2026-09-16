@@ -1,8 +1,8 @@
 <section class="fit">
   <div class="fit__side fit__side--order">
-    <p class="eyebrow">{{ section.settings.order_eyebrow }}</p>
+    <p class="fit__eyebrow">{{ section.settings.order_eyebrow }}</p>
     <p class="fit__big fit__big--order">{{ section.settings.order_title }}</p>
-    <p class="eyebrow eyebrow--small eyebrow--muted">{{ section.settings.list_intro }}</p>
+    <p class="fit__sub">{{ section.settings.list_intro }}</p>
     <ul class="fit__list">
       {%- for block in section.blocks -%}{%- if block.type == 'order' -%}
         <li data-mark="+" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
@@ -13,9 +13,9 @@
   <div class="fit__seam" aria-hidden="true"></div>
   <div class="fit__pick" aria-hidden="true"><span>‹ ›</span><small>PICK A SIDE</small></div>
   <div class="fit__side fit__side--skip">
-    <p class="eyebrow eyebrow--muted">{{ section.settings.skip_eyebrow }}</p>
+    <p class="fit__eyebrow">{{ section.settings.skip_eyebrow }}</p>
     <p class="fit__big fit__big--skip">{{ section.settings.skip_title }}</p>
-    <p class="eyebrow eyebrow--small eyebrow--muted">{{ section.settings.list_intro }}</p>
+    <p class="fit__sub">{{ section.settings.list_intro }}</p>
     <ul class="fit__list">
       {%- for block in section.blocks -%}{%- if block.type == 'skip' -%}
         <li data-mark="–" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>

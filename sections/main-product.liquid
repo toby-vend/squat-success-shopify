@@ -4,7 +4,7 @@
       {%- if product.featured_media -%}
         {{ product.featured_media | image_url: width: 1200 | image_tag: loading: 'eager', widths: '600, 900, 1200' }}
       {%- else -%}
-        <img src="{{ 'book-cover.jpg' | asset_url }}" alt="{{ product.title | escape }}" width="1696" height="2528">
+        <img src="{{ 'cover-art.webp' | asset_url }}" alt="{{ product.title | escape }}" width="600" height="902">
       {%- endif -%}
     </div>
     <div>

@@ -18,8 +18,7 @@
         "book_name": "The Dental Freedom Blueprint",
         "subheading": "is the system Dr Bobby Bhandal used to build Avenue Dental from an empty unit into a thriving private squat — and has since used to help dentists across the UK do the same.",
         "primary_label": "Send me my free copy",
-        "secondary_label": "Preview the chapters",
-        "secondary_url": "/#chapters",
+        "secondary_label": "Send me my free copy",
         "note": "Free book · You cover £4.95 postage · Printed to order in the UK · With you in 5–7 days"
       }
     },
@@ -29,21 +28,23 @@
         "cautious": {
           "type": "path",
           "settings": {
-            "fallback": "photo-cautious.jpg",
+            "fallback": "graphic-sarah.webp",
             "eyebrow": "OPTION A — THE CAUTIOUS PATH",
             "heading": "She took the safe one and stayed in corporate.",
             "text": "Ten years on, her diary is built by someone else. Her clinical range has narrowed to whatever the corporate target rewards. She earns a decent, predictable salary — and she owns absolutely nothing. No equity, no asset, no exit.",
-            "pull": "She still says “one day” about having her own place. She’s been saying it for nine years."
+            "pull": "She still says “one day” about having her own place. She’s been saying it for nine years.",
+            "image_alt": "Dr Sarah’s corporate journey"
           }
         },
         "brave": {
           "type": "path",
           "settings": {
-            "fallback": "photo-brave.jpg",
+            "fallback": "graphic-raj.webp",
             "eyebrow": "OPTION B — THE BRAVE PATH",
             "heading": "He signed a lease on an empty unit and terrified himself.",
             "text": "Year one was hard — he’d tell you that himself. But ten years on he has three associates, a team who’ve stayed, a business with a sale value, and a Monday morning he doesn’t dread.",
-            "pull": "Same career. Wildly different life."
+            "pull": "Same career. Wildly different life.",
+            "image_alt": "Dr Raj’s practice ownership journey"
           }
         }
       },
@@ -248,7 +249,7 @@
         "letterhead": "SQUAT SUCCESS · LEAMINGTON SPA",
         "heading": "Why would you post me a book for free?",
         "signoff": "DR BOBBY BHANDAL · FOUNDER, SQUAT SUCCESS",
-        "stamp_text": "PRINTED TO ORDER  ·  DESPATCHED FROM THE UK  ·"
+        "stamp_text": "PRINTED\nTO ORDER\n·\nDESPATCHED\nFROM THE UK"
       }
     },
     "fit": {
@@ -319,43 +320,49 @@
     "testimonials": {
       "type": "testimonials",
       "blocks": {
-        "t1": {
-          "type": "quote",
+        "matt": {
+          "type": "story",
           "settings": {
-            "quote": "Bobby has been absolutely brilliant with helping me through the set up.",
             "name": "Dr Matt",
-            "practice": "BANK DENTAL"
+            "role": "SQUAT SUCCESS MEMBER",
+            "quote": "“He’s got such a good support network and I think that’s invaluable, really. … Bobby has been absolutely brilliant with helping me through the set up, how to start a practice.”",
+            "video_url": "https://squatsuccess.co.uk/wp-content/uploads/2024/08/5th-video.mp4",
+            "fallback": "film-matt.webp",
+            "fallback_height": 663
           }
         },
-        "t2": {
-          "type": "quote",
+        "aisha": {
+          "type": "story",
           "settings": {
-            "quote": "I can confidently say that this course has played a significant role in the success of my practice.",
-            "name": "Dr Miklos Poratunszky",
-            "practice": "JUST SMILE DENTAL"
+            "name": "Dr Aisha",
+            "role": "SQUAT SUCCESS MEMBER",
+            "quote": "“Squat Success has been a really valuable asset to me in regard to setting up my squat and helping me along the journey. If you’re thinking of setting up a dental squat practice, then this course is definitely for you.”",
+            "video_url": "https://squatsuccess.co.uk/wp-content/uploads/2024/02/TESTIMONIAL-Aisha-1.mp4",
+            "fallback": "film-aisha.webp",
+            "fallback_height": 755
           }
         },
-        "t3": {
-          "type": "quote",
+        "laurie": {
+          "type": "story",
           "settings": {
-            "quote": "A treasure trove of practical advice, real-world examples and actionable strategies.",
-            "name": "Dr Kuwer Singh Chani",
-            "practice": "SQUAT SUCCESS MEMBER"
+            "name": "Dr Laurie",
+            "role": "ON CHOOSING PRACTICE SOFTWARE",
+            "quote": "“I’ve looked at a couple of different options, traditional cloud based and for me CareStack ticked most of the boxes for for what I really wanted to achieve.”",
+            "video_url": "https://squatsuccess.co.uk/wp-content/uploads/2024/08/3rd-video.mp4",
+            "fallback": "film-laurie.webp",
+            "fallback_height": 662
           }
         }
       },
       "block_order": [
-        "t1",
-        "t2",
-        "t3"
+        "matt",
+        "aisha",
+        "laurie"
       ],
       "settings": {
         "eyebrow": "REAL STORIES · REAL RESULTS",
-        "heading": "They were exactly where you are.",
-        "video_url": "",
-        "poster": "shopify://shop_images/P1240263.jpg",
-        "play_label": "WATCH THE FILM",
-        "caption": "[CLIENT FILM — FOOTAGE TO BE SUPPLIED]"
+        "heading": "They were exactly\nwhere you are.",
+        "play_label": "Watch [name]’s story"
       }
     },
     "avenue": {
@@ -364,7 +371,7 @@
         "eyebrow": "PROOF IT WORKS",
         "heading": "This was an empty unit in Leamington Spa.",
         "video_url": "",
-        "play_label": "WATCH",
+        "play_label": "Watch the Avenue Dental film",
         "badge": "AVENUE DENTAL · LEAMINGTON SPA"
       }
     },
@@ -442,16 +449,12 @@
         "subheading": "It costs you the postage and about four hours of reading.",
         "text": "Worst case, you close it knowing for certain that ownership isn’t for you — and you stop spending energy on a “one day” that was never going to happen. Best case, you’re reading the instructions for the next ten years of your career.",
         "primary_label": "Send me my free copy",
-        "secondary_label": "Preview the chapters",
-        "secondary_url": "/#chapters",
+        "secondary_label": "Send me my free copy",
         "note": "Free book · £4.95 postage · Any problems, hello@squatsuccess.co.uk",
         "assure_1_bold": "5–7 days",
         "assure_1": "to your door.",
         "assure_2_bold": "No subscription",
-        "assure_2": ", ever.",
-        "band_title": "THE DENTAL FREEDOM BLUEPRINT",
-        "band_sub": "PRINTED TO ORDER  ·  FREE COPY",
-        "tag": "OPEN IT"
+        "assure_2": ", ever."
       }
     },
     "faq": {

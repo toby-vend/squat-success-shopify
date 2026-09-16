@@ -39,24 +39,63 @@
     show(0);
   });
 
-  /* Testimonial deck ---------------------------------------------------- */
-  $$('[data-deck]').forEach(function (deck) {
-    var items = $$('[data-deck-item]', deck);
-    var indexes = $$('[data-deck-index]', deck);
-    var prev = $('[data-deck-prev]', deck);
-    var next = $('[data-deck-next]', deck);
+  /* Story carousel (testimonials) ------------------------------------- */
+  $$('[data-story]').forEach(function (story) {
+    var film = $('[data-story-film]', story);
+    var frames = $$('[data-story-frame]', story);
+    var panels = $$('[data-story-panel]', story);
+    var selects = $$('[data-story-select]', story);
+    var stop = $('[data-story-stop]', story);
     var current = 0;
-    if (!items.length) return;
-    var keyed = items.map(function (el, k) { var a = el.getAttribute('data-deck-item'); return a === '' || a === null ? k : parseInt(a, 10); });
-    var total = Math.max.apply(null, keyed) + 1;
-    function show(i) {
-      current = (i + total) % total;
-      items.forEach(function (el, k) { el.hidden = keyed[k] !== current; });
-      indexes.forEach(function (el, k) { el.classList.toggle('is-current', k === current); });
-      var cur = $('[data-deck-current]', deck); if (cur) cur.textContent = String(current + 1).padStart(2, '0');
+    var video = null;
+
+    function stopFilm() {
+      if (video) { try { video.pause(); } catch (e) {} video.remove(); video = null; }
+      story.classList.remove('is-playing');
     }
-    if (prev) prev.addEventListener('click', function () { show(current - 1); });
-    if (next) next.addEventListener('click', function () { show(current + 1); });
+    function show(i) {
+      current = (i + panels.length) % panels.length;
+      stopFilm();
+      frames.forEach(function (f) { f.classList.toggle('is-active', f.getAttribute('data-story-frame') === String(current)); });
+      panels.forEach(function (p) { p.hidden = p.getAttribute('data-story-panel') !== String(current); });
+      selects.forEach(function (b) { b.setAttribute('aria-selected', b.getAttribute('data-story-select') === String(current) ? 'true' : 'false'); });
+    }
+    function play(src, label) {
+      var yt = src.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
+      var vm = src.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+      stopFilm();
+      if (yt || vm) {
+        video = document.createElement('iframe');
+        video.src = yt ? 'https://www.youtube-nocookie.com/embed/' + yt[1] + '?autoplay=1&rel=0' : 'https://player.vimeo.com/video/' + vm[1] + '?autoplay=1';
+        video.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+        video.allowFullscreen = true;
+        video.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:#000';
+      } else {
+        video = document.createElement('video');
+        video.src = src; video.controls = true; video.autoplay = true; video.playsInline = true; video.preload = 'metadata';
+      }
+      video.setAttribute('title', label || 'Testimonial video');
+      film.appendChild(video);
+      story.classList.add('is-playing');
+      if (video.play) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      film.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    selects.forEach(function (b) { b.addEventListener('click', function () { show(parseInt(b.getAttribute('data-story-select'), 10)); }); });
+    story.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-story-play]');
+      if (!a) return;
+      e.preventDefault();
+      play(a.getAttribute('data-story-video'), a.textContent.trim());
+    });
+    if (stop) stop.addEventListener('click', stopFilm);
+    story.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') stopFilm();
+      if (e.target.hasAttribute('data-story-select') && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+        e.preventDefault(); show(current + (e.key === 'ArrowRight' ? 1 : -1));
+        var next = selects[current]; if (next) next.focus();
+      }
+    });
     show(0);
   });
 

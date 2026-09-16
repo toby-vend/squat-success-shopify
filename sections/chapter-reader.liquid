@@ -1,17 +1,17 @@
 {%- assign words = 'ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN,ELEVEN,TWELVE' | split: ',' -%}
-<section class="section section--black chapters" id="chapters">
+<section class="section section--ink chapters" id="chapters">
   <div class="container">
     <div class="chapters__header">
       <h2 class="h-section">{{ section.settings.heading | newline_to_br }}</h2>
-      <p class="eyebrow eyebrow--small eyebrow--muted">{{ section.settings.hint }}</p>
+      <p class="eyebrow eyebrow--small">{{ section.settings.hint }}</p>
     </div>
     <div class="reader" data-reader>
       <div class="reader__contents" role="tablist" aria-label="Chapters">
-        <p class="eyebrow eyebrow--small" style="margin-bottom:8px">CONTENTS</p>
+        <p class="reader__label">CONTENTS</p>
         {%- for block in section.blocks -%}
           {%- assign n = forloop.index | prepend: '0' | slice: -2, 2 -%}
           <button class="reader__tab" type="button" role="tab" data-reader-tab aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="chapter-{{ section.id }}-{{ forloop.index }}" {{ block.shopify_attributes }}>
-            <small>{{ n }}</small><span>{{ block.settings.title }}</span>
+            <i aria-hidden="true"></i><small>{{ n }}</small><span>{{ block.settings.title }}</span>
           </button>
         {%- endfor -%}
       </div>
@@ -29,13 +29,13 @@
               <h3 class="reader__title">{{ block.settings.title }}</h3>
               <span class="reader__rule"></span>
               <p class="reader__blurb">{{ block.settings.blurb }}</p>
-              <div class="reader__nav">
-                <button type="button" data-reader-prev>← PREVIOUS</button>
-                <button type="button" data-reader-next>NEXT →</button>
-              </div>
             </div>
           </div>
         {%- endfor -%}
+        <div class="reader__nav">
+          <button type="button" data-reader-prev>← PREVIOUS</button>
+          <button type="button" data-reader-next>NEXT →</button>
+        </div>
       </div>
     </div>
     <div class="chapters__cta">

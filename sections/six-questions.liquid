@@ -6,12 +6,12 @@
         <h2 class="h-section">{{ section.settings.heading }}</h2>
         <p class="body">{{ section.settings.text }}</p>
         <p class="body questions__gold">{{ section.settings.text_gold }}</p>
-        <div class="questions__caption"><span></span><p class="eyebrow eyebrow--small eyebrow--muted">{{ section.settings.caption }}</p></div>
+        <div class="questions__caption"><span></span><p>{{ section.settings.caption }}</p></div>
       </div>
       <ol class="ledger">
         {%- for block in section.blocks -%}
-          <li class="ledger__row" {{ block.shopify_attributes }}>
-            <span class="ledger__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <li class="ledger__row {% if forloop.last %}ledger__row--gold{% endif %}" {{ block.shopify_attributes }}>
+            <span class="ledger__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
             <p class="ledger__q">{{ block.settings.question }}</p>
           </li>
         {%- endfor -%}

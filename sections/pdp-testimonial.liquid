@@ -27,7 +27,7 @@
       {%- if section.settings.image != blank -%}
         {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200' }}
       {%- else -%}
-        <img src="{{ 'film-still.jpg' | asset_url }}" alt="" width="1920" height="1080" loading="lazy">
+        <img src="{{ 'film-matt.webp' | asset_url }}" alt="" width="1400" height="663" loading="lazy">
       {%- endif -%}
     </div>
   </div>

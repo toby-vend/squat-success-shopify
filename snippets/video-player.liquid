@@ -1,23 +1,17 @@
 {%- comment -%}
-  Poster + play button, swaps to an embed on click.
-  Params: url (YouTube/Vimeo/mp4), poster (image), fallback_asset (filename), label, caption, class
+  Full-bleed poster + play button, swaps to an embed/video on click (see squat.js [data-video]).
+  Params: url (YouTube/Vimeo/mp4), poster (image), fallback_asset (filename), fallback_width, fallback_height, label, badge, class
 {%- endcomment -%}
-<div class="{{ class | default: 'film' }}" {% if url != blank %}data-video="{{ url | escape }}"{% endif %}>
+<div class="{{ class | default: 'band' }}" {% if url != blank %}data-video="{{ url | escape }}"{% endif %}>
   {%- if poster != blank -%}
-    {{ poster | image_url: width: 1800 | image_tag: alt: label | default: '', loading: 'lazy', widths: '600, 900, 1400, 1800' }}
+    {{ poster | image_url: width: 1800 | image_tag: alt: label | default: '', loading: 'lazy', widths: '600, 900, 1400, 1800', sizes: '100vw' }}
   {%- elsif fallback_asset != blank -%}
-    <img src="{{ fallback_asset | asset_url }}" alt="" width="1920" height="1080" loading="lazy">
+    <img src="{{ fallback_asset | asset_url }}" alt="" width="{{ fallback_width | default: 1600 }}" height="{{ fallback_height | default: 900 }}" loading="lazy" decoding="async">
   {%- endif -%}
   {%- if url != blank -%}
-    <button type="button" class="film__play" data-video-play aria-label="{{ label | default: 'Play video' | escape }}">
-      <span>{% render 'icon-play' %}</span>
-      <small>{{ label | default: 'WATCH THE FILM' }}</small>
-    </button>
+    <button type="button" class="band__play" data-video-play aria-label="{{ label | default: 'Play video' | escape }}">{% render 'icon-play' %}</button>
   {%- else -%}
-    <div class="film__play" aria-hidden="true">
-      <span>{% render 'icon-play' %}</span>
-      <small>{{ label | default: 'WATCH THE FILM' }}</small>
-    </div>
+    <div class="band__play" aria-hidden="true">{% render 'icon-play' %}</div>
   {%- endif -%}
-  {%- if caption != blank -%}<div class="film__caption">{{ caption }}</div>{%- endif -%}
+  {%- if badge != blank -%}<div class="band__badge">{{ badge }}</div>{%- endif -%}
 </div>

@@ -3,9 +3,9 @@
     <div class="author__grid">
       <figure class="portrait">
         {%- if section.settings.portrait != blank -%}
-          {{ section.settings.portrait | image_url: width: 820 | image_tag: loading: 'lazy', widths: '410, 820' }}
+          {{ section.settings.portrait | image_url: width: 820 | image_tag: loading: 'lazy', widths: '410, 820', sizes: '410px' }}
         {%- else -%}
-          <img src="{{ 'portrait-bobby.jpg' | asset_url }}" alt="{{ section.settings.caption | escape }}" width="410" height="540" loading="lazy">
+          <img src="{{ 'portrait-bobby.webp' | asset_url }}" alt="{{ section.settings.caption | escape }}" width="700" height="1100" loading="lazy" decoding="async">
         {%- endif -%}
         <i aria-hidden="true"></i>
         <figcaption class="portrait__caption">{{ section.settings.caption }}</figcaption>
@@ -22,19 +22,16 @@
     </div>
     <div class="arc" data-arc>
       <div class="arc__row">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'step' -%}
-            {%- unless forloop.first -%}{%- endunless -%}
-            <a href="#" class="arc__step {% if block.settings.gold %}arc__step--gold{% endif %}" data-arc-step="{{ block.settings.detail | escape }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
-            <span class="arc__sep" aria-hidden="true">→</span>
-          {%- endif -%}
+        {%- assign steps = section.blocks | where: 'type', 'step' -%}
+        {%- for block in steps -%}
+          <a href="#" class="arc__step {% if block.settings.gold %}arc__step--gold{% endif %}" data-arc-step="{{ block.settings.detail | escape }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+          {%- unless forloop.last -%}<span class="arc__sep" aria-hidden="true">→</span>{%- endunless -%}
         {%- endfor -%}
       </div>
       <p class="arc__detail" data-arc-detail>{{ section.settings.arc_hint }}</p>
     </div>
   </div>
 </section>
-<style>#shopify-section-{{ section.id }} .arc__row .arc__sep:last-child { display: none; }</style>
 {% schema %}
 {
   "name": "The author",
