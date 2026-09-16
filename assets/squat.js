@@ -463,7 +463,9 @@
             attributes: attrs
           } }
         });
-        return fetch('/api/2026-07/graphql.json', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body })
+        // Theme previews (*.shopifypreview.com) don't serve the API, so call the shop's own domain (CORS is open there)
+        var api = (window.Shopify && window.Shopify.shop ? 'https://' + window.Shopify.shop : '') + '/api/2026-07/graphql.json';
+        return fetch(api, { method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' }, body: body })
           .then(function (r) { return r.json(); })
           .then(function (j) {
             var c = j && j.data && j.data.cartCreate;
