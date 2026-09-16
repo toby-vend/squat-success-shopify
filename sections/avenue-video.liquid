@@ -3,7 +3,13 @@
     <p class="avenue__eyebrow">{{ section.settings.eyebrow }}</p>
     <h2 class="avenue__title">{{ section.settings.heading }}</h2>
   </div>
-  {% render 'video-player', class: 'band', url: section.settings.video_url, poster: section.settings.poster, fallback_asset: 'avenue-poster.webp', fallback_width: 1600, fallback_height: 900, label: section.settings.play_label, badge: section.settings.badge %}
+  {%- liquid
+    assign loop_src = section.settings.loop_url
+    if loop_src == blank and section.settings.show_loop
+      assign loop_src = 'avenue-loop.mp4' | asset_url
+    endif
+  -%}
+  {% render 'video-player', class: 'band', url: section.settings.video_url, poster: section.settings.poster, fallback_asset: 'avenue-poster.webp', fallback_width: 1600, fallback_height: 900, label: section.settings.play_label, badge: section.settings.badge, loop_src: loop_src %}
 </section>
 {% schema %}
 {
@@ -11,7 +17,9 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "PROOF IT WORKS" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "This was an empty unit in Leamington Spa." },
-    { "type": "url", "id": "video_url", "label": "Video URL (YouTube, Vimeo or .mp4)" },
+    { "type": "url", "id": "video_url", "label": "Full film (YouTube, Vimeo or .mp4) — plays with sound on tap" },
+    { "type": "checkbox", "id": "show_loop", "label": "Play a muted background loop of the film (as in the design)", "default": true },
+    { "type": "url", "id": "loop_url", "label": "Background loop .mp4 (optional — bundled 24s loop used by default)" },
     { "type": "image_picker", "id": "poster", "label": "Poster (optional — bundled poster used by default)" },
     { "type": "text", "id": "play_label", "label": "Play button label (screen readers)", "default": "Watch the Avenue Dental film" },
     { "type": "text", "id": "badge", "label": "Badge", "default": "AVENUE DENTAL · LEAMINGTON SPA" }

@@ -370,9 +370,10 @@
       "settings": {
         "eyebrow": "PROOF IT WORKS",
         "heading": "This was an empty unit in Leamington Spa.",
-        "video_url": "",
+        "video_url": "https://squatsuccess.co.uk/wp-content/uploads/2023/09/Squat-success-before-and-after-video-1.mp4",
         "play_label": "Watch the Avenue Dental film",
-        "badge": "AVENUE DENTAL · LEAMINGTON SPA"
+        "badge": "AVENUE DENTAL · LEAMINGTON SPA",
+        "show_loop": true
       }
     },
     "author": {

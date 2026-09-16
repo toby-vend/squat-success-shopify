@@ -186,15 +186,37 @@
     });
   });
 
-  /* FAQ: only one open per column (optional nicety) --------------------- */
-  $$('[data-faq-col]').forEach(function (col) {
-    $$('details', col).forEach(function (d) {
-      d.addEventListener('toggle', function () {
-        if (!d.open) return;
-        $$('details', col).forEach(function (o) { if (o !== d) o.open = false; });
+  /* FAQ — Figma FAQCard: open/close smart-animates over 350ms cubic-bezier(.22,1,.36,1); one open per column */
+  (function () {
+    var EASE = 'cubic-bezier(.22,1,.36,1)';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function body(d) { return d.querySelector('.faq-card__a'); }
+    function openCard(d) {
+      var a = body(d); if (!a) { d.open = true; return; }
+      d.open = true;
+      if (reduce || !a.animate) return;
+      var h = a.scrollHeight;
+      a.animate([{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }], { duration: 350, easing: EASE }).onfinish = function () { a.style.height = ''; };
+    }
+    function closeCard(d) {
+      var a = body(d); if (!a || reduce || !a.animate) { d.open = false; return; }
+      var h = a.scrollHeight;
+      var anim = a.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 350, easing: EASE });
+      anim.onfinish = function () { d.open = false; a.style.height = ''; };
+    }
+    $$('[data-faq-col]').forEach(function (col) {
+      var cards = $$('details', col);
+      cards.forEach(function (d) {
+        var sum = d.querySelector('summary'); if (!sum) return;
+        sum.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (d.open) return closeCard(d);
+          cards.forEach(function (o) { if (o !== d && o.open) closeCard(o); });
+          openCard(d);
+        });
       });
     });
-  });
+  })();
 })();
 
 /* PDP: sticky buy bar + gallery ---------------------------------------- */

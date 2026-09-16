@@ -1,12 +1,15 @@
 {%- comment -%}
   Full-bleed poster + play button, swaps to an embed/video on click (see squat.js [data-video]).
-  Params: url (YouTube/Vimeo/mp4), poster (image), fallback_asset (filename), fallback_width, fallback_height, label, badge, class
+  Params: url (YouTube/Vimeo/mp4), poster (image), fallback_asset (filename), fallback_width, fallback_height, label, badge, class, loop_src (muted autoplay background .mp4)
 {%- endcomment -%}
 <div class="{{ class | default: 'band' }}" {% if url != blank %}data-video="{{ url | escape }}"{% endif %}>
   {%- if poster != blank -%}
     {{ poster | image_url: width: 1800 | image_tag: alt: label | default: '', loading: 'lazy', widths: '600, 900, 1400, 1800', sizes: '100vw' }}
   {%- elsif fallback_asset != blank -%}
     <img src="{{ fallback_asset | asset_url }}" alt="" width="{{ fallback_width | default: 1600 }}" height="{{ fallback_height | default: 900 }}" loading="lazy" decoding="async">
+  {%- endif -%}
+  {%- if loop_src != blank -%}
+    <video class="band__loop" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"><source src="{{ loop_src }}" type="video/mp4"></video>
   {%- endif -%}
   {%- if url != blank -%}
     <button type="button" class="band__play" data-video-play aria-label="{{ label | default: 'Play video' | escape }}">{% render 'icon-play' %}</button>
