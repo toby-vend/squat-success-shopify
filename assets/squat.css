@@ -215,7 +215,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   background: #000 linear-gradient(124.9deg, #292421 0%, #0d0a0a 46.4%);
   transform: translate(62.6px, 40px) rotate(4deg) scaleX(1);
 }
-.book-stage__cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity .12s linear; }
+.book-stage__cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; transition: opacity .12s linear; } /* Figma: cover-art has a solid black fill under the FIT image, so the letterbox strip is black, not the gradient */
 .book-stage__back { opacity: 0; }
 .book-stage__seal {
   /* Figma export of the "free-seal" frame (3×): the 12° rotation and gold glow are baked in.
@@ -342,9 +342,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .reader { display: grid; grid-template-columns: 300px 1fr; gap: 56px; min-height: 470px; }
 .reader__contents { display: flex; flex-direction: column; }
 .reader__label { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: .2em; color: var(--ss-gold); margin-bottom: 4px; }
-.reader__tab { display: flex; align-items: center; gap: 14px; padding: 11px 0; text-align: left; border-bottom: 1px solid rgba(255,255,255,.07); color: rgba(255,255,255,.55); font-size: 15px; font-weight: 300; transition: color .2s; }
+.reader__tab { display: flex; align-items: center; gap: 14px; padding: 11px 0; text-align: left; border-bottom: 1px solid rgba(255,255,255,.07); color: rgba(255,255,255,.55); font-size: 15px; font-weight: 300; transition: color .55s cubic-bezier(.22,1,.36,1); }
+.reader__tab small { transition: color .55s cubic-bezier(.22,1,.36,1); }
 .reader__tab:last-child { border-bottom: 0; }
-.reader__tab i { flex: none; width: 8px; height: 1px; background: rgba(255,255,255,.3); transition: width .25s var(--ease), background-color .25s; }
+.reader__tab i { flex: none; width: 8px; height: 1px; background: rgba(255,255,255,.3); transition: width .55s cubic-bezier(.22,1,.36,1), background-color .55s cubic-bezier(.22,1,.36,1); }
 .reader__tab small { flex: none; font-family: var(--font-label); font-weight: 700; font-size: 10px; letter-spacing: .15em; color: rgba(196,156,96,.6); }
 .reader__tab:hover { color: var(--ss-white); }
 .reader__tab[aria-selected="true"] { color: var(--ss-white); font-weight: 500; }
@@ -365,7 +366,12 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .reader__nav { position: absolute; right: 44px; bottom: 30px; display: flex; gap: 28px; }
 .reader__nav button { padding: 6px 0; font-family: var(--font-label); font-weight: 700; font-size: 10px; letter-spacing: .2em; color: var(--ss-gold); }
 .reader__nav button:disabled { color: rgba(27,27,27,.35); cursor: default; }
-.reader__panel[hidden] { display: none; }
+/* Chapter change = Figma Smart Animate (550ms cubic-bezier(.22,1,.36,1)): the spreads are stacked and cross-fade */
+.reader__book { display: grid; }
+.reader__panel { grid-area: 1 / 1; transition: opacity .55s cubic-bezier(.22,1,.36,1), visibility 0s; }
+.reader__panel[hidden] { display: grid; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .55s cubic-bezier(.22,1,.36,1), visibility 0s .55s; }
+.reader__nav { z-index: 1; }
+@media (prefers-reduced-motion: reduce) { .reader__panel, .reader__panel[hidden], .reader__tab, .reader__tab i, .reader__tab small { transition: none; } }
 .chapters__cta { display: flex; flex-direction: column; align-items: center; gap: 18px; padding-top: 72px; text-align: center; }
 .chapters__cta p { font-size: 17px; line-height: 1.3; color: var(--ss-grey); }
 @media (max-width: 1000px) {
@@ -379,6 +385,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .reader__tab[aria-selected="true"] { border-color: var(--ss-gold); }
   .reader__spread { grid-template-columns: 1fr; min-height: 0; }
   .reader__spread::before { display: none; }
+  .reader__book { display: block; }
+  .reader__panel[hidden] { display: none; }
+  .reader__panel { animation: reader-in .55s cubic-bezier(.22,1,.36,1); }
+  @keyframes reader-in { from { opacity: 0; } to { opacity: 1; } }
   .reader__page--verso { grid-column: 1; grid-row: 1; gap: 16px; padding: 28px 24px 0; min-height: 0; }
   .reader__page--recto { grid-column: 1; grid-row: 2; padding: 20px 24px 72px; }
   .reader__bignum { font-size: 96px; }
