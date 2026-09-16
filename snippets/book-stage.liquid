@@ -21,7 +21,7 @@
     {%- endif -%}
   </button>
   <button type="button" class="book-stage__seal" data-book-flip aria-label="Free paperback, you cover {{ postage | default: settings.postage_price | default: '£4.95' }} postage. Turn the book over to read the back cover">
-    <img src="{{ 'free-seal.svg' | asset_url }}" alt="" width="168" height="168" loading="lazy" decoding="async">
+    <img src="{{ 'free-seal.svg' | asset_url }}" alt="" width="168" height="168" {% if priority == 'high' %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
   </button>
   <p class="book-stage__hint" aria-hidden="true"><span class="book-stage__hint-front">TURN IT OVER &nbsp;→</span><span class="book-stage__hint-back">BACK TO COVER &nbsp;←</span></p>
 </div>
