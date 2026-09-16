@@ -1,14 +1,11 @@
 <section class="decision">
   <div class="decision__bg" aria-hidden="true">
-    {%- if section.settings.video_url != blank -%}
-      <video autoplay muted loop playsinline preload="metadata" poster="{% if section.settings.background != blank %}{{ section.settings.background | image_url: width: 2000 }}{% else %}{{ 'decision-bg.webp' | asset_url }}{% endif %}"><source src="{{ section.settings.video_url }}" type="video/mp4"></video>
-    {%- elsif section.settings.background != blank -%}
+    {%- if section.settings.background != blank -%}
       {{ section.settings.background | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '900, 1400, 2000', sizes: '100vw' }}
     {%- else -%}
       <img src="{{ 'decision-bg.webp' | asset_url }}" alt="" width="2528" height="1086" loading="lazy" decoding="async">
     {%- endif -%}
   </div>
-  <canvas class="decision__dust" data-dust aria-hidden="true"></canvas>
   <div class="decision__inner">
     <div class="decision__copy">
       <p class="eyebrow decision__eyebrow">{{ section.settings.eyebrow }}</p>
@@ -29,8 +26,7 @@
 {
   "name": "The decision (CTA)",
   "settings": [
-    { "type": "image_picker", "id": "background", "label": "Background still (optional — bundled image used by default)" },
-    { "type": "url", "id": "video_url", "label": "Background video .mp4 (the Figma uses a looping golden-dust video over the still)" },
+    { "type": "image_picker", "id": "background", "label": "Background (optional — bundled image used by default)" },
     { "type": "image_picker", "id": "cover", "label": "Book cover (optional — bundled artwork used by default)" },
     { "type": "image_picker", "id": "back", "label": "Back cover (optional — bundled artwork used by default)" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE DECISION" },
