@@ -1,11 +1,27 @@
 <section class="decision">
   <div class="decision__bg" aria-hidden="true">
-    {%- if section.settings.background != blank -%}
+    {%- liquid
+      assign bg_video = section.settings.video_url
+      if bg_video == blank and section.settings.use_bundled_video
+        assign bg_video = 'decision-bg.mp4' | asset_url
+      endif
+      if section.settings.background != blank
+        assign bg_poster = section.settings.background | image_url: width: 2000
+      elsif section.settings.video_url == blank
+        assign bg_poster = 'decision-bg-poster.webp' | asset_url
+      else
+        assign bg_poster = 'decision-bg.webp' | asset_url
+      endif
+    -%}
+    {%- if bg_video != blank -%}
+      <video autoplay muted loop playsinline preload="metadata" poster="{{ bg_poster }}"><source src="{{ bg_video }}" type="video/mp4"></video>
+    {%- elsif section.settings.background != blank -%}
       {{ section.settings.background | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '900, 1400, 2000', sizes: '100vw' }}
     {%- else -%}
       <img src="{{ 'decision-bg.webp' | asset_url }}" alt="" width="2528" height="1086" loading="lazy" decoding="async">
     {%- endif -%}
   </div>
+  <canvas class="decision__dust" data-dust aria-hidden="true"></canvas>
   <div class="decision__inner">
     <div class="decision__copy">
       <p class="eyebrow decision__eyebrow">{{ section.settings.eyebrow }}</p>
@@ -26,7 +42,9 @@
 {
   "name": "The decision (CTA)",
   "settings": [
-    { "type": "image_picker", "id": "background", "label": "Background (optional — bundled image used by default)" },
+    { "type": "image_picker", "id": "background", "label": "Background still (optional — bundled image used by default)" },
+    { "type": "checkbox", "id": "use_bundled_video", "label": "Use the bundled background video", "default": true, "info": "Dark flowing grainy loop (decision-bg.mp4, 745 KB, 10 s). Untick to fall back to the still." },
+    { "type": "url", "id": "video_url", "label": "Background video .mp4 (overrides the bundled video)" },
     { "type": "image_picker", "id": "cover", "label": "Book cover (optional — bundled artwork used by default)" },
     { "type": "image_picker", "id": "back", "label": "Back cover (optional — bundled artwork used by default)" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE DECISION" },
