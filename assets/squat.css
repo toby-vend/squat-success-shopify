@@ -275,7 +275,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .hero__copy > * { width: 100%; max-width: none; }
   .hero__grid .eyebrow { order: 1; } .hero__grid .hero__title { order: 2; } .hero__grid .hero__sub { order: 3; }
   .hero__grid .book-stage { order: 4; } .hero__grid .hero__cta { order: 5; } .hero__grid .small-print { order: 6; }
-  .hero__grid { row-gap: 28px; }
+  .hero__grid { row-gap: 28px; z-index: 1; padding-bottom: 32px; }
+  .hero__fade { height: 120px; }
   .book-stage { zoom: .85; }
 }
 @media (max-width: 520px) {
