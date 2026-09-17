@@ -345,9 +345,9 @@
           "type": "story",
           "settings": {
             "name": "Dr Laurie",
-            "role": "ON CHOOSING PRACTICE SOFTWARE",
-            "quote": "“I’ve looked at a couple of different options, traditional cloud based and for me CareStack ticked most of the boxes for for what I really wanted to achieve.”",
-            "video_url": "https://squatsuccess.co.uk/wp-content/uploads/2024/08/3rd-video.mp4",
+            "role": "SQUAT SUCCESS MEMBER",
+            "quote": "“Having a course like this, where you learn a bit about everything, from looking for a potential site to actually opening your doors, was really good for starting my journey. … I would 100% recommend Bobby’s course.”",
+            "video_url": "https://www.youtube.com/watch?v=NHexpVVcIrY",
             "fallback": "film-laurie.webp",
             "fallback_height": 662
           }
