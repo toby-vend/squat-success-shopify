@@ -19,7 +19,7 @@
       { "type": "text", "id": "claim_footer", "label": "Claim form footer", "default": "£4.95 POSTAGE · 5–7 DAYS · NO SUBSCRIPTION" },
       { "type": "text", "id": "book_page_url", "label": "Book page URL (used if no product is picked)", "default": "/products/dental-freedom-blueprint" },
       { "type": "text", "id": "postage_price", "label": "Postage price label", "default": "£4.95" },
-      { "type": "text", "id": "support_email", "label": "Support email", "default": "hello@squatsuccess.co.uk" }
+      { "type": "text", "id": "support_email", "label": "Support email", "default": "info@squatsuccess.co.uk" }
     ]
   },
   {
